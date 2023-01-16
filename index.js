@@ -39,6 +39,8 @@ io.use(sharedsession(session, {
 
 // http://localhost:3000/
 app.get('/', function (request, response) {
+    let sessionData = request.session;
+    response.sendFile(path.join(__dirname + '/front/html/login.html'));
 });
 
 
