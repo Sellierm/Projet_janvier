@@ -4,7 +4,7 @@
   "description": "projet de janvier CIR3",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "author": "La team",
   "license": "ISC",
