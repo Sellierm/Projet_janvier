@@ -320,18 +320,7 @@ body {
 
 
 
-@media screen and (min-width: 1000px) {
 
-    .login {
-        width: 400px;
-        background-color: #ffffff;
-        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-        border: 1.5px solid #000000;
-        opacity: 0.85;
-        border-radius: 50% 26% / 10% 40%;
-        margin: 150px auto;
-    }
-  }
 
 
 
@@ -357,3 +346,45 @@ body {
         margin: 230px auto;
     }
   }
+
+
+  @media screen and (min-width: 1079px) {
+
+    body {
+        background-image: url('../assets/background_2.PNG');
+        background-repeat: no-repeat;
+        background-size: 130%;
+        background-position: center;
+    }
+
+    .login {
+        width: 400px;
+        background-color: #ffffff;
+        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
+        border: 1.5px solid #000000;
+        opacity: 0.85;
+        border-radius: 50% 26% / 10% 40%;
+        margin: 150px auto;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+
+    body {
+        background-image: url('../assets/background_2.PNG');
+        background-repeat: no-repeat;
+        background-size: 115%;
+        background-position: center;
+    }
+
+    .login {
+        width: 400px;
+        background-color: #ffffff;
+        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
+        border: 1.5px solid #000000;
+        opacity: 0.85;
+        border-radius: 50% 26% / 10% 40%;
+        margin: 150px auto;
+    }
+  }
+  
