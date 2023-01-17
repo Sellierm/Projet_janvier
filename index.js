@@ -50,6 +50,7 @@ app.get('/', function (req, res) {
     });
     res.sendFile(path.join(__dirname + '/front/html/login.html'));
 });
+
 app.get('/register', function (req, res) {
     res.sendFile(path.join(__dirname + '/front/html/register.html'));
 });
@@ -65,7 +66,6 @@ app.get('/deco', function (req, res) {
         else res.redirect('/login');
     });
 })
-
 //login
 app.post('/auth', function (req, res) {
     // Capture the input fields

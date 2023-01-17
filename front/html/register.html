@@ -19,26 +19,18 @@
     <div class="login">
         <h1>Register</h1>
         <form action="/auth" method="post">
-
-            <label for="firstname">
+            <label for="username">
                 <!-- font awesome icon -->
                 <i class="fas fa-user"></i>
             </label>
-            <input type="text" name="firstname" placeholder="Firstname" id="firstname" required>
-
-            
-            <label for="firstname">
-                <!-- font awesome icon -->
-                <i class="fas fa-user"></i>
-            </label>
-            <input type="text" name="name" placeholder="Name" id="name" required>
+            <input type="text" name="username" placeholder="Username" id="username" required>
 
 
-            <label for="firstname">
+            <label for="email">
                 <!-- font awesome icon -->
                 <i class="fas fa-envelope"></i>
             </label>
-            <input type="text" name="username" placeholder="Email or Username" id="username" required>
+            <input type="text" name="email" placeholder="Email" id="email" required>
 
 
             <label for="password">
@@ -51,7 +43,7 @@
                 <i class="fas fa-lock"></i>
             </label>
             <input type="password" name="rptpassword" placeholder="Repeat Password" id="rptpassword" required>
-
+            <h3>Already have an account ? <a href="/">Log in</a></h3>
             <input type="submit" value="Register">
         </form>
     </div>
