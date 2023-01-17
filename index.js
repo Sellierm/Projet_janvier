@@ -103,6 +103,41 @@ app.post('/auth', function (req, res) {
         res.redirect('/');
     }
 });
+//test pour benoit
+app.post('/test', (req, res) => {
+    // Si l'utilisateur n'est pas connecté
+    if (req.session.username) {
+
+        client.connect(function (err) {
+            console.log("Connected successfully to server");
+
+            const db = client.db(data.name);
+
+            //On crée notre collection
+            db.createCollection('myCollection');
+            console.log("Collection created!");
+
+            //On ajoute à la collection
+            db.collection('myCollection').insertMany([
+                { name: "John", age: 25 },
+                { name: "Mary", age: 32 },
+                { name: "Peter", age: 45 }
+            ], function (err, res) {
+                //console.log(err);
+                //console.log("Documents inserted into the collection");
+                client.close();
+            });
+
+
+        });
+
+        //console.log(test);
+
+    }
+    else {
+        console.log('pas connecté');
+    }
+});
 
 io.on('connection', (socket) => {
     socket.on('login', () => {
@@ -114,6 +149,6 @@ io.on('connection', (socket) => {
 });
 
 //start server at localhost:4200
-server.listen(4200, () => {
-    console.log('Serveur lancé sur le port 4200');
+server.listen(8080, () => {
+    console.log('Serveur lancé sur le port 8080');
 });
