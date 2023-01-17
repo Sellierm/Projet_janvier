@@ -43,12 +43,15 @@ const authMiddleware = (req, res, next) => {
     }
 }
 
-app.get('/', function (req, res) {
+app.get('/login', function (req, res) {
     req.session.regenerate(function (err) {
         // req.session is now a new session and no longer the original session
         if (err) console.log(err)
     });
     res.sendFile(path.join(__dirname + '/front/html/login.html'));
+});
+app.get('/register', function (req, res) {
+    res.sendFile(path.join(__dirname + '/front/html/register.html'));
 });
 
 app.get('/home', authMiddleware, function (req, res) {
@@ -59,7 +62,7 @@ app.get('/deco', function (req, res) {
     req.session.destroy(function (err) {
         // req.session is now a new session and no longer the original session
         if (err) console.log(err);
-        else res.redirect('/');
+        else res.redirect('/login');
     });
 })
 
