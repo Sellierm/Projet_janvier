@@ -15,8 +15,8 @@ body {
 .login {
     width: 400px;
     background-color: #ffffff;
-    box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-    border: 1.5px solid #000000;
+    box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+    border: 3px solid #000000;
     opacity: 0.85;
     border-radius: 50% 26% / 10% 40%;
     margin: 100px auto;
@@ -51,7 +51,7 @@ body {
 .login form input[type="text"] {
     width: 310px;
     height: 50px;
-    border: 1px solid #000000;
+    border: 2px solid #000000;
     margin-bottom: 20px;
     padding: 0 15px;
 }
@@ -65,7 +65,7 @@ body {
     background-color: #85af38;
     border: 0;
     border-radius: 10%;
-    border: 1px solid #000000;
+    border: 2px solid #000000;
     cursor: pointer;
     font-weight: bold;
     color: #ffffff;
@@ -77,6 +77,15 @@ body {
     border-radius: 10%;
     transition: background-color 0.2s;
 }
+
+
+.login h3 {
+    text-align: center;
+    color: #000000;
+    padding: 5px 20px;
+    /* border-bottom: 1px solid #000000; */
+}
+
 
 
 
@@ -94,8 +103,8 @@ body {
     .login {
         width: 370px;
         background-color: #ffffff;
-        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-        border: 1.5px solid #000000;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
         margin: 280px auto;
@@ -105,7 +114,7 @@ body {
     .login form input[type="text"] {
         width: 310px;
         height: 30px;
-        border: 1px solid #000000;
+        border: 2px solid #000000;
         margin-bottom: 20px;
         padding: 0 15px;
     }
@@ -134,9 +143,6 @@ body {
         transition: background-color 0.2s;
     }
 
-    border-radius: 10%;
-    border: 1px solid #000000;
-
 
 }
 
@@ -155,8 +161,8 @@ body {
     .login {
         width: 350px;
         background-color: #ffffff;
-        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-        border: 1.5px solid #000000;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
         margin: 230px auto;
@@ -198,9 +204,6 @@ body {
         transition: background-color 0.2s;
     }
 
-    border-radius: 10%;
-    border: 1px solid #000000;
-
 
 }
 
@@ -219,8 +222,8 @@ body {
         width: 250px;
         height: 250px;
         background-color: #ffffff;
-        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-        border: 1.5px solid #000000;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
         margin: 220px auto;
@@ -230,7 +233,7 @@ body {
     .login form input[type="text"] {
         width: 170px;
         height: 20px;
-        border: 1px solid #000000;
+        border: 2px solid #000000;
         margin-bottom: 20px;
         padding: 0 10px;
         margin-right: 15px;
@@ -269,8 +272,6 @@ body {
         transition: background-color 0.2s;
     }
 
-    border-radius: 10%;
-    border: 1px solid #000000;
 
 
 }
@@ -289,8 +290,8 @@ body {
     .login {
         width: 400px;
         background-color: #ffffff;
-        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-        border: 1.5px solid #000000;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
         margin: 220px auto;
@@ -311,8 +312,8 @@ body {
     .login {
         width: 400px;
         background-color: #ffffff;
-        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-        border: 1.5px solid #000000;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
         margin: 330px auto;
@@ -345,8 +346,8 @@ body {
     .login {
         width: 400px;
         background-color: #ffffff;
-        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-        border: 1.5px solid #000000;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
         margin: 230px auto;
@@ -366,8 +367,8 @@ body {
     .login {
         width: 400px;
         background-color: #ffffff;
-        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-        border: 1.5px solid #000000;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
         margin: 150px auto;
@@ -386,8 +387,8 @@ body {
     .login {
         width: 400px;
         background-color: #ffffff;
-        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-        border: 1.5px solid #000000;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
         margin: 150px auto;
