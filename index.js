@@ -43,7 +43,7 @@ const authMiddleware = (req, res, next) => {
     }
 }
 
-app.get('/login', function (req, res) {
+app.get('/', function (req, res) {
     req.session.regenerate(function (err) {
         // req.session is now a new session and no longer the original session
         if (err) console.log(err)
