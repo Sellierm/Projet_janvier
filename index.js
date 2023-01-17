@@ -80,7 +80,7 @@ app.post('/auth', function (req, res) {
             collection.find({ "username": `${username}` }).toArray(function (err, docs) {
                 //console.log(docs);
                 client.close();
-                if (docs.length === 1) {
+                if (docs && docs.length === 1) {
                     const hash = crypto.createHash('sha512').update(password).digest('hex');
                     if (hash === docs[0].password) {
                         req.session.isAuthenticated = true;
