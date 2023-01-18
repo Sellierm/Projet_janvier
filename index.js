@@ -42,7 +42,6 @@ const authMiddleware = (req, res, next) => {
         res.redirect('/');
     }
 }
-
 app.get('/', function (req, res) {
     req.session.regenerate(function (err) {
         // req.session is now a new session and no longer the original session
@@ -50,11 +49,9 @@ app.get('/', function (req, res) {
     });
     res.sendFile(path.join(__dirname + '/front/html/login.html'));
 });
-
 app.get('/register', function (req, res) {
     res.sendFile(path.join(__dirname + '/front/html/register.html'));
 });
-
 app.get('/home', authMiddleware, function (req, res) {
     res.sendFile(path.join(__dirname + '/front/html/index.html'));
 });
@@ -63,7 +60,7 @@ app.get('/deco', function (req, res) {
     req.session.destroy(function (err) {
         // req.session is now a new session and no longer the original session
         if (err) console.log(err);
-        else res.redirect('/login');
+        else res.redirect('/');
     });
 })
 //login
@@ -112,11 +109,8 @@ app.post('/test', (req, res) => {
     client.connect(function (err) {
         console.log("Connected successfully to server");
         const db = client.db(data.name);
-        //On crée notre collection
-        db.createCollection('myCollection');
-        console.log("Collection created!");
         //On ajoute à la collection
-        db.collection('myCollection').insertMany([
+        db.collection(data.database_salle).insertMany([
             { name: "John", age: 25 },
             { name: "Mary", age: 32 },
             { name: "Peter", age: 45 }
