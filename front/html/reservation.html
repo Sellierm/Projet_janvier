@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/reservation.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -16,11 +18,13 @@
 
         <nav>
             <img src="../assets/logo.png" class="logo">
-            <ul>
-                <li><a href="#">Réserver</a></li>
-                <li><a href="#">Nous Contacter</a></li>
-                <li><a href="/deco" class="m-link"> Se Déconnecter</a></li>
-            </ul>
+            <div class="m-right">
+                <a href="/deco" class="m-link">Se Déconnecter</a>
+                <a href="../html/contact.html" class="m-link"></i> Nous Contacter</a>
+            </div>
+            <div class="m-nav-toggle">
+                <span class="m-toggle-icon"></span>
+            </div>
         </nav>
         <div class="content">
             <h1>Réservation</h1>
@@ -28,6 +32,9 @@
             <button type="button"><span></span>Etage 1</button>
         </div>
     </div>
-    
+    <script src="../js/app.js" charset="utf-8"></script>
 </body>
+
+
+
 </html>

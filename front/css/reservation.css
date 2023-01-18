@@ -93,7 +93,7 @@ span{
     position: absolute;
     left: 0;
     bottom: 0;
-    z-index: -1;
+    z-index: -1;    
     transition: 0.5s;
 }
 
@@ -182,7 +182,7 @@ button:hover{
     
 }
 
-@media screen and (min-width: 360px) and (max-width: 415px) {
+@media screen and (min-width: 360px) and (max-width: 540px) {
 
 
     .content h1{
