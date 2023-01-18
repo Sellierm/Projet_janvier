@@ -238,6 +238,28 @@ app.post('/save', (req, res) => {
 });
 
 
+app.post('/loadPlans', (req, res) => {
+    const url = data.url;
+    const dbName = data.name;
+    const client = new MongoClient(url);
+    client.connect(function (err) {
+        //console.log("Connected successfully to server");
+        const db = client.db(dbName);
+        const collection = db.collection(data.database_stages);
+        collection.find({}).toArray(function (err, result) {
+            //console.log(result);
+            client.close();
+            if (result && result.length > 0) {                
+                res.status(200).json({ success: JSON.stringify(result) });
+            }
+            else {
+                res.status(401).json({ success:JSON.stringify(result) });
+            }
+        });
+    });
+});
+
+
 //start server at localhost:4200
 server.listen(8080, () => {
     console.log('Serveur lancé sur le port 8080');

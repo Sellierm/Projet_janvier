@@ -20,5 +20,20 @@
     </div>
     
     <script src="../js/plans.js"></script>
+    <script>
+        window.onload(loadData);
+
+        function loadData(){
+            $.ajax({
+                type: 'POST',
+                url: '/loadPlans',
+                data: {
+                },
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+    </script>
 </body>
 </html>
