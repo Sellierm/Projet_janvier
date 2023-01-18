@@ -16,19 +16,12 @@
     <div class="register">
         <h1>Register</h1>
         <form>
-            <label for="username">
-                <!-- font awesome icon -->
-                <i class="fas fa-user"></i>
-            </label>
-            <input type="text" name="username" placeholder="Username" id="username" required>
-
-
             <label for="email">
                 <!-- font awesome icon -->
                 <i class="fas fa-envelope"></i>
             </label>
             <input type="text" name="email" placeholder="Email" id="email" required>
-
+            <p id="error"></p>
 
             <label for="password">
                 <i class="fas fa-lock"></i>
@@ -48,28 +41,37 @@
         $(document).ready(function () {
             $("form").submit(function (event) {
                 event.preventDefault();
-                var formData = {
-                    'username': $('input[name=username]').val(),
-                    'mail': $('input[name=mail]').val(),
-                    'password': $('input[name=password]').val(),
-                    'rptpassword': $('input[name=rptpassword]').val()
-                };
-                $.ajax({
-                    type: 'POST',
-                    url: '/reg',
-                    data: formData,
-                    success: function () {
-                        window.location.href = "/";
-                    },
-                    error: function () {
-                        //document.getElementById("error").innerHTML = "Wrong username/password combination";
-                        document.getElementById("username").value = "";
-                        document.getElementById("password").value = "";
-                    }
-                });
+                var email = $('input[name=email]').val();
+                var regex = /^([\w-\.]+@(?:[\w-]+\.)+(com|fr))?$/;
+                if (!regex.test(email)) {
+                    document.getElementById("error").innerHTML = "Make sure you use '@' and finish it by '.com' or '.fr' ";
+                    return;
+                }
+                else if ($('input[name=password]').val() === $('input[name=rptpassword]').val()) {
+                    var formData = {
+                        'mail': $('input[name=email]').val(),
+                        'password': $('input[name=password]').val(),
+                        'rptpassword': $('input[name=rptpassword]').val()
+                    };
+                    $.ajax({
+                        type: 'POST',
+                        url: '/reg',
+                        data: formData,
+                        success: function () {
+                            window.location.href = "/";
+                        },
+                        error: function () {
+                            document.getElementById("error").innerHTML = "Email already in use";
+                            document.getElementById("password").value = "";
+                            document.getElementById("rptpassword").value = "";
+                        }
+                    });
+                } else {
+                    document.getElementById("error").innerHTML = "password doesn't match";
+                }
+
             });
         });
-    </script>
     </script>
 </body>
 

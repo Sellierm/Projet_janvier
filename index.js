@@ -66,11 +66,11 @@ app.get('/deco', function (req, res) {
 //login
 app.post('/auth', function (req, res) {
     // Capture the input fields
-    let username = req.body.username;
+    let mail = req.body.mail;
     let password = req.body.password;
 
     // Ensure the input fields exists and are not empty
-    if (username && password) {
+    if (mail && password) {
         const url = data.url;
         const dbName = data.name;
         const client = new MongoClient(url);
@@ -78,12 +78,12 @@ app.post('/auth', function (req, res) {
             //console.log("Connected successfully to server");
             const db = client.db(dbName);
             const collection = db.collection(data.database_users);
-            collection.find({ "username": `${username}` }).toArray(function (err, docs) {
-                //console.log(docs);
+            collection.find({ "mail": `${mail}` }).toArray(function (err, result) {
+                //console.log(result);
                 client.close();
-                if (docs && docs.length === 1) {
+                if (result && result.length === 1) {
                     const hash = crypto.createHash('sha512').update(password).digest('hex');
-                    if (hash === docs[0].password) {
+                    if (hash === result[0].password) {
                         req.session.isAuthenticated = true;
                         res.status(200).json({ success: true });
                     }
@@ -104,26 +104,42 @@ app.post('/auth', function (req, res) {
 //test pour benoit
 app.post('/reg', (req, res) => {
     // Si l'utilisateur n'est pas connecté
-    let username = req.body.username;
+    let email = req.body.mail;
     let password = req.body.password;
-    console.log(username);
+    let rptpassword = req.body.rptpassword;
+
     const url = data.url;
     const dbName = data.name;
     const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
     client.connect(function (err) {
         console.log(err)
         const db = client.db(dbName);
-        //On ajoute à la collection
-        db.collection(data.database_users).insertOne({
-            username: `${username}`,
-            password: `${password}`
-        }, function (err, res) {
-            if (err) {
-                console.log(err);
-            }
-            client.close();
-            res.status(200).json({ success: true });
-        });
+        const collection = db.collection(data.database_users);
+        if (password === rptpassword) {
+            collection.find({ mail: email }).toArray(function (err, result) {
+                if (err) console.log(err)
+                else if (!result[0]) {
+                    console.log("ok2")
+                    collection.insertOne({
+                        mail: email,
+                        password: crypto.createHash('sha512').update(password).digest('hex')
+                    }, (err, result) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log("Inserted new user into the collection");
+                            // Redirect the user to the homepage or a signup success page
+                            res.status(200).json({ success: true });
+                        }
+                        client.close();
+                    });
+                }
+                else {
+                    res.status(401).json({ success: false });
+                }
+            });
+        }
+        else res.status(401).json({ success: false });
     });
 });
 
