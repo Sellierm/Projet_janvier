@@ -170,13 +170,18 @@ app.post('/save', (req, res) => {
     const width = req.body.width
     const heigth = req.body.height
 
+    salles = JSON.parse(salles);
+    salles.forEach(element => {
+        element.stage = newIdStage;
+    });
+
     const newIdStage = generateId();
     console.log(heigth)
     console.log(width)
     console.log(name)
-    console.log(JSON.parse(salles))
+    console.log(salles)
 
-    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    /*const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
     client.connect(function (err) {
         console.log(err)
         const db = client.db(dbName);
@@ -195,7 +200,18 @@ app.post('/save', (req, res) => {
                         } else {
                             //console.log("Inserted new user into the collection");
                             // Redirect the user to the homepage or a signup success page
-                            res.status(200).json({ success: true });
+                            //res.status(200).json({ success: true });
+                            collection.insertMany(
+                                salles, (err, result) => {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    //console.log("Inserted new user into the collection");
+                                    // Redirect the user to the homepage or a signup success page
+                                    //res.status(200).json({ success: true });
+                                }
+                                client.close();
+                            });
                         }
                         client.close();
                     });
@@ -204,7 +220,7 @@ app.post('/save', (req, res) => {
                     res.status(401).json({ success: false });
                 }
             });
-    });
+    });*/
 });
 
 function generateId() {
