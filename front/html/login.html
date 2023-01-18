@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <!-- include the stylesheet file -->
     <link rel="stylesheet" href="../css/login.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -25,13 +26,36 @@
                     <i class="fas fa-lock"></i>
                 </label>
                 <input type="password" name="password" placeholder="Password" id="password" required>
+                <p id="error"></p>
                 <h3>Don't have an account ? <a href="/register">Register</a></h3>
                 <input type="submit" value="Login">
             </form>
         </div>
-        <script
-            type="text/javascript">  function preventBack() { window.history.forward(); } setTimeout("preventBack()", 0); window.onunload = function () { null };</script>
     </div>
+    <script>
+        $(document).ready(function () {
+            $("form").submit(function (event) {
+                event.preventDefault();
+                var formData = {
+                    'username': $('input[name=username]').val(),
+                    'password': $('input[name=password]').val()
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/auth',
+                    data: formData,
+                    success: function () {
+                        window.location.href = "/home";
+                    },
+                    error: function () {
+                        document.getElementById("error").innerHTML = "Wrong username/password combination";
+                        document.getElementById("username").value = "";
+                        document.getElementById("password").value = "";
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

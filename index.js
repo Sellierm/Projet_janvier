@@ -68,6 +68,7 @@ app.post('/auth', function (req, res) {
     // Capture the input fields
     let username = req.body.username;
     let password = req.body.password;
+
     // Ensure the input fields exists and are not empty
     if (username && password) {
         const url = data.url;
@@ -84,20 +85,20 @@ app.post('/auth', function (req, res) {
                     const hash = crypto.createHash('sha512').update(password).digest('hex');
                     if (hash === docs[0].password) {
                         req.session.isAuthenticated = true;
-                        res.redirect('/home')
+                        res.status(200).json({ success: true });
                     }
                     else {
-                        res.redirect('/');
+                        res.status(401).json({ success: false });
                     }
                 }
                 else {
-                    res.redirect('/');
+                    res.status(401).json({ success: false });
                 }
             });
         });
     }
     else {
-        res.redirect('/');
+        res.status(401).json({ success: false });
     }
 });
 //test pour benoit
