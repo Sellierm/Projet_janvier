@@ -24,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + '/front/')));
 app.use(session);
 
+
 const data = require('./back/modules/dbModule.js');
 
 if (app.get('env') === 'production') {
