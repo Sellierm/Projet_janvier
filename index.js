@@ -164,44 +164,13 @@ app.post('/reg', (req, res) => {
     });
 });
 app.post('/save', (req, res) => {
-    // Si l'utilisateur n'est pas connecté
-    let email = req.body.mail;
-    let password = req.body.password;
-    let rptpassword = req.body.rptpassword;
+    const name = req.body.name;
+    const nbPlaces = req.body.nbPlaces;
+    const salles = req.body.salles
 
-    const url = data.url;
-    const dbName = data.name;
-    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-    client.connect(function (err) {
-        console.log(err)
-        const db = client.db(dbName);
-        const collection = db.collection(data.database_users);
-        if (password === rptpassword) {
-            collection.find({ mail: email }).toArray(function (err, result) {
-                if (err) console.log(err)
-                else if (!result[0]) {
-                    collection.insertOne({
-                        mail: email,
-                        password: crypto.createHash('sha512').update(password).digest('hex'),
-                        admin: "false"
-                    }, (err, result) => {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            //console.log("Inserted new user into the collection");
-                            // Redirect the user to the homepage or a signup success page
-                            res.status(200).json({ success: true });
-                        }
-                        client.close();
-                    });
-                }
-                else {
-                    res.status(401).json({ success: false });
-                }
-            });
-        }
-        else res.status(401).json({ success: false });
-    });
+    console.log(name)
+    console.log(nbPlaces)
+    console.log(salles)
 });
 //start server at localhost:4200
 server.listen(8080, () => {
