@@ -61,7 +61,7 @@ app.get('/home', authMiddleware, function (req, res) {
         res.sendFile(path.join(__dirname + '/front/html/index.html'));
     }
     else {
-        res.sendFile(path.join(__dirname + '/front/html/reservation.html'));
+        res.sendFile(path.join(__dirname + '/front/html/indexClient.html'));
     }
 });
 app.get('/edit', authMiddleware, function (req, res) {
