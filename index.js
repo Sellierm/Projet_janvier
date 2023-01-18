@@ -53,7 +53,12 @@ app.get('/register', function (req, res) {
     res.sendFile(path.join(__dirname + '/front/html/register.html'));
 });
 app.get('/home', authMiddleware, function (req, res) {
-    res.sendFile(path.join(__dirname + '/front/html/indexAdmin.html'));
+    if (req.session.isAdmin) {
+        res.sendFile(path.join(__dirname + '/front/html/index.html'));
+    }
+    else {
+        res.sendFile(path.join(__dirname + '/front/html/reservation.html'));
+    }
 });
 
 app.get('/deco', function (req, res) {
@@ -85,6 +90,9 @@ app.post('/auth', function (req, res) {
                     const hash = crypto.createHash('sha512').update(password).digest('hex');
                     if (hash === result[0].password) {
                         req.session.isAuthenticated = true;
+                        if (result[0].admin === "true") {
+                            req.session.isAdmin = true;
+                        }
                         res.status(200).json({ success: true });
                     }
                     else {
@@ -119,15 +127,15 @@ app.post('/reg', (req, res) => {
             collection.find({ mail: email }).toArray(function (err, result) {
                 if (err) console.log(err)
                 else if (!result[0]) {
-                    console.log("ok2")
                     collection.insertOne({
                         mail: email,
-                        password: crypto.createHash('sha512').update(password).digest('hex')
+                        password: crypto.createHash('sha512').update(password).digest('hex'),
+                        admin: "false"
                     }, (err, result) => {
                         if (err) {
                             console.log(err);
                         } else {
-                            console.log("Inserted new user into the collection");
+                            //console.log("Inserted new user into the collection");
                             // Redirect the user to the homepage or a signup success page
                             res.status(200).json({ success: true });
                         }

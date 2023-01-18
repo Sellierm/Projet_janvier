@@ -33,6 +33,7 @@
                 <i class="fas fa-lock"></i>
             </label>
             <input type="password" name="rptpassword" placeholder="Repeat Password" id="rptpassword" required>
+            <p id="errorp"></p>
             <h3>Already have an account ? <a href="/">Log in</a></h3>
             <input type="submit" value="Register">
         </form>
@@ -67,7 +68,7 @@
                         }
                     });
                 } else {
-                    document.getElementById("error").innerHTML = "password doesn't match";
+                    document.getElementById("errorp").innerHTML = "password doesn't match";
                 }
 
             });
