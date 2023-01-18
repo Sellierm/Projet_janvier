@@ -64,6 +64,11 @@ button{
     overflow: hidden;
 }
 
+button a{
+    text-decoration: none;
+    color: #fff;
+}
+
 span{
     background: #009688;
     height: 100%;
