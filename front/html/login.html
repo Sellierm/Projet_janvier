@@ -16,11 +16,11 @@
     <div class="login">
         <h1>Login</h1>
         <form action="/auth" method="post">
-            <label for="username">
+            <label for="mail">
                 <!-- font awesome icon -->
                 <i class="fas fa-user"></i>
             </label>
-            <input type="text" name="username" placeholder="Email or Username" id="username" required>
+            <input type="text" name="mail" placeholder="Email" id="mail" required>
             <label for="password">
                 <i class="fas fa-lock"></i>
             </label>
@@ -35,7 +35,7 @@
             $("form").submit(function (event) {
                 event.preventDefault();
                 var formData = {
-                    'username': $('input[name=username]').val(),
+                    'mail': $('input[name=mail]').val(),
                     'password': $('input[name=password]').val()
                 };
                 $.ajax({
@@ -46,8 +46,8 @@
                         window.location.href = "/home";
                     },
                     error: function () {
-                        document.getElementById("error").innerHTML = "Wrong username/password combination";
-                        document.getElementById("username").value = "";
+                        document.getElementById("error").innerHTML = "Wrong mail/password combination";
+                        document.getElementById("mail").value = "";
                         document.getElementById("password").value = "";
                     }
                 });
