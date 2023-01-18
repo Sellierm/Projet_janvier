@@ -185,7 +185,7 @@ app.post('/save', (req, res) => {
     console.log(name)
     console.log(salles)
 
-    /*const url = data.url;
+    const url = data.url;
     const dbName = data.name;
     const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
     client.connect(function (err) {
@@ -207,8 +207,7 @@ app.post('/save', (req, res) => {
                             //console.log("Inserted new user into the collection");
                             // Redirect the user to the homepage or a signup success page
                             //res.status(200).json({ success: true });
-                            collection.insertMany(
-                                salles, (err, result) => {
+                            collection.insertMany(salles, (err, result) => {
                                 if (err) {
                                     console.log(err);
                                 } else {
@@ -226,18 +225,8 @@ app.post('/save', (req, res) => {
                     res.status(401).json({ success: false });
                 }
             });
-    });*/
+    });
 });
-
-function generateId() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=';
-    let id = '';
-    for (let i = 0; i < 20; i++) {
-        id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
-}
-
 
 
 //start server at localhost:4200
