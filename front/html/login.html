@@ -13,24 +13,25 @@
 
 <body>
     <div class="banner">
-    <div class="login">
-        <h1>Login</h1>
-        <form action="/auth" method="post">
-            <label for="username">
-                <!-- font awesome icon -->
-                <i class="fas fa-user"></i>
-            </label>
-            <input type="text" name="username" placeholder="Email or Username" id="username" required>
-            <label for="password">
-                <i class="fas fa-lock"></i>
-            </label>
-            <input type="password" name="password" placeholder="Password" id="password" required>
-            <h3>Don't have an account ? <a href="../html/register.html">Register</a></h3>
-            <input type="submit" value="Login">
-        </form>
+        <div class="login">
+            <h1>Login</h1>
+            <form action="/auth" method="post">
+                <label for="username">
+                    <!-- font awesome icon -->
+                    <i class="fas fa-user"></i>
+                </label>
+                <input type="text" name="username" placeholder="Email or Username" id="username" required>
+                <label for="password">
+                    <i class="fas fa-lock"></i>
+                </label>
+                <input type="password" name="password" placeholder="Password" id="password" required>
+                <h3>Don't have an account ? <a href="/register">Register</a></h3>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+        <script
+            type="text/javascript">  function preventBack() { window.history.forward(); } setTimeout("preventBack()", 0); window.onunload = function () { null };</script>
     </div>
-    <script
-        type="text/javascript">  function preventBack() { window.history.forward(); } setTimeout("preventBack()", 0); window.onunload = function () { null };</script>
-</div></body>
+</body>
 
 </html>

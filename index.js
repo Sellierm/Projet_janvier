@@ -103,17 +103,16 @@ app.post('/auth', function (req, res) {
 //test pour benoit
 app.post('/test', (req, res) => {
     // Si l'utilisateur n'est pas connecté
+
     const url = data.url;
     const dbName = data.name;
     const client = new MongoClient(url);
     client.connect(function (err) {
         console.log("Connected successfully to server");
-        const db = client.db(data.name);
+        const db = client.db(dbName);
         //On ajoute à la collection
-        db.collection(data.database_salle).insertMany([
-            { name: "John", age: 25 },
-            { name: "Mary", age: 32 },
-            { name: "Peter", age: 45 }
+        db.collection(data.database_salle).insertOne([
+            { name: `${req.body.data}`, age: 25 }
         ], function (err, res) {
             //console.log(err);
             //console.log("Documents inserted into the collection");
@@ -123,17 +122,6 @@ app.post('/test', (req, res) => {
 
     });
     //console.log(test);
-
-    console.log('pas connecté');
-
-});
-
-io.on('connection', (socket) => {
-    socket.on('login', () => {
-        let srvSockets = io.sockets.sockets;
-        //console.log(srvSockets)
-        //io.emit('users', userTab)
-    });
 
 });
 
