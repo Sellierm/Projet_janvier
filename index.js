@@ -248,6 +248,7 @@ app.post('/loadPlans', (req, res) => {
         const collection = db.collection(data.database_stages);
         collection.find({}).toArray(function (err, result) {
             console.log(result);
+            console.log(JSON.stringify(result));
             client.close();
             if (result && result.length > 0) {                
                 res.status(200).json({ success: JSON.stringify(result) });
