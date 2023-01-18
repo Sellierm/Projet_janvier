@@ -22,37 +22,8 @@
 }
 
 .logo{
-    width: 5%;
+    width: 60px;
     cursor: pointer;
-}
-
-.navbar ul li{
-    list-style: none;
-    display: inline-block;
-    margin: 0 20px;
-    position: relative;
-}
-
-.navbar ul li a{
-    text-decoration: none;
-    color: #fff;
-    text-transform: uppercase;
-}
-
-.navbar ul li::after{
-    content:'';
-    height: 3px;
-    width: 0;
-    background: #009688;
-    position: absolute;
-    left:0;
-    bottom: -10px;
-    transition: 0.5s;
-}
-
-
-.navbar ul li:hover::after{
-    width:100%;
 }
 
 .content{
@@ -144,7 +115,7 @@ button:hover{
     }
 
     .logo{
-        width: 10%;
+        width: 40px;
     }
 
     .navbar ul li a{
@@ -180,7 +151,7 @@ button:hover{
     }
 
     .logo{
-        width: 10%;
+        width: 38px;
     }
 
     .navbar ul li a{
