@@ -69,7 +69,15 @@ app.get('/edit', authMiddleware, function (req, res) {
         res.sendFile(path.join(__dirname + '/front/html/edit.html'));
     }
     else {
-        res.sendFile(path.join(__dirname + '/front/html/reservation.html'));
+        res.sendFile(path.join(__dirname + '/front/html/indexClient.html'));
+    }
+});
+app.get('/plans', authMiddleware, function (req, res) {
+    if (req.session.isAdmin) {
+        res.sendFile(path.join(__dirname + '/front/html/plans.html'));
+    }
+    else {
+        res.sendFile(path.join(__dirname + '/front/html/plansClient.html'));
     }
 });
 
@@ -191,7 +199,7 @@ app.post('/save', (req, res) => {
     client.connect(function (err) {
         console.log(err)
         const db = client.db(dbName);
-        const collection = db.collection(data.database_stages);
+        let collection = db.collection(data.database_stages);
             collection.find({ idStage: newIdStage }).toArray(function (err, result) {
                 if (err) console.log(err)
                 else if (result.length == 0) {
@@ -207,6 +215,7 @@ app.post('/save', (req, res) => {
                             //console.log("Inserted new user into the collection");
                             // Redirect the user to the homepage or a signup success page
                             //res.status(200).json({ success: true });
+                            collection = db.collection(data.database_rooms);
                             collection.insertMany(salles, (err, result) => {
                                 if (err) {
                                     console.log(err);
