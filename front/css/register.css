@@ -97,7 +97,6 @@ body {
 
 
 
-
 @media screen and (max-width: 500px) {
     body {
         background-image: url('../assets/classroom_2.PNG');
@@ -152,7 +151,9 @@ body {
 
 }
 
-
+.register p {
+    color: red;
+}
 
 
 

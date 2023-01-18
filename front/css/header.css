@@ -87,7 +87,7 @@ span.m-toggle-icon:after{top: -14px;}
         left: 0;
         width: 200px;
         height: 600px;
-        transform: translateY(-100%);
+        transform: translateX(-100%);
         z-index:101
     }
     .m-link{
