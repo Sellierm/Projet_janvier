@@ -166,11 +166,10 @@ app.post('/reg', (req, res) => {
 });
 app.post('/save', (req, res) => {
     const name = req.body.name;
-    const salles = req.body.salles
+    let salles = JSON.parse(req.body.salles);
     const width = req.body.width
     const heigth = req.body.height
 
-    salles = JSON.parse(salles);
     salles.forEach(element => {
         element.stage = newIdStage;
     });
