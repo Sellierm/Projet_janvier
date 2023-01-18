@@ -161,7 +161,6 @@ app.post('/reg', (req, res) => {
                             // Redirect the user to the homepage or a signup success page
                             res.status(200).json({ success: true });
                         }
-                        client.close();
                     });
                 }
                 else {
@@ -171,6 +170,7 @@ app.post('/reg', (req, res) => {
         }
         else res.status(401).json({ success: false });
     });
+    client.close();
 });
 app.post('/save', (req, res) => {
     const name = req.body.name;
@@ -200,41 +200,41 @@ app.post('/save', (req, res) => {
         console.log(err)
         const db = client.db(dbName);
         let collection = db.collection(data.database_stages);
-            collection.find({ idStage: newIdStage }).toArray(function (err, result) {
-                if (err) console.log(err)
-                else if (result.length == 0) {
-                    collection.insertOne({
-                        idStage: newIdStage,
-                        name:name,
-                        width:width,
-                        height:heigth
-                    }, (err, result) => {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            //console.log("Inserted new user into the collection");
-                            // Redirect the user to the homepage or a signup success page
-                            //res.status(200).json({ success: true });
-                            collection = db.collection(data.database_rooms);
-                            collection.insertMany(salles, (err, result) => {
-                                if (err) {
-                                    console.log(err);
-                                } else {
-                                    //console.log("Inserted new user into the collection");
-                                    // Redirect the user to the homepage or a signup success page
-                                    //res.status(200).json({ success: true });
-                                }
-                                client.close();
-                            });
-                        }
-                        client.close();
-                    });
-                }
-                else {
-                    res.status(401).json({ success: false });
-                }
-            });
+        collection.find({ idStage: newIdStage }).toArray(function (err, result) {
+            if (err) console.log(err)
+            else if (result.length == 0) {
+                collection.insertOne({
+                    idStage: newIdStage,
+                    name: name,
+                    width: width,
+                    height: heigth
+                }, (err, result) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        //console.log("Inserted new user into the collection");
+                        // Redirect the user to the homepage or a signup success page
+                        //res.status(200).json({ success: true });
+                        collection = db.collection(data.database_rooms);
+                        collection.insertMany(salles, (err, result) => {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                //console.log("Inserted new user into the collection");
+                                // Redirect the user to the homepage or a signup success page
+                                //res.status(200).json({ success: true });
+                            }
+                        });
+                    }
+
+                });
+            }
+            else {
+                res.status(401).json({ success: false });
+            }
+        });
     });
+    client.close();
 });
 
 
