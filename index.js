@@ -171,13 +171,13 @@ app.post('/save', (req, res) => {
     const heigth = req.body.height
 
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=';
-    let id = '';
+    let newIdStage = '';
     for (let i = 0; i < 20; i++) {
-        id += chars.charAt(Math.floor(Math.random() * chars.length));
+        newIdStage += chars.charAt(Math.floor(Math.random() * chars.length));
     }
 
     salles.forEach(element => {
-        element.stage = id;
+        element.stage = newIdStage;
     });
 
     console.log(heigth)
