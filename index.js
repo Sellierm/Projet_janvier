@@ -26,6 +26,7 @@ app.use(session);
 
 
 const data = require('./back/modules/dbModule.js');
+const { ResultWithContext } = require('express-validator/src/chain/context-runner-impl.js');
 
 if (app.get('env') === 'production') {
     app.set('trust proxy', 1) // trust first proxy
@@ -169,11 +170,54 @@ app.post('/save', (req, res) => {
     const width = req.body.width
     const heigth = req.body.height
 
+    const newIdStage = generateId();
     console.log(heigth)
     console.log(width)
     console.log(name)
     console.log(JSON.parse(salles))
+
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    client.connect(function (err) {
+        console.log(err)
+        const db = client.db(dbName);
+        const collection = db.collection(data.database_stages);
+            collection.find({ idStage: newIdStage }).toArray(function (err, result) {
+                if (err) console.log(err)
+                else if (result.length == 0) {
+                    collection.insertOne({
+                        idStage: newIdStage,
+                        name:name,
+                        width:width,
+                        height:heigth
+                    }, (err, result) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            //console.log("Inserted new user into the collection");
+                            // Redirect the user to the homepage or a signup success page
+                            res.status(200).json({ success: true });
+                        }
+                        client.close();
+                    });
+                }
+                else {
+                    res.status(401).json({ success: false });
+                }
+            });
+    });
 });
+
+function generateId() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=';
+    let id = '';
+    for (let i = 0; i < 20; i++) {
+        id += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return id;
+}
+
+
+
 //start server at localhost:4200
 server.listen(8080, () => {
     console.log('Serveur lancé sur le port 8080');
