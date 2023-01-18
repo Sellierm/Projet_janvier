@@ -1,5 +1,5 @@
 body{
-    overflow: hidden;
+    overflow-x: hidden;
 }
 .m-right{
     float: right;
@@ -84,10 +84,10 @@ span.m-toggle-icon:after{top: -14px;}
     .m-right{
         position: absolute;
         top: 120px; 
-        right: 0;
+        left: 0;
         width: 200px;
         height: 600px;
-        transform: translateX(100%);
+        transform: translateY(-100%);
         z-index:101
     }
     .m-link{
