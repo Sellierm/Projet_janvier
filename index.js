@@ -165,12 +165,14 @@ app.post('/reg', (req, res) => {
 });
 app.post('/save', (req, res) => {
     const name = req.body.name;
-    const nbPlaces = req.body.nbPlaces;
     const salles = req.body.salles
+    const width = req.body.width
+    const heigth = req.body.height
 
+    console.log(heigth)
+    console.log(width)
     console.log(name)
-    console.log(nbPlaces)
-    console.log(salles)
+    console.log(JSON.parse(salles))
 });
 //start server at localhost:4200
 server.listen(8080, () => {

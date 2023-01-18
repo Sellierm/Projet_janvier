@@ -20,7 +20,7 @@
         </div>
         <div>
             <label for="nb">Nombre de places</label>
-            <input id="nb" type="number" min="0" max="500">
+            <input id="nb" type="number" min="0" max="500" value="0">
         </div>
         <button id="newPolygon">Nouvelle salle</button>
         <div id="container"></div>
@@ -353,10 +353,10 @@
         document.getElementById('send').addEventListener('click', function () {
             if (salles.length != 0) {
                 let nameStage = document.getElementById('name_stage').value;
-                let nbPlaces = document.getElementById('nb').value;
+                let width = canvas.width;
+                let height = canvas.height;
                 if (nameStage != "") {
                     console.log("Etage : " + nameStage);
-                    console.log("Places disponibles : " + nbPlaces);
                     console.log(JSON.stringify(salles));
                     console.log(JSON.parse(JSON.stringify(salles)));
                     $.ajax({
@@ -364,8 +364,9 @@
                         url: '/save',
                         data: {
                             name: nameStage,
-                            nbPlaces: nbPlaces,
-                            salles: JSON.stringify(salles)
+                            salles: JSON.stringify(salles),
+                            width: width,
+                            height: height
                         },
                         success: function () {
 

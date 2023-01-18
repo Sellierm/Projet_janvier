@@ -21,8 +21,6 @@
                 <i class="fas fa-envelope"></i>
             </label>
             <input type="text" name="email" placeholder="Email" id="email" required>
-            <p id="error"></p>
-
             <label for="password">
                 <i class="fas fa-lock"></i>
             </label>
@@ -33,7 +31,7 @@
                 <i class="fas fa-lock"></i>
             </label>
             <input type="password" name="rptpassword" placeholder="Repeat Password" id="rptpassword" required>
-            <p id="errorp"></p>
+            <p id="error"></p>
             <h3>Already have an account ? <a href="/">Log in</a></h3>
             <input type="submit" value="Register">
         </form>
@@ -65,10 +63,11 @@
                             document.getElementById("error").innerHTML = "Email already in use";
                             document.getElementById("password").value = "";
                             document.getElementById("rptpassword").value = "";
+                            document.getElementById("email").value = "";
                         }
                     });
                 } else {
-                    document.getElementById("errorp").innerHTML = "password doesn't match";
+                    document.getElementById("error").innerHTML = "password doesn't match";
                 }
 
             });
