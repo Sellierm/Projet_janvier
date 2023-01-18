@@ -170,11 +170,12 @@ app.post('/save', (req, res) => {
     const width = req.body.width
     const heigth = req.body.height
 
+    const newIdStage = generateId();
+
     salles.forEach(element => {
         element.stage = newIdStage;
     });
 
-    const newIdStage = generateId();
     console.log(heigth)
     console.log(width)
     console.log(name)
