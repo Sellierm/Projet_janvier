@@ -116,6 +116,8 @@
 
                 let proj = document.getElementById('proj');
 
+                let places = document.getElementById('nb');
+
                 addSalle(name, proj)
             });
             drawAllPolygons();
@@ -124,7 +126,7 @@
             function addSalle(name, proj) {
                 if (name !== '' && proj) {
 
-                    var newSalle = new Salle(structuredClone(name), proj.checked, [[50, 50], [200, 50], [200, 200], [50, 200]]);
+                    var newSalle = new Salle(structuredClone(name), proj.checked, structuredClone(places), [[50, 50], [200, 50], [200, 200], [50, 200]]);
 
                     salles.push(newSalle);
 
@@ -382,4 +384,4 @@
     </script>
 </body>
 
-</html>
+</html
