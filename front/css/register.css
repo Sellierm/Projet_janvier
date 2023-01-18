@@ -7,9 +7,9 @@
 body {
     background-image: url('../assets/classroom_2.PNG');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 
 .login {
