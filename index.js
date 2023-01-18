@@ -3,7 +3,7 @@ const path = require('path');
 const MongoClient = require('mongodb').MongoClient;
 const http = require('http');
 const crypto = require('crypto');
-import { generateId } from './back/fonctions/id.js'
+//import { generateId } from './back/fonctions/id.js'
 const session = require('express-session')({
     secret: "eb8fcc253281389225b4f7872f2336918ddc7f689e1fc41b64d5c4f378cdc438",
     resave: true,
@@ -43,6 +43,7 @@ const authMiddleware = (req, res, next) => {
         res.redirect('/');
     }
 }
+
 app.get('/', function (req, res) {
     req.session.regenerate(function (err) {
         // req.session is now a new session and no longer the original session
@@ -61,6 +62,16 @@ app.get('/home', authMiddleware, function (req, res) {
         res.sendFile(path.join(__dirname + '/front/html/reservation.html'));
     }
 });
+app.get('/edit', authMiddleware, function (req, res) {
+    if (req.session.isAdmin) {
+        res.sendFile(path.join(__dirname + '/front/html/edit.html'));
+    }
+    else {
+        res.sendFile(path.join(__dirname + '/front/html/reservation.html'));
+    }
+});
+
+
 
 app.get('/deco', function (req, res) {
     req.session.destroy(function (err) {
