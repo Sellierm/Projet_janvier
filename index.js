@@ -181,7 +181,9 @@ app.post('/save', (req, res) => {
     console.log(name)
     console.log(salles)
 
-    /*const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    /*const url = data.url;
+    const dbName = data.name;
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
     client.connect(function (err) {
         console.log(err)
         const db = client.db(dbName);
