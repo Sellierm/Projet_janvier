@@ -3,6 +3,7 @@ const path = require('path');
 const MongoClient = require('mongodb').MongoClient;
 const http = require('http');
 const crypto = require('crypto');
+import { generateId } from './back/fonctions/id.js'
 const session = require('express-session')({
     secret: "eb8fcc253281389225b4f7872f2336918ddc7f689e1fc41b64d5c4f378cdc438",
     resave: true,
@@ -109,7 +110,7 @@ app.post('/auth', function (req, res) {
         res.status(401).json({ success: false });
     }
 });
-//test pour benoit
+//register
 app.post('/reg', (req, res) => {
     // Si l'utilisateur n'est pas connecté
     let email = req.body.mail;
@@ -150,7 +151,46 @@ app.post('/reg', (req, res) => {
         else res.status(401).json({ success: false });
     });
 });
+app.post('/save', (req, res) => {
+    // Si l'utilisateur n'est pas connecté
+    let email = req.body.mail;
+    let password = req.body.password;
+    let rptpassword = req.body.rptpassword;
 
+    const url = data.url;
+    const dbName = data.name;
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    client.connect(function (err) {
+        console.log(err)
+        const db = client.db(dbName);
+        const collection = db.collection(data.database_users);
+        if (password === rptpassword) {
+            collection.find({ mail: email }).toArray(function (err, result) {
+                if (err) console.log(err)
+                else if (!result[0]) {
+                    collection.insertOne({
+                        mail: email,
+                        password: crypto.createHash('sha512').update(password).digest('hex'),
+                        admin: "false"
+                    }, (err, result) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            //console.log("Inserted new user into the collection");
+                            // Redirect the user to the homepage or a signup success page
+                            res.status(200).json({ success: true });
+                        }
+                        client.close();
+                    });
+                }
+                else {
+                    res.status(401).json({ success: false });
+                }
+            });
+        }
+        else res.status(401).json({ success: false });
+    });
+});
 //start server at localhost:4200
 server.listen(8080, () => {
     console.log('Serveur lancé sur le port 8080');
