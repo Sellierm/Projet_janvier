@@ -1,0 +1,391 @@
+* {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
+    font-size: 16px;
+}
+
+body {
+    background-image: url('../assets/classroom_2.PNG');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    overflow-y: hidden;
+}
+
+.login {
+    width: 400px;
+    background-color: #ffffff;
+    box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+    border: 3px solid #000000;
+    opacity: 0.85;
+    border-radius: 50% 26% / 10% 40%;
+    margin: 100px auto;
+}
+
+.login h1 {
+    text-align: center;
+    color: #000000;
+    font-size: 24px;
+    padding: 20px 0 20px 0;
+    /* border-bottom: 1px solid #000000; */
+}
+
+.login form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.login form label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: #62812a;
+    color: #ffffff;
+}
+
+.login form input[type="password"],
+.login form input[type="text"] {
+    width: 310px;
+    height: 50px;
+    border: 2px solid #000000;
+    margin-bottom: 20px;
+    padding: 0 15px;
+}
+
+.login form input[type="submit"] {
+    width: 30%;
+    padding: 15px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    margin-left: 0;
+    background-color: #85af38;
+    border: 0;
+    border-radius: 10%;
+    border: 2px solid #000000;
+    cursor: pointer;
+    font-weight: bold;
+    color: #ffffff;
+    transition: background-color 0.2s;
+}
+
+.login form input[type="submit"]:hover {
+    background-color: #5f7c28;
+    border-radius: 10%;
+    transition: background-color 0.2s;
+}
+
+.login h3 {
+    text-align: center;
+    color: #000000;
+    padding: 5px 20px;
+    /* border-bottom: 1px solid #000000; */
+}
+
+
+
+
+
+
+@media screen and (max-width: 500px) {
+    body {
+        background-image: url('../assets/classroom_2.PNG');
+        background-repeat: no-repeat;
+        background-size: 430%;
+        background-position: center;
+    }
+
+    .login {
+        width: 370px;
+        background-color: #ffffff;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
+        opacity: 0.85;
+        border-radius: 50% 26% / 10% 40%;
+        margin: 280px auto;
+    }
+
+    .login form input[type="password"],
+    .login form input[type="text"] {
+        width: 310px;
+        height: 30px;
+        border: 2px solid #000000;
+        margin-bottom: 20px;
+        padding: 0 15px;
+    }
+
+    .login form label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        background-color: #62812a;
+        color: #ffffff;
+    }
+
+    .login form input[type="submit"] {
+        width: 27%;
+        padding: 15px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        margin-left: 0;
+        background-color: #85af38;
+        border: 0;
+        cursor: pointer;
+        font-weight: bold;
+        color: #ffffff;
+        transition: background-color 0.2s;
+    }
+
+
+}
+
+
+
+
+
+@media screen and (max-width: 380px) {
+    body {
+        background-image: url('../assets/classroom_2.PNG');
+        background-repeat: no-repeat;
+        background-size: 430%;
+        background-position: center;
+    }
+
+    .login {
+        width: 350px;
+        background-color: #ffffff;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
+        opacity: 0.85;
+        border-radius: 50% 26% / 10% 40%;
+        margin: 230px auto;
+    }
+
+    .login form input[type="password"],
+    .login form input[type="text"] {
+        width: 290px;
+        height: 25px;
+        border: 1px solid #000000;
+        margin-bottom: 20px;
+        padding: 0 15px;
+        margin-right: 15px;
+    }
+
+    .login form label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 25px;
+        height: 25px;
+        background-color: #62812a;
+        color: #ffffff;
+        margin-left: 15px;
+        ;
+    }
+
+    .login form input[type="submit"] {
+        width: 24%;
+        padding: 15px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        margin-left: 0;
+        background-color: #85af38;
+        border: 0;
+        cursor: pointer;
+        font-weight: bold;
+        color: #ffffff;
+        transition: background-color 0.2s;
+    }
+
+
+}
+
+
+
+
+@media screen and (max-width: 300px) {
+    body {
+        background-image: url('../assets/classroom_2.PNG');
+        background-repeat: no-repeat;
+        background-size: 550%;
+        background-position: center;
+    }
+
+    .login {
+        width: 250px;
+        height: 250px;
+        background-color: #ffffff;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
+        opacity: 0.85;
+        border-radius: 50% 26% / 10% 40%;
+        margin: 220px auto;
+    }
+
+    .login form input[type="password"],
+    .login form input[type="text"] {
+        width: 170px;
+        height: 20px;
+        border: 3px solid #000000;
+        margin-bottom: 20px;
+        padding: 0 10px;
+        margin-right: 15px;
+    }
+
+    .login form label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        background-color: #62812a;
+        color: #ffffff;
+        margin-left: 15px;
+        ;
+    }
+
+    .login form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-top: 5px;
+    }
+
+    .login form input[type="submit"] {
+        width: 35%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        margin-left: 0;
+        background-color: #85af38;
+        border: 0;
+        cursor: pointer;
+        font-weight: bold;
+        color: #ffffff;
+        transition: background-color 0.2s;
+    }
+
+
+
+}
+
+
+
+
+@media screen and (min-width: 540px) {
+    body {
+        background-image: url('../assets/classroom_2.PNG');
+        background-repeat: no-repeat;
+        background-size: 330%;
+        background-position: center;
+    }
+
+    .login {
+        width: 400px;
+        background-color: #ffffff;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
+        opacity: 0.85;
+        border-radius: 50% 26% / 10% 40%;
+        margin: 220px auto;
+    }
+}
+
+
+
+
+@media screen and (min-width: 760px) {
+    body {
+        background-image: url('../assets/classroom_2.PNG');
+        background-repeat: no-repeat;
+        background-size: 370%;
+        background-position: center;
+    }
+
+    .login {
+        width: 400px;
+        background-color: #ffffff;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
+        opacity: 0.85;
+        border-radius: 50% 26% / 10% 40%;
+        margin: 330px auto;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (min-width: 1200px) {
+    body {
+        background-image: url('../assets/classroom_2.PNG');
+        background-repeat: no-repeat;
+        background-size: 150%;
+        background-position: center;
+    }
+
+    .login {
+        width: 400px;
+        background-color: #ffffff;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
+        opacity: 0.85;
+        border-radius: 50% 26% / 10% 40%;
+        margin: 230px auto;
+    }
+}
+
+
+@media screen and (min-width: 1079px) {
+
+    body {
+        background-image: url('../assets/classroom_2.PNG');
+        background-repeat: no-repeat;
+        background-size: 130%;
+        background-position: center;
+    }
+
+    .login {
+        width: 400px;
+        background-color: #ffffff;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
+        opacity: 0.85;
+        border-radius: 50% 26% / 10% 40%;
+        margin: 150px auto;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+
+    body {
+        background-image: url('../assets/classroom_2.PNG');
+        background-repeat: no-repeat;
+        background-size: 115%;
+        background-position: center;
+    }
+
+    .login {
+        width: 400px;
+        background-color: #ffffff;
+        box-shadow: 0 0 90px 0 rgba(0, 0, 0, 0.3);
+        border: 3px solid #000000;
+        opacity: 0.85;
+        border-radius: 50% 26% / 10% 40%;
+        margin: 150px auto;
+    }
+}
