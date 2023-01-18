@@ -51,7 +51,7 @@ nav ul li a{
     font-size: 160px;
     color: #fff;
     font-weight: 600;
-    trnasition: 0.5s;
+    transition: 0.5s;
 }
 
 .content h1:hover{
@@ -125,21 +125,73 @@ button:hover{
         height: 100%;
     }
 }
-/*
-@media screen and (max-width:500px){
-    .back-video{
-        width: 800%;
-        height: auto;
+
+@media screen and (min-width:1200px){
+    button{
+        width: 250px;
+        padding: 20px 0;
+        margin-top: 50px;
+        font-size: 22px;
+    }
+
+    nav ul li a{
+        font-size: 25px;
     }
 }
 
-@media screen and (min-width:500px){
+@media screen and (min-width: 1000px) and (max-width: 1199px) {
+    button{
+        font-size: 17px;
+    }
 
-    .hero{
-        width: 1000%;
+    nav ul li a{
+        font-size: 20px;
     }
-    .back-video{
-        width: 400%;
-        height: auto;
+    
+}
+
+@media screen and (min-width: 540px) and (max-width: 700px) {
+
+
+    .content h1{
+        font-size: 80px;
     }
-}*/
+
+    button{
+        font-size: 17px;
+    }
+    
+}
+
+
+@media screen and (min-width: 700px) and (max-width: 913px) {
+
+
+    .content h1{
+        font-size: 120px;
+    }
+
+    button{
+        margin-top: 40px;
+        font-size: 17px;
+    }
+
+    nav ul li a{
+        font-size: 27px;
+    }
+    
+}
+
+@media screen and (min-width: 360px) and (max-width: 415px) {
+
+
+    .content h1{
+        font-size: 60px;
+    }
+
+    button{
+        margin-top: 40px;
+        font-size: 17px;
+    }
+    
+}
