@@ -102,28 +102,31 @@ app.post('/auth', function (req, res) {
     }
 });
 //test pour benoit
-app.post('/test', (req, res) => {
+app.post('/reg', (req, res) => {
     // Si l'utilisateur n'est pas connecté
-
+    let username = req.body.username;
+    let password = req.body.password;
+    console.log(username);
     const url = data.url;
     const dbName = data.name;
-    const client = new MongoClient(url);
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
     client.connect(function (err) {
-        console.log("Connected successfully to server");
+        console.log(err)
         const db = client.db(dbName);
         //On ajoute à la collection
-        db.collection(data.database_salle).insertOne([
-            { name: `${req.body.data}`, age: 25 }
-        ], function (err, res) {
-            //console.log(err);
-            //console.log("Documents inserted into the collection");
+        db.collection(data.database_users).insertOne({
+            username: `${username}`,
+            password: `${password}`
+        }, function (err, res) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.status(200).json({ success: true });
+            }
             client.close();
         });
-
-
     });
-    //console.log(test);
-
 });
 
 //start server at localhost:4200

@@ -13,24 +13,22 @@
 </head>
 
 <body>
-    <div class="banner">
-        <div class="login">
-            <h1>Login</h1>
-            <form action="/auth" method="post">
-                <label for="username">
-                    <!-- font awesome icon -->
-                    <i class="fas fa-user"></i>
-                </label>
-                <input type="text" name="username" placeholder="Email or Username" id="username" required>
-                <label for="password">
-                    <i class="fas fa-lock"></i>
-                </label>
-                <input type="password" name="password" placeholder="Password" id="password" required>
-                <p id="error"></p>
-                <h3>Don't have an account ? <a href="/register">Register</a></h3>
-                <input type="submit" value="Login">
-            </form>
-        </div>
+    <div class="login">
+        <h1>Login</h1>
+        <form action="/auth" method="post">
+            <label for="username">
+                <!-- font awesome icon -->
+                <i class="fas fa-user"></i>
+            </label>
+            <input type="text" name="username" placeholder="Email or Username" id="username" required>
+            <label for="password">
+                <i class="fas fa-lock"></i>
+            </label>
+            <input type="password" name="password" placeholder="Password" id="password" required>
+            <p id="error"></p>
+            <h3>Don't have an account ? <a href="/register">Register</a></h3>
+            <input type="submit" value="Login">
+        </form>
     </div>
     <script>
         $(document).ready(function () {

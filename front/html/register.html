@@ -14,7 +14,7 @@
 <body>
     <div class="register">
         <h1>Register</h1>
-        <form action="/auth" method="post">
+        <form>
             <label for="username">
                 <!-- font awesome icon -->
                 <i class="fas fa-user"></i>
@@ -43,8 +43,33 @@
             <input type="submit" value="Register">
         </form>
     </div>
-    <script
-        type="text/javascript">  function preventBack() { window.history.forward(); } setTimeout("preventBack()", 0); window.onunload = function () { null };</script>
+    <script>
+        $(document).ready(function () {
+            $("form").submit(function (event) {
+                event.preventDefault();
+                var formData = {
+                    'username': $('input[name=username]').val(),
+                    'mail': $('input[name=mail]').val(),
+                    'password': $('input[name=password]').val(),
+                    'rptpassword': $('input[name=rptpassword]').val()
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/reg',
+                    data: formData,
+                    success: function () {
+                        window.location.href = "/";
+                    },
+                    error: function () {
+                        //document.getElementById("error").innerHTML = "Wrong username/password combination";
+                        document.getElementById("username").value = "";
+                        document.getElementById("password").value = "";
+                    }
+                });
+            });
+        });
+    </script>
+    </script>
 </body>
 
 </html>
