@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/plans.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="wrap">
+            <h2>Plans</h2>
+        </div>
+        <div id="group" class="inp-group">
+
+        </div>
+    </div>
+
+    <script src="../js/plans.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/loadPlans',
+                data: {
+                },
+                success: function (data) {
+                    let plans = JSON.parse(data.success);
+                    let container = document.getElementById('group');
+                    plans.forEach(element => {
+                        let link = document.createElement('button');
+                        link.dataset.id = element.idStage;
+                        link.addEventListener('click', redirect);
+                        link.innerText = element.name
+                        container.appendChild(link);
+                    });
+                    console.log(data.success);
+                    console.log(JSON.parse(data.success));
+                }
+            });
+        })
+
+        function redirect(event){
+            let id = event.target.dataset.id;
+            console.log(id)
+            alert('redirection vers le plan')
+        }
+    </script>
+</body>
+
+</html>

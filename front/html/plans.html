@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <div class="wrap">
-            <h2>Ajouter des étages</h2>
+            <h2>Ajouter des plans</h2>
             <a href="#" class="add">&plus;</a>
         </div>
         <div id="group" class="inp-group">
@@ -30,6 +30,15 @@
                 data: {
                 },
                 success: function (data) {
+                    let plans = JSON.parse(data.success);
+                    let container = document.getElementById('group');
+                    plans.forEach(element => {
+                        let link = document.createElement('button');
+                        link.dataset.id = element.idStage;
+                        link.addEventListener('click', alert('redirection vers le plan avec le bouton edition'));
+                        link.innerText = element.name
+                        container.appendChild(link);
+                    });
                     console.log(data.success);
                     console.log(JSON.parse(data.success));
                 }
