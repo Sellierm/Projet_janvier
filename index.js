@@ -81,7 +81,7 @@ app.get('/plans', authMiddleware, function (req, res) {
         res.sendFile(path.join(__dirname + '/front/html/plans.html'));
     }
     else {
-        res.sendFile(path.join(__dirname + '/front/html/plansClient.html'));
+        res.redirect('/reserver');
     }
 });
 //planning 
@@ -96,7 +96,7 @@ app.get('/planning', authMiddleware, function (req, res) {
 
 //reserve
 app.get('/reserver', authMiddleware, function (req, res) {
-    res.sendFile(path.join(__dirname + '/front/html/reservation.html'));
+    res.sendFile(path.join(__dirname + '/front/html/plansClient.html'));
 });
 
 
@@ -263,7 +263,7 @@ app.post('/save', (req, res) => {
 
 //load plans
 app.post('/loadPlans', (req, res) => {
-    if(req.body.isAuthenticated){
+    if (req.body.isAuthenticated) {
         const url = data.url;
         const dbName = data.name;
         const client = new MongoClient(url);
@@ -284,7 +284,7 @@ app.post('/loadPlans', (req, res) => {
             });
         });
     }
-    else{res.sendFile(path.join(__dirname + '/front/html/login.html'))};
+    else { res.sendFile(path.join(__dirname + '/front/html/login.html')) };
 });
 
 
