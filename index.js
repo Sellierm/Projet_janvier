@@ -236,7 +236,8 @@ app.post('/save', (req, res) => {
                             } else {
                                 //console.log("Inserted new user into the collection");
                                 // Redirect the user to the homepage or a signup success page
-                                //res.status(200).json({ success: true });
+                                res.status(200).json({ success: true });
+                                client.close();
                             }
                         });
                     }
@@ -248,7 +249,6 @@ app.post('/save', (req, res) => {
             }
         });
     });
-    client.close();
 });
 
 //load plans
@@ -289,7 +289,7 @@ app.post('/loadPlan', (req, res) => {
         collection.find({ idStage: idStage }).toArray(function (err, result1) {
             console.log(result1);
             console.log(JSON.stringify(result1));
-            
+
             if (result1 && result1.length > 0) {
                 collection = db.collection(data.database_rooms);
                 collection.find({ stage: idStage }).toArray(function (err, result2) {
@@ -299,10 +299,10 @@ app.post('/loadPlan', (req, res) => {
 
                     res.status(200).json({ result1: JSON.stringify(result1), result2: JSON.stringify(result2) });
                 });
-                
+
             }
             else {
-                res.status(401).json({ result: JSON.stringify(result) });
+                res.status(401).json({ result: JSON.stringify(result1) });
             }
         });
     });
