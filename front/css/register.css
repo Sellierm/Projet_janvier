@@ -220,7 +220,7 @@ body {
         align-items: center;
         width: 25px;
         height: 25px;
-        background-color: #62812a;
+        background-color: #009688;
         color: #ffffff;
         margin-left: 15px;
         ;
@@ -232,7 +232,7 @@ body {
         margin-top: 5px;
         margin-bottom: 15px;
         margin-left: 0;
-        background-color: #85af38;
+        background-color: #05beab;
         border: 0;
         cursor: pointer;
         font-weight: bold;
@@ -286,7 +286,7 @@ body {
         align-items: center;
         width: 20px;
         height: 20px;
-        background-color: #62812a;
+        background-color: #009688;
         color: #ffffff;
         margin-left: 15px;
         ;
@@ -305,7 +305,7 @@ body {
         margin-top: 5px;
         margin-bottom: 15px;
         margin-left: 0;
-        background-color: #85af38;
+        background-color: #05beab;
         border: 0;
         cursor: pointer;
         font-weight: bold;
