@@ -153,7 +153,7 @@
 
                 for (i in labelTable) {
                     let tr1 = document.createElement('tr');
-                    tr1.setAttribute("data-time", timeValues[i]);
+                    tr1.setAttribute("data-time", labelTable[i]);
                     tr1.classList.add("eachHour");
                     document.getElementById("arrayPlanning").appendChild(tr1);
 
@@ -162,7 +162,7 @@
                     tr2.classList.add("eachHourLabel");
                     let td = document.createElement("td");
                     let div = document.createElement("div");
-                    div.innerHTML = timeValues[i];
+                    div.innerHTML = labelTable[i];
                     td.appendChild(div);
                     tr2.appendChild(td);
                     document.getElementById("arrayPlanningLabel").appendChild(tr2);
