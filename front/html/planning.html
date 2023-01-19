@@ -382,9 +382,11 @@
                             const found = books.find(element2 => (Date(element2.start) <= Date(document.getElementById('date').value + ' ' + element.dataset.time) && Date(element2.end) >= Date(document.getElementById('date').value + ' ' + element.dataset.time)));
                             if(found){
                                 element.style.backgroundColor = 'red';
+                                console.log('red');
                             }
                             else {
                                 element.style.backgroundColor = 'green';
+                                console.log('green');
                             }
                         });
 
