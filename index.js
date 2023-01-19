@@ -90,13 +90,10 @@ app.get('/planning', authMiddleware, function (req, res) {
         res.sendFile(path.join(__dirname + '/front/html/planning.html'));
     }
 });
-
 //reserve
 app.get('/reserver', authMiddleware, function (req, res) {
     res.sendFile(path.join(__dirname + '/front/html/plansClient.html'));
 });
-
-
 //session destroy for decconection
 app.get('/deco', function (req, res) {
     req.session.destroy(function (err) {
@@ -105,12 +102,13 @@ app.get('/deco', function (req, res) {
         else res.redirect('/');
     });
 })
+
+
 //login ajax request
 app.post('/auth', function (req, res) {
     // Capture the input fields
     let mail = req.body.mail;
     let password = req.body.password;
-
     // Ensure the input fields exists and are not empty
     if (mail && password) {
         const url = data.url;
@@ -190,8 +188,7 @@ app.post('/reg', (req, res) => {
 });
 //save plans
 app.post('/save', (req, res) => {
-    if (req.body.isAuthenticated) {
-
+    if (req.session.isAuthenticated) {
         const name = req.body.name;
         let salles = JSON.parse(req.body.salles);
         const width = req.body.width
@@ -255,38 +252,33 @@ app.post('/save', (req, res) => {
             });
         });
     }
-    else { res.sendFile(path.join(__dirname + '/front/html/login.html')); }
+    else { res.redirect('/'); }
 });
 
 //load plans
 app.post('/loadPlans', (req, res) => {
-    console.log('tset')
-    console.log(req.body, req.body.isAuthenticated);
-    //if (req.body.isAuthenticated) {
-    console.log('tset2')
-    const url = data.url;
-    const dbName = data.name;
-    const client = new MongoClient(url);
-    client.connect(function (err) {
-        //console.log("Connected successfully to server");
-        const db = client.db(dbName);
-        const collection = db.collection(data.database_stages);
-        collection.find({}).toArray(function (err, result) {
-            console.log(result);
-            console.log(JSON.stringify(result));
-            client.close();
-            if (result && result.length > 0) {
-                console.log('tset3')
-                res.status(200).json({ result: JSON.stringify(result) });
-            }
-            else {
-                console.log('tset4')
-                res.status(401).json({ result: JSON.stringify(result) });
-            }
+    if (req.session.isAuthenticated) {
+        const url = data.url;
+        const dbName = data.name;
+        const client = new MongoClient(url);
+        client.connect(function (err) {
+            //console.log("Connected successfully to server");
+            const db = client.db(dbName);
+            const collection = db.collection(data.database_stages);
+            collection.find({}).toArray(function (err, result) {
+                console.log(result);
+                console.log(JSON.stringify(result));
+                client.close();
+                if (result && result.length > 0) {
+                    res.status(200).json({ result: JSON.stringify(result) });
+                }
+                else {
+                    res.status(401).json({ result: JSON.stringify(result) });
+                }
+            });
         });
-    });
-    //}
-    //else { res.sendFile(path.join(__dirname + '/front/html/login.html')) };
+    }
+    else { res.redirect('/'); }
 });
 
 
