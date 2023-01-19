@@ -63,7 +63,7 @@ app.get('/home', authMiddleware, function (req, res) {
         res.sendFile(path.join(__dirname + '/front/html/index.html'));
     }
     else {
-        res.sendFile(path.join(__dirname + '/front/html/reservation.html'));
+        res.sendFile(path.join(__dirname + '/front/html/indexClient.html'));
     }
 });
 //edit
@@ -72,7 +72,7 @@ app.get('/edit', authMiddleware, function (req, res) {
         res.sendFile(path.join(__dirname + '/front/html/edit.html'));
     }
     else {
-        res.sendFile(path.join(__dirname + '/front/html/reservation.html'));
+        res.sendFile(path.join(__dirname + '/front/html/indexClient.html'));
     }
 });
 //plans
@@ -335,7 +335,20 @@ app.post('/loadSchedule', (req, res) => {
         const db = client.db(dbName);
         let collection = db.collection(data.database_bookings);
         collection.find({ idSalle: idSalle, start:{$gt:startDay}, end:{$lt:endDay} }).toArray(function (err, result) {
-            res.status(200).json({ result: JSON.stringify(result)});
+            console.log(result);
+            console.log(JSON.stringify(result));
+
+            if (result && result.length > 0) {
+                
+                /*console.log(result);
+                console.log(JSON.stringify(result));*/
+                client.close();
+
+                res.status(200).json({ result: JSON.stringify(result)});
+            }
+            else {
+                res.status(401).json({ result: JSON.stringify(result) });
+            }
         });
     });
 });
