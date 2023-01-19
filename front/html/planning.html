@@ -398,7 +398,14 @@
                     if(salle.proj) textProj = 'Oui'
                     document.getElementById('proj').innerText = textProj;
 
-                    document.getElementById('day').innerText = dateNow.toLocaleString()
+                    document.getElementById('day').innerText = dateNow.toLocaleString('fr-FR',{
+                                                                                                weekday: 'long',
+                                                                                                year: 'numeric',
+                                                                                                month: 'long',
+                                                                                                day: 'numeric',
+                                                                                                hour: 'numeric',
+                                                                                                minute: 'numeric',
+                                                                                                second: 'numeric'});
 
 
                     $.ajax({
