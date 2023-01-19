@@ -127,6 +127,16 @@
                         console.log(JSON.parse(data.result2))
                         console.log(JSON.parse(data.result3))
                         salles = JSON.parse(data.result2);
+                        let books = JSON.parse(data.result3);
+                        salles.forEach(element => {
+                            const found = array1.find(element2 => element2.idSalle == element._id);
+                            if(found){
+                                element.free = false;
+                            }
+                            else {
+                                element.free = true;
+                            }
+                        });
                         drawAllPolygons();
                     }
                 });
@@ -153,8 +163,11 @@
                 for (let i = 0; i < salles.length; i++) {
                     console.log(salles[i]);
                     console.log('test');
-                    ctx.fillStyle = "#bfe3b4";
-                        //ctx.fillStyle = "#e35c38";
+                    if(salles[i].free){
+                        ctx.fillStyle = "#bfe3b4";
+                    }else {
+                        ctx.fillStyle = "#e35c38";
+                    }
                     ctx.font = "20px Arial";
                     ctx.beginPath();
                     ctx.moveTo(salles[i].tab[0][0], salles[i].tab[0][1]);
