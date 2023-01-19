@@ -90,6 +90,7 @@
             let salles = [];
             let dateNow = new Date();
             let stage = '';
+            let currentSalle = -1;
 
             
 
@@ -156,6 +157,7 @@
             function updateDateNow(){
                 dateNow = new Date(document.getElementById('date').value + " " + document.getElementById('time').value);
                 reloadPlan();
+                displaySalle(currentSalle);
             }
 
 
@@ -286,10 +288,12 @@
                                         
                 }
                 if(clicking){
+                    currentSalle = selected;
                     displaySalle(selected);
                 }
                 else{
                     hideSalle();
+                    currentSalle = -1;
                 }
             });
 
@@ -352,53 +356,55 @@
 
 
             function displaySalle(i){
-                salle = salles[i];
-                document.getElementById('bulleInfo').style.visibility = "visible";
-                document.getElementById('name').innerText = salle.nom;
-                let textProj = 'Non';
-                if(salle.proj) textProj = 'Oui'
-                document.getElementById('proj').innerText = textProj;
+                if(i){
+                    salle = salles[i];
+                    document.getElementById('bulleInfo').style.visibility = "visible";
+                    document.getElementById('name').innerText = salle.nom;
+                    let textProj = 'Non';
+                    if(salle.proj) textProj = 'Oui'
+                    document.getElementById('proj').innerText = textProj;
 
-                document.getElementById('day').innerText = dateNow.toLocaleString()
+                    document.getElementById('day').innerText = dateNow.toLocaleString()
 
 
-                $.ajax({
-                    type: 'POST',
-                    url: '/loadSchedule',
-                    data: {
-                        date:dateNow,
-                        salle:salles[i]._id
-                    },
-                    success: function (data) {
-                        console.log(data)
-                        console.log(JSON.parse(data.result))
-                        let books = JSON.parse(data.result);
-                        let listCases = Array.from(document.getElementsByClassName('eachHour'));
-                        console.log(listCases);
-                        
-                        listCases.forEach(element => {
-                            console.log((new Date(1674118800000) <= new Date(document.getElementById('date').value + ' ' + element.dataset.time) && new Date(1674136800000) >= new Date(document.getElementById('date').value + ' ' + element.dataset.time)));
-                            console.log(element.dataset.time);
-
-                            let testBool = false;
-                            books.forEach(element2 => {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/loadSchedule',
+                        data: {
+                            date:dateNow,
+                            salle:salles[i]._id
+                        },
+                        success: function (data) {
+                            console.log(data)
+                            console.log(JSON.parse(data.result))
+                            let books = JSON.parse(data.result);
+                            let listCases = Array.from(document.getElementsByClassName('eachHour'));
+                            console.log(listCases);
+                            
+                            listCases.forEach(element => {
                                 console.log((new Date(1674118800000) <= new Date(document.getElementById('date').value + ' ' + element.dataset.time) && new Date(1674136800000) >= new Date(document.getElementById('date').value + ' ' + element.dataset.time)));
-                                if(new Date(element2.start) <= new Date(document.getElementById('date').value + ' ' + element.dataset.time) && new Date(element2.end) >= new Date(document.getElementById('date').value + ' ' + element.dataset.time)){
-                                    testBool = true
+                                console.log(element.dataset.time);
+
+                                let testBool = false;
+                                books.forEach(element2 => {
+                                    console.log((new Date(1674118800000) <= new Date(document.getElementById('date').value + ' ' + element.dataset.time) && new Date(1674136800000) >= new Date(document.getElementById('date').value + ' ' + element.dataset.time)));
+                                    if(new Date(element2.start) <= new Date(document.getElementById('date').value + ' ' + element.dataset.time) && new Date(element2.end) >= new Date(document.getElementById('date').value + ' ' + element.dataset.time)){
+                                        testBool = true
+                                    }
+                                });
+                                if(testBool){
+                                    element.style.backgroundColor = 'red';
+                                    console.log('red');
+                                }
+                                else {
+                                    element.style.backgroundColor = 'green';
+                                    console.log('green');
                                 }
                             });
-                            if(testBool){
-                                element.style.backgroundColor = 'red';
-                                console.log('red');
-                            }
-                            else {
-                                element.style.backgroundColor = 'green';
-                                console.log('green');
-                            }
-                        });
 
-                    }
-                });
+                        }
+                    });
+                }
             }
 
             function hideSalle(){
