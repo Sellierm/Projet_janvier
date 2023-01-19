@@ -263,9 +263,9 @@
                 }
             }
 
-            document.getElementById('book').addEventListener('book', book);
+            document.getElementById('book').addEventListener('click', bookFunc);
 
-            function book(){
+            function bookFunc(){
                 console.log(currentSalle)
                 if(currentSalle >= 0){
                     let start = new Date(document.getElementById('date').value + " " + document.getElementById('start').value);
@@ -512,8 +512,6 @@
                             console.log(listCases);
                             
                             listCases.forEach(element => {
-                                console.log((new Date(1674118800000) <= new Date(document.getElementById('date').value + ' ' + element.dataset.time) && new Date(1674136800000) >= new Date(document.getElementById('date').value + ' ' + element.dataset.time)));
-                                console.log(element.dataset.time);
 
                                 let testBool = false;
                                 books.forEach(element2 => {
@@ -524,11 +522,9 @@
                                 });
                                 if(testBool){
                                     element.style.backgroundColor = 'red';
-                                    console.log('red');
                                 }
                                 else {
                                     element.style.backgroundColor = 'green';
-                                    console.log('green');
                                 }
                             });
 
