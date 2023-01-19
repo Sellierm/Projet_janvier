@@ -20,7 +20,6 @@
         </div>
     </div>
 
-    <script src="../js/plans.js"></script>
     <script>
         $(document).ready(function () {
             $.ajax({
@@ -29,7 +28,7 @@
                 data: {
                 },
                 success: function (data) {
-                    let plans = JSON.parse(data.success);
+                    let plans = JSON.parse(data.result);
                     let container = document.getElementById('group');
                     plans.forEach(element => {
                         let link = document.createElement('button');
@@ -38,8 +37,8 @@
                         link.innerText = element.name
                         container.appendChild(link);
                     });
-                    console.log(data.success);
-                    console.log(JSON.parse(data.success));
+                    console.log(data.result);
+                    console.log(JSON.parse(data.result));
                 }
             });
         })

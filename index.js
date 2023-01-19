@@ -251,10 +251,10 @@ app.post('/loadPlans', (req, res) => {
             console.log(JSON.stringify(result));
             client.close();
             if (result && result.length > 0) {                
-                res.status(200).json({ data: JSON.stringify(result) });
+                res.status(200).json({ result: JSON.stringify(result) });
             }
             else {
-                res.status(401).json({ data:JSON.stringify(result) });
+                res.status(401).json({ result:JSON.stringify(result) });
             }
         });
     });
