@@ -377,8 +377,8 @@
                         console.log(listCases);
                         
                         listCases.forEach(element => {
-                            console.log(1674118800000 <= new Date(document.getElementById('date').value + ' ' + '8:00'));
-                            const found = books.find(element2 => (element2.start <= Date(document.getElementById('date').value + ' ' + element.dataset.time) && element2.end >= Date(document.getElementById('date').value + ' ' + element.dataset.time)));
+                            console.log(Date(1674118800000) <= Date(document.getElementById('date').value + ' ' + '8:00'));
+                            const found = books.find(element2 => (Date(element2.start) <= Date(document.getElementById('date').value + ' ' + element.dataset.time) && Date(element2.end) >= Date(document.getElementById('date').value + ' ' + element.dataset.time)));
                             if(found){
                                 element.style.backgroundColor = 'red';
                             }
