@@ -26,7 +26,7 @@
             </label>
             <input type="password" name="password" placeholder="Password" id="password" required>
             <p id="error"></p>
-            <h3>Don't have an account ? <a href="/register">Register</a></h3>
+            <h3>Don't have an account ? <a id="reg" href="#">Register</a></h3>
             <input type="submit" value="Login">
         </form>
     </div>
@@ -49,6 +49,18 @@
                         document.getElementById("error").innerHTML = "Wrong mail/password combination";
                         document.getElementById("mail").value = "";
                         document.getElementById("password").value = "";
+                    }
+                });
+            });
+            $("#reg").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/reg",
+                    success: function (data) {
+                        $("body").html(data);
+                    },
+                    error: function () {
+                        alert("An error occurred while trying to load register");
                     }
                 });
             });

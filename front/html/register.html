@@ -32,7 +32,7 @@
             </label>
             <input type="password" name="rptpassword" placeholder="Repeat Password" id="rptpassword" required>
             <p id="error"></p>
-            <h3>Already have an account ? <a href="/">Log in</a></h3>
+            <h3>Already have an account ? <a id="log" href="#">Log in</a></h3>
             <input type="submit" value="Register">
         </form>
     </div>
@@ -70,6 +70,18 @@
                     document.getElementById("error").innerHTML = "password doesn't match";
                 }
 
+            });
+            $("#log").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/",
+                    success: function (data) {
+                        $("body").html(data);
+                    },
+                    error: function () {
+                        alert("An error occurred while trying to load login");
+                    }
+                });
             });
         });
     </script>

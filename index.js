@@ -53,7 +53,7 @@ app.get('/', function (req, res) {
     });
     res.sendFile(path.join(__dirname + '/front/html/login.html'));
 });
-app.get('/register', function (req, res) {
+app.get('/reg', function (req, res) {
     res.sendFile(path.join(__dirname + '/front/html/register.html'));
 });
 app.get('/home', authMiddleware, function (req, res) {
