@@ -369,6 +369,7 @@ app.post('/book', (req, res) => {
     const start = Date.parse(req.body.start);
     const end = Date.parse(req.body.end);
     const user = req.session.mail;
+    console.log('test');
 
 
     const url = data.url;
