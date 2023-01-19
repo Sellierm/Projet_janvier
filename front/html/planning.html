@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/index.css">
+        <link type="text/css" rel="stylesheet" href="../css/header.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <style>
+            .eachHour{
+                height: 10px;
+                border: 1px solid black;
+                width: 80px;
+            }
+        </style>
+    </head>
+    <body style="margin: 0;">
+        <canvas oncontextmenu="return false;" id="myCanvas" style="margin: auto;"></canvas><!--width="900" height="500"-->
+        <div id="bulleInfo" style="position: fixed; top: 10px; right: 10px; width: 15%; height: fit-content; background-color: antiquewhite; display: flex; flex-direction: column; align-items: center; visibility: hidden;">
+            <div>
+                <p>Salle </p>
+                <p id="name"></p>
+            </div>
+            <div>
+                <p >Vidéo projecteur</p>
+                <p id="proj"></p>
+            </div>
+            <div>
+                <table>
+                    <thead>
+                        <td id="day"></td>
+                    </thead>
+                    <tbody style="display: flex; flex-direction: column;">
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                        <tr class="eachHour"></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="position: fixed; bottom: 10px; right: 10px; width: 15%; height: fit-content; background-color: antiquewhite; display: flex; flex-direction: column; align-items: center;">
+            <div>
+                <input type="date" id="today" oninput="test();">
+                <input type="time" min="8:00" max="20:00" id="now" oninput="test();" >
+            </div>
+        </div>
+        <script>
+            
+
+
+            
+
+            window.onload = function(){	
+                const dateNow = new Date();
+                if(dateNow.getMinutes < 30){
+                    dateNow.setMinutes(0, 0, 0);
+                }
+                else{
+                    dateNow.setMinutes(30, 0, 0);
+                }
+                console.log(dateNow.toLocaleString(), dateNow.getMonth());
+                function setDateTime(){
+                    console.log(dateNow);
+                    console.log(dateNow.getDate()+'/'+dateNow.getMonth()+'/'+dateNow.getFullYear())
+                    console.log(dateNow.getHours()+':'+dateNow.getMinutes())
+                    document.getElementById('today').value = dateNow.toISOString().substring(0,10);
+                    document.getElementById('now').value = dateNow.toLocaleString().substring(11,16);
+
+                }
+
+
+                function setSize(){
+                document.getElementById('myCanvas').width = 1536;
+                document.getElementById('myCanvas').height = 676;
+                }
+                setSize();
+
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/loadPlan',
+                    data: {
+                        date:dateNow.toJSON();
+                    },
+                    success: function (data) {
+                        console.log(data.result)
+                    }
+                });
+            }
+
+            var canvas = document.getElementById("myCanvas");
+            var salles = JSON.parse([]);
+            var selected = 0;
+            var hovering = false;
+            var clicking = false;
+            
+            
+
+            setDateTime();
+
+            var ctx = canvas.getContext("2d");
+
+
+            //Fonction pour dessiner tous les polygons de la liste
+            function drawAllPolygons(){
+                //ctx.clearRect(0 - canvas.offsetLeft, 0  - canvas.offsetTop, canvas.width - canvas.offsetLeft, canvas.height  - canvas.offsetTop);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                ctx.lineWidth = 5; // augmente l'épaisseur des lignes
+                for (let i = 0; i < salles.length; i++) {
+                    ctx.fillStyle = "#bfe3b4";
+                        //ctx.fillStyle = "#e35c38";
+                    ctx.font = "20px Arial";
+                    ctx.beginPath();
+                    ctx.moveTo(salles[i].tab[0][0], salles[i].tab[0][1]);
+                    for (var j = 1; j < salles[i].tab.length; j++) {
+                        ctx.lineTo(salles[i].tab[j][0], salles[i].tab[j][1]);
+                    }
+                    ctx.closePath();
+                    ctx.stroke();
+                    ctx.fill();
+                        ctx.restore();
+
+                    //Ajoute le text
+                    var nom = salles[i].nom;
+                    ctx.fillStyle = "#000000";
+                    var bounds = getBounds(salles[i].tab);
+                    var xText = bounds.left + (bounds.right - bounds.left) / 2;
+                    var yText = bounds.top + (bounds.bottom - bounds.top) / 2;
+                    //ctx.fillText(nom, xText, yText);
+                    ctx.fillText(nom, salles[i].tab[0][0] + 15 , salles[i].tab[0][1] + 30);
+                        ctx.restore();
+
+                    if(salles[i].proj) ctx.fillText('📽️', salles[i].tab[0][0] + 15 , salles[i].tab[0][1] + 50);
+                    
+
+
+                    // Dessiner les sommets du polygone
+                    for (let j = 0; j < salles[i].tab.length; j++) {
+                        ctx.fillStyle = "#000";
+                        ctx.beginPath();
+                        ctx.arc(salles[i].tab[j][0], salles[i].tab[j][1], 5, 0, 2 * Math.PI);
+                        ctx.fill();
+                        ctx.restore();
+                    }
+                }
+                ctx.restore();
+            }
+
+
+            drawAllPolygons();
+
+
+
+            // Gestion de l'événement pour sélectionner un sommet ou une arête
+            canvas.addEventListener('mousedown', function(event) {
+                /*var x = event.clientX - canvas.offsetLeft;
+                var y = event.clientY - canvas.offsetTop;*/
+                let rect = canvas.getBoundingClientRect();
+                let x = event.clientX - rect.left;
+                let y = event.clientY - rect.top;
+                console.log(x, y)
+                clicking = false;
+                selected = 0;
+                for (let i = 0; i < salles.length; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(salles[i].tab[0][0], salles[i].tab[0][1]);
+
+                    for (var j = 0; j < salles[i].tab.length; j++) {
+                    ctx.lineTo(salles[i].tab[j][0], salles[i].tab[j][1]);
+                    }
+                    ctx.closePath();
+                    // Vérifie si les coordonnées de la souris sont contenues dans le polygone
+                    if (ctx.isPointInPath(x, y)) {
+                        selected = i;
+                        clicking = true;
+                    }
+                                        
+                }
+                if(clicking){
+                    displaySalle(selected);
+                }
+                else{
+                    hideSalle();
+                }
+            });
+
+            // Gestion de l'événement pour déplacer le polygone ou redimensionner les sommets ou les arêtes
+            canvas.addEventListener('mousemove', function(event) {
+                let rect = canvas.getBoundingClientRect();
+                let x = event.clientX - rect.left;
+                let y = event.clientY - rect.top;
+                hovering = false;
+                selected = 0;
+                for (let i = 0; i < salles.length; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(salles[i].tab[0][0], salles[i].tab[0][1]);
+
+                    for (var j = 0; j < salles[i].tab.length; j++) {
+                    ctx.lineTo(salles[i].tab[j][0], salles[i].tab[j][1]);
+                    }
+                    ctx.closePath();
+                    // Vérifie si les coordonnées de la souris sont contenues dans le polygone
+                    if (ctx.isPointInPath(x, y)) {
+                        selected = i;
+                        hovering = true;
+                    }
+                                        
+                }
+                if(hovering){
+                    displaySalle(selected);
+                }
+                else{
+                    hideSalle();
+                }
+            });
+
+            function displaySalle(i){
+                salle = salles[i];
+                document.getElementById('bulleInfo').style.visibility = "visible";
+                document.getElementById('name').innerText = salle.nom;
+                let textProj = 'Non';
+                if(salle.proj) textProj = 'Oui'
+                document.getElementById('proj').innerText = textProj;
+
+                document.getElementById('day').innerText = dateNow.toLocaleString()
+            }
+
+            function hideSalle(){
+                document.getElementById('bulleInfo').style.visibility = "hidden";
+            }
+
+
+            
+            function getBounds(polygon) {
+                var left = polygon[0][0];
+                var right = polygon[0][0];
+                var top = polygon[0][1];
+                var bottom = polygon[0][1];
+                for (var i = 1; i < polygon.length; i++) {
+                    if (polygon[i][0] < left) {
+                        left = polygon[i][0];
+                    }
+                    if (polygon[i][0] > right) {
+                        right = polygon[i][0];
+                    }
+                    if (polygon[i][1] < top) {
+                        top = polygon[i][1];
+                    }
+                    if (polygon[i][1] > bottom) {
+                        bottom = polygon[i][1];
+                    }
+                }
+                return {left: left, right: right, top: top, bottom: bottom};
+            }
+        </script>
+    </body>
+
+</html>
