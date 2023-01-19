@@ -33,30 +33,33 @@
                         <td id="day"></td>
                     </thead>
                     <tbody style="display: flex; flex-direction: column;">
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
-                        <tr class="eachHour"></tr>
+                        <tr data-time="7:00" class="eachHour"></tr>
+                        <tr data-time="7:30" class="eachHour"></tr>
+                        <tr data-time="8:00" class="eachHour"></tr>
+                        <tr data-time="8:30" class="eachHour"></tr>
+                        <tr data-time="9:00" class="eachHour"></tr>
+                        <tr data-time="9:30" class="eachHour"></tr>
+                        <tr data-time="10:00" class="eachHour"></tr>
+                        <tr data-time="10:30" class="eachHour"></tr>
+                        <tr data-time="11:00" class="eachHour"></tr>
+                        <tr data-time="11:30" class="eachHour"></tr>
+                        <tr data-time="12:00" class="eachHour"></tr>
+                        <tr data-time="12:30" class="eachHour"></tr>
+                        <tr data-time="13:00" class="eachHour"></tr>
+                        <tr data-time="13:30" class="eachHour"></tr>
+                        <tr data-time="14:00" class="eachHour"></tr>
+                        <tr data-time="14:30" class="eachHour"></tr>
+                        <tr data-time="15:00" class="eachHour"></tr>
+                        <tr data-time="15:30" class="eachHour"></tr>
+                        <tr data-time="16:00" class="eachHour"></tr>
+                        <tr data-time="16:30" class="eachHour"></tr>
+                        <tr data-time="17:00" class="eachHour"></tr>
+                        <tr data-time="17:30" class="eachHour"></tr>
+                        <tr data-time="18:00" class="eachHour"></tr>
+                        <tr data-time="18:30" class="eachHour"></tr>
+                        <tr data-time="19:00" class="eachHour"></tr>
+                        <tr data-time="19:30" class="eachHour"></tr>
+                        <tr data-time="20:00" class="eachHour"></tr>
                     </tbody>
                 </table>
             </div>
@@ -369,6 +372,18 @@
                     success: function (data) {
                         console.log(data)
                         console.log(JSON.parse(data.result))
+                        let books = JSON.parse(data.result);
+                        let listCases = document.getElementsByClassName('eachHour');
+                        listCases.forEach(element => {
+                            const found = books.find(element2 => element2.start <= Date(document.getElementById('date').value + ' ' + element.dataset.time) &&element2.end >= Date(document.getElementById('date').value + ' ' + element.dataset.time));
+                            if(found){
+                                element.style.backgroundColor = 'red';
+                            }
+                            else {
+                                element.style.backgroundColor = 'green';
+                            }
+                        });
+
                     }
                 });
             }
