@@ -272,14 +272,16 @@ app.post('/loadPlans', (req, res) => {
 
 app.post('/loadPlan', (req, res) => {
     console.log(req.body);
-    /*const url = data.url;
+    const idStage = req.body.stage;
+
+    const url = data.url;
     const dbName = data.name;
     const client = new MongoClient(url);
     client.connect(function (err) {
         //console.log("Connected successfully to server");
         const db = client.db(dbName);
         const collection = db.collection(data.database_stages);
-        collection.find({}).toArray(function (err, result) {
+        collection.find({ idStage: idStage }).toArray(function (err, result) {
             console.log(result);
             console.log(JSON.stringify(result));
             client.close();
@@ -290,7 +292,7 @@ app.post('/loadPlan', (req, res) => {
                 res.status(401).json({ result: JSON.stringify(result) });
             }
         });
-    });*/
+    });
 });
 
 

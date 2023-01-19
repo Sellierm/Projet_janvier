@@ -114,12 +114,13 @@
                     },
                     success: function (data) {
                         console.log(data.result)
+                        console.log(JSON.parse(data.result))
                     }
                 });
             }
 
             var canvas = document.getElementById("myCanvas");
-            var salles = JSON.parse([]);
+            var salles = JSON.parse();
             var selected = 0;
             var hovering = false;
             var clicking = false;
