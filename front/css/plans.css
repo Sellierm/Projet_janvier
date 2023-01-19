@@ -185,6 +185,7 @@ button {
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: middle;
+  margin-bottom: 5px;
 }
 
 button:hover,
@@ -199,8 +200,7 @@ button:active {
 }
 
 .inp-group{
+
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
