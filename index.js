@@ -340,8 +340,8 @@ app.post('/loadSchedule', (req, res) => {
 
             if (result && result.length > 0) {
                 
-                console.log(result);
-                console.log(JSON.stringify(result));
+                /*console.log(result);
+                console.log(JSON.stringify(result));*/
                 client.close();
 
                 res.status(200).json({ result: JSON.stringify(result)});
