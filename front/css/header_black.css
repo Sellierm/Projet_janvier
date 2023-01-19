@@ -1,0 +1,116 @@
+body{
+    overflow-x: hidden;
+}
+.m-right{
+    float: right;
+}
+
+.m-link{
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+    position: relative;
+}
+
+.m-link{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+}
+
+.m-link .i{
+    margin-right: 5px;
+}
+
+.m-link:after{
+    content:'';
+    height: 3px;
+    width: 0;
+    background: #009688;
+    position: absolute;
+    left:0;
+    bottom: -5px;
+    transition: 0.5s;
+}
+
+
+.m-link:hover:after{
+    width:100%;
+}
+
+.m-nav-toggle{
+    width:40px;
+    height:66px;
+    display:none;
+    align-items: center;
+    float: right;
+    cursor: pointer;
+}
+
+span.m-toggle-icon, span.m-toggle-icon:before, span.m-toggle-icon:after{
+    content: "";
+    display:block;
+    width: 100%;
+    height: 2px;
+    background: black;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+span.m-toggle-icon:before{top: 12px;}
+span.m-toggle-icon:after{top: -14px;}
+
+.m-right.is-open{
+    transform: translateX(0);
+    transition: all 0.3s ease-in-out;
+}
+
+.m-nav-toggle.is-open span.m-toggle-icon{
+    background: transparent;
+}
+
+.m-nav-toggle.is-open span.m-toggle-icon:before,
+.m-nav-toggle.is-open span.m-toggle-icon:after{
+    transform-origin: center;
+    transform: rotate(40deg);
+    top: 0;
+}
+
+.m-nav-toggle.is-open span.m-toggle-icon:before{
+    transform:rotate(-40deg);
+}
+
+@media only screen and (max-width: 1100px){
+    .m-right{
+        position: absolute;
+        top: 120px; 
+        left: 0;
+        width: 200px;
+        height: 600px;
+        transform: translateX(-100%);
+        z-index:101
+    }
+    .m-link{
+        display:block;
+        text-align: center;
+        padding:0;
+        margin: 0 20px;
+        height: 40px;
+    }
+    .m-link:after{
+        content:'';
+        height: 3px;
+        width: 0;
+        background: #009688;
+        position: absolute;
+        left:0;
+        bottom: 10px;
+        transition: 0.5s;
+    }
+    .m-nav-toggle{
+        display: flex;
+        z-index: 100;
+    }
+}
