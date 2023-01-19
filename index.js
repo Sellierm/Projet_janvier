@@ -45,7 +45,7 @@ const authMiddleware = (req, res, next) => {
         res.redirect('/');
     }
 }
-
+//login page
 app.get('/', function (req, res) {
     req.session.regenerate(function (err) {
         // req.session is now a new session and no longer the original session
@@ -53,9 +53,11 @@ app.get('/', function (req, res) {
     });
     res.sendFile(path.join(__dirname + '/front/html/login.html'));
 });
+//register page
 app.get('/reg', function (req, res) {
     res.sendFile(path.join(__dirname + '/front/html/register.html'));
 });
+//home page
 app.get('/home', authMiddleware, function (req, res) {
     if (req.session.isAdmin) {
         res.sendFile(path.join(__dirname + '/front/html/index.html'));
@@ -64,6 +66,7 @@ app.get('/home', authMiddleware, function (req, res) {
         res.sendFile(path.join(__dirname + '/front/html/indexClient.html'));
     }
 });
+//edit
 app.get('/edit', authMiddleware, function (req, res) {
     if (req.session.isAdmin) {
         res.sendFile(path.join(__dirname + '/front/html/edit.html'));
@@ -72,6 +75,7 @@ app.get('/edit', authMiddleware, function (req, res) {
         res.sendFile(path.join(__dirname + '/front/html/indexClient.html'));
     }
 });
+//plans
 app.get('/plans', authMiddleware, function (req, res) {
     if (req.session.isAdmin) {
         res.sendFile(path.join(__dirname + '/front/html/plans.html'));
@@ -80,7 +84,7 @@ app.get('/plans', authMiddleware, function (req, res) {
         res.sendFile(path.join(__dirname + '/front/html/plansClient.html'));
     }
 });
-
+//planning 
 app.get('/planning', authMiddleware, function (req, res) {
     if (req.session.isAdmin) {
         res.sendFile(path.join(__dirname + '/front/html/planning.html'));
@@ -91,7 +95,7 @@ app.get('/planning', authMiddleware, function (req, res) {
 });
 
 
-
+//session destroy for decconection
 app.get('/deco', function (req, res) {
     req.session.destroy(function (err) {
         // req.session is now a new session and no longer the original session
@@ -99,7 +103,7 @@ app.get('/deco', function (req, res) {
         else res.redirect('/');
     });
 })
-//login
+//login ajax request
 app.post('/auth', function (req, res) {
     // Capture the input fields
     let mail = req.body.mail;
@@ -140,7 +144,7 @@ app.post('/auth', function (req, res) {
         res.status(401).json({ success: false });
     }
 });
-//register
+//register ajax request
 app.post('/reg', (req, res) => {
     // Si l'utilisateur n'est pas connecté
     let email = req.body.mail;
@@ -181,6 +185,7 @@ app.post('/reg', (req, res) => {
         else res.status(401).json({ success: false });
     });
 });
+//save plans
 app.post('/save', (req, res) => {
     const name = req.body.name;
     let salles = JSON.parse(req.body.salles);
@@ -246,7 +251,7 @@ app.post('/save', (req, res) => {
     client.close();
 });
 
-
+//load plans
 app.post('/loadPlans', (req, res) => {
     const url = data.url;
     const dbName = data.name;
