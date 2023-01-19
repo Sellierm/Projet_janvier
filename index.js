@@ -263,25 +263,26 @@ app.post('/save', (req, res) => {
 //load plans
 app.post('/loadPlans', (req, res) => {
     if(req.body.isAuthenticated){
-    const url = data.url;
-    const dbName = data.name;
-    const client = new MongoClient(url);
-    client.connect(function (err) {
-        //console.log("Connected successfully to server");
-        const db = client.db(dbName);
-        const collection = db.collection(data.database_stages);
-        collection.find({}).toArray(function (err, result) {
-            console.log(result);
-            console.log(JSON.stringify(result));
-            client.close();
-            if (result && result.length > 0) {
-                res.status(200).json({ result: JSON.stringify(result) });
-            }
-            else {
-                res.status(401).json({ result: JSON.stringify(result) });
-            }
+        const url = data.url;
+        const dbName = data.name;
+        const client = new MongoClient(url);
+        client.connect(function (err) {
+            //console.log("Connected successfully to server");
+            const db = client.db(dbName);
+            const collection = db.collection(data.database_stages);
+            collection.find({}).toArray(function (err, result) {
+                console.log(result);
+                console.log(JSON.stringify(result));
+                client.close();
+                if (result && result.length > 0) {
+                    res.status(200).json({ result: JSON.stringify(result) });
+                }
+                else {
+                    res.status(401).json({ result: JSON.stringify(result) });
+                }
+            });
         });
-    });}
+    }
     else{res.sendFile(path.join(__dirname + '/front/html/login.html'));}
 });
 
