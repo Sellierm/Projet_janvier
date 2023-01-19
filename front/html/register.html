@@ -13,28 +13,33 @@
 </head>
 
 <body>
-    <div class="register">
-        <h1>Register</h1>
-        <form>
-            <label for="email">
-                <!-- font awesome icon -->
-                <i class="fas fa-envelope"></i>
-            </label>
-            <input type="text" name="email" placeholder="Email" id="email" required>
-            <label for="password">
-                <i class="fas fa-lock"></i>
-            </label>
-            <input type="password" name="password" placeholder="Password" id="password" required>
+    <div class="hero">
+        <video autoplay loop muted plays-inline class="back-video">
+            <source src="../assets/video_login.mp4" type="video/mp4">
+        </video>
+        <div class="register">
+            <h1>Register</h1>
+            <form>
+                <label for="email">
+                    <!-- font awesome icon -->
+                    <i class="fas fa-envelope"></i>
+                </label>
+                <input type="text" name="email" placeholder="Email" id="email" required>
+                <label for="password">
+                    <i class="fas fa-lock"></i>
+                </label>
+                <input type="password" name="password" placeholder="Password" id="password" required>
 
 
-            <label for="rptpassword">
-                <i class="fas fa-lock"></i>
-            </label>
-            <input type="password" name="rptpassword" placeholder="Repeat Password" id="rptpassword" required>
-            <p id="error"></p>
-            <h3>Already have an account ? <a id="log" href="#">Log in</a></h3>
-            <input type="submit" value="Register">
-        </form>
+                <label for="rptpassword">
+                    <i class="fas fa-lock"></i>
+                </label>
+                <input type="password" name="rptpassword" placeholder="Repeat Password" id="rptpassword" required>
+                <p id="error"></p>
+                <h3>Already have an account ? <a id="log" href="#">Log in</a></h3>
+                <input type="submit" value="Register">
+            </form>
+        </div>
     </div>
     <script>
         $(document).ready(function () {
