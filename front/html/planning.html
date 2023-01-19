@@ -129,7 +129,7 @@
                         salles = JSON.parse(data.result2);
                         let books = JSON.parse(data.result3);
                         salles.forEach(element => {
-                            const found = array1.find(element2 => element2.idSalle == element._id);
+                            const found = books.find(element2 => element2.idSalle == element._id);
                             if(found){
                                 element.free = false;
                             }
