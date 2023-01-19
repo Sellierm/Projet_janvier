@@ -152,7 +152,7 @@
 
 
             function reloadPlan(){
-                let newDate = new Date.parse(document.getElementById('date').value + " " + document.getElementById('time').value);
+                let newDate = new Date(document.getElementById('date').value + " " + document.getElementById('time').value);
                 $.ajax({
                     type: 'POST',
                     url: '/loadPlan',
