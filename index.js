@@ -160,6 +160,7 @@ app.post('/reg', (req, res) => {
                             //console.log("Inserted new user into the collection");
                             // Redirect the user to the homepage or a signup success page
                             res.status(200).json({ success: true });
+                            client.close();
                         }
                     });
                 }
@@ -170,7 +171,6 @@ app.post('/reg', (req, res) => {
         }
         else res.status(401).json({ success: false });
     });
-    client.close();
 });
 app.post('/save', (req, res) => {
     const name = req.body.name;
@@ -250,11 +250,11 @@ app.post('/loadPlans', (req, res) => {
             console.log(result);
             console.log(JSON.stringify(result));
             client.close();
-            if (result && result.length > 0) {                
+            if (result && result.length > 0) {
                 res.status(200).json({ result: JSON.stringify(result) });
             }
             else {
-                res.status(401).json({ result:JSON.stringify(result) });
+                res.status(401).json({ result: JSON.stringify(result) });
             }
         });
     });
