@@ -339,6 +339,7 @@ app.post('/book', (req, res) => {
         
         collection.insertOne({
             idSalle: idSalle,
+            idStage: idStage,
             start: start,
             end: end,
             user: user
