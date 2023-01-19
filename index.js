@@ -81,6 +81,15 @@ app.get('/plans', authMiddleware, function (req, res) {
     }
 });
 
+app.get('/planning', authMiddleware, function (req, res) {
+    if (req.session.isAdmin) {
+        res.sendFile(path.join(__dirname + '/front/html/planning.html'));
+    }
+    else {
+        res.sendFile(path.join(__dirname + '/front/html/planning.html'));
+    }
+});
+
 
 
 app.get('/deco', function (req, res) {
@@ -258,6 +267,30 @@ app.post('/loadPlans', (req, res) => {
             }
         });
     });
+});
+
+
+app.post('/loadPlan', (req, res) => {
+    console.log(req.body);
+    /*const url = data.url;
+    const dbName = data.name;
+    const client = new MongoClient(url);
+    client.connect(function (err) {
+        //console.log("Connected successfully to server");
+        const db = client.db(dbName);
+        const collection = db.collection(data.database_stages);
+        collection.find({}).toArray(function (err, result) {
+            console.log(result);
+            console.log(JSON.stringify(result));
+            client.close();
+            if (result && result.length > 0) {
+                res.status(200).json({ result: JSON.stringify(result) });
+            }
+            else {
+                res.status(401).json({ result: JSON.stringify(result) });
+            }
+        });
+    });*/
 });
 
 

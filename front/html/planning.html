@@ -98,12 +98,19 @@
                 }
                 setSize();
 
+                let params = new URLSearchParams(document.location.search);
+                let stage = '';
+                if(params.has("stage")){
+                    stage = params.get("stage");
+                }
+
                 
                 $.ajax({
                     type: 'POST',
                     url: '/loadPlan',
                     data: {
                         date:dateNow.toJSON();
+                        stage:stage
                     },
                     success: function (data) {
                         console.log(data.result)
