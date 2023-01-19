@@ -279,10 +279,10 @@ app.post('/loadPlans', (req, res) => {
 app.post('/loadPlan', (req, res) => {
     console.log(req.body);
     const idStage = req.body.stage;
-    const dateNow = req.body.date;
-    console.log(Date.parse(dateNow));
+    const dateNow = Date.parse(req.body.date);
+    
 
-    /*const url = data.url;
+    const url = data.url;
     const dbName = data.name;
     const client = new MongoClient(url);
     client.connect(function (err) {
@@ -300,7 +300,7 @@ app.post('/loadPlan', (req, res) => {
                     console.log(JSON.stringify(result2));
                     
                     collection = db.collection(data.database_bookings);
-                    collection.find({ stage: idStage }).toArray(function (err, result3) {
+                    collection.find({ idStage: idStage, start:{$lt:dateNow}, end:{$gt:dateNow}}).toArray(function (err, result3) {
                         console.log(result3);
                         console.log(JSON.stringify(result3));
                         client.close();
@@ -314,7 +314,7 @@ app.post('/loadPlan', (req, res) => {
                 res.status(401).json({ result: JSON.stringify(result1) });
             }
         });
-    });*/
+    });
 });
 
 
@@ -322,7 +322,8 @@ app.post('/loadPlan', (req, res) => {
 
 //save plans
 app.post('/book', (req, res) => {
-    const idSalle = req.body.id;
+    const idSalle = req.body.idSalle;
+    const idStage = req.body.idStage;
     const start = Date.parse(req.body.start);
     const end = Date.parse(req.body.end);
     const user = req.session.mail;
