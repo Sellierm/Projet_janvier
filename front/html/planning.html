@@ -266,6 +266,7 @@
             document.getElementById('book').addEventListener('book', book);
 
             function book(){
+                console.log(currentSalle)
                 if(currentSalle >= 0){
                     let start = new Date(document.getElementById('date').value + " " + document.getElementById('start').value);
                     let end = new Date(document.getElementById('date').value + " " + document.getElementById('end').value);
