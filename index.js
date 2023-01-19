@@ -94,6 +94,11 @@ app.get('/planning', authMiddleware, function (req, res) {
     }
 });
 
+//reserve
+app.get('/reserver', function (req, res) {
+    res.sendFile(path.join(__dirname + '/front/html/reservation.html'));
+});
+
 
 //session destroy for decconection
 app.get('/deco', function (req, res) {

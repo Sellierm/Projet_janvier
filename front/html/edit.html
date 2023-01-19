@@ -17,7 +17,7 @@
               <div class="from">
                 <div class="from-contents">
                   <div class="avatar me"></div>
-                  <div class="name">Ajouter une salle</div>
+                  <div class="name"><span></span>Ajouter une salle</div>
                 </div>
               </div>
               <div class="to">
@@ -57,7 +57,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="link"><button id="newPolygon">Nouvelle salle</button>
+                        <div class="link"><button id="newPolygon"><span></span><div class="text" style="position: relative; z-index: 100;">Nouvelle salle</div></button>
                             <div id="container"></div>
                         </div>
                       </div>
@@ -67,12 +67,43 @@
             </div>
           </div>
     </div>
+    <div class="container2">
+        <div class="email2" onclick="this.classList.add('expand2')">
+          <div class="from">
+            <div class="from-contents">
+              <div class="avatar me"></div>
+              <div class="name2">Enregistrer ce Plan !</div>
+            </div>
+          </div>
+          <div class="to">
+            <div class="to-contents">
+              <div class="top2">
+                <div class="avatar-large me"></div>
+                <div class="name-large">Enregistrer ce Plan !</div>
+                <div class="x-touch" onclick="document.querySelector('.email2').classList.remove('expand2');event.stopPropagation();">
+                  <div class="x">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="bottom">
+                <div class="row">
+                  <div class="link"><label for="name">Nom du plan :</label>
+                    <input id="name" type="text" value="Plan KÜ">
+                  </div>
+                </div>
+                  <div class="row">
+                    <div class="link"><button id="newPolygon"><span></span><div class="text" style="position: relative; z-index: 100;">Enregistrer ce Plan !</button>
+                        <div id="container2"></div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <div>
-        <label for="name">Nom du plan</label>
-        <input id="name_stage" type="text" placeholder="Etage X">
-        <button id="send">Enregistrer</button>
-        <div id="container"></div>
-    </div>
     <script>
         function setSize() {
             document.getElementById('myCanvas').width = window.innerWidth;
