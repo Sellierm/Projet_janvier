@@ -16,8 +16,6 @@ const session = require('express-session')({
 
 const app = express();
 const server = http.Server(app);
-const io = require('socket.io')(server);
-const sharedsession = require("express-socket.io-session");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,10 +30,7 @@ if (app.get('env') === 'production') {
     app.set('trust proxy', 1) // trust first proxy
     session.cookie.secure = true // serve secure cookies
 }
-io.use(sharedsession(session, {
-    // Session automatiquement sauvegardée en cas de modification
-    autoSave: true
-}));
+
 
 //vérifie que l'user est bien authentifié
 const authMiddleware = (req, res, next) => {
@@ -59,6 +54,7 @@ app.get('/reg', function (req, res) {
 });
 //home page
 app.get('/home', authMiddleware, function (req, res) {
+    console.log(req.session)
     if (req.session.isAdmin) {
         res.sendFile(path.join(__dirname + '/front/html/index.html'));
     }
@@ -77,6 +73,7 @@ app.get('/edit', authMiddleware, function (req, res) {
 });
 //plans
 app.get('/plans', authMiddleware, function (req, res) {
+    console.log(req.session)
     if (req.session.isAdmin) {
         res.sendFile(path.join(__dirname + '/front/html/plans.html'));
     }
@@ -265,31 +262,31 @@ app.post('/save', (req, res) => {
 app.post('/loadPlans', (req, res) => {
     console.log('tset')
     console.log(req.body, req.body.isAuthenticated);
-    if (req.body.isAuthenticated) {
-        console.log('tset2')
-        const url = data.url;
-        const dbName = data.name;
-        const client = new MongoClient(url);
-        client.connect(function (err) {
-            //console.log("Connected successfully to server");
-            const db = client.db(dbName);
-            const collection = db.collection(data.database_stages);
-            collection.find({}).toArray(function (err, result) {
-                console.log(result);
-                console.log(JSON.stringify(result));
-                client.close();
-                if (result && result.length > 0) {
-                    console.log('tset3')
-                    res.status(200).json({ result: JSON.stringify(result) });
-                }
-                else {
-                    console.log('tset4')
-                    res.status(401).json({ result: JSON.stringify(result) });
-                }
-            });
+    //if (req.body.isAuthenticated) {
+    console.log('tset2')
+    const url = data.url;
+    const dbName = data.name;
+    const client = new MongoClient(url);
+    client.connect(function (err) {
+        //console.log("Connected successfully to server");
+        const db = client.db(dbName);
+        const collection = db.collection(data.database_stages);
+        collection.find({}).toArray(function (err, result) {
+            console.log(result);
+            console.log(JSON.stringify(result));
+            client.close();
+            if (result && result.length > 0) {
+                console.log('tset3')
+                res.status(200).json({ result: JSON.stringify(result) });
+            }
+            else {
+                console.log('tset4')
+                res.status(401).json({ result: JSON.stringify(result) });
+            }
         });
-    }
-    else { res.sendFile(path.join(__dirname + '/front/html/login.html')) };
+    });
+    //}
+    //else { res.sendFile(path.join(__dirname + '/front/html/login.html')) };
 });
 
 
