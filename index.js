@@ -265,6 +265,7 @@ app.post('/save', (req, res) => {
 app.post('/loadPlans', (req, res) => {
     console.log('tset')
     if (req.body.isAuthenticated) {
+        console.log('tset2')
         const url = data.url;
         const dbName = data.name;
         const client = new MongoClient(url);
@@ -277,9 +278,11 @@ app.post('/loadPlans', (req, res) => {
                 console.log(JSON.stringify(result));
                 client.close();
                 if (result && result.length > 0) {
+                    console.log('tset3')
                     res.status(200).json({ result: JSON.stringify(result) });
                 }
                 else {
+                    console.log('tset4')
                     res.status(401).json({ result: JSON.stringify(result) });
                 }
             });
