@@ -142,12 +142,12 @@
                         i = 0;
                         h += 1;
                         if (h === 22) {
-                            labelTable.push(h.toString() + 'h' + '00')
+                            labelTable.push(h.toString() + ':' + '00')
                             break;
                         }
                     }
-                    if (i === 0) labelTable.push(h.toString() + 'h' + '00');
-                    else labelTable.push(h.toString() + 'h' + i.toString());
+                    if (i === 0) labelTable.push(h.toString() + ':' + '00');
+                    else labelTable.push(h.toString() + ':' + i.toString());
                     i += 30;
                 }
 
