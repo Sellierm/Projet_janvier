@@ -75,7 +75,7 @@
             
 
             window.onload = function(){	
-                if(dateNow.getMinutes < 30){
+                if(partseInt(dateNow.getMinutes) < 30){
                     dateNow.setMinutes(0, 0, 0);
                 }
                 else{
