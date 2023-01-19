@@ -258,6 +258,7 @@
                 if(end <= start){
                     end = start
                     end.setMinutes(end.getMinutes());
+                    document.getElementById('end').value = end.toISOString().substring(0,10);
                 }
             }
 
