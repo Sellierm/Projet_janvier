@@ -285,13 +285,21 @@ app.post('/loadPlan', (req, res) => {
     client.connect(function (err) {
         //console.log("Connected successfully to server");
         const db = client.db(dbName);
-        const collection = db.collection(data.database_stages);
-        collection.find({ idStage: idStage }).toArray(function (err, result) {
+        let collection = db.collection(data.database_stages);
+        collection.find({ idStage: idStage }).toArray(function (err, result1) {
             console.log(result);
             console.log(JSON.stringify(result));
-            client.close();
-            if (result && result.length > 0) {
-                res.status(200).json({ result: JSON.stringify(result) });
+            
+            if (result1 && result1.length > 0) {
+                collection = db.collection(data.database_rooms);
+                collection.find({ stage: idStage }).toArray(function (err, result2) {
+                    console.log(result);
+                    console.log(JSON.stringify(result));
+                    client.close();
+
+                    res.status(200).json({ result1: JSON.stringify(result1), result2: JSON.stringify(result2) });
+                });
+                
             }
             else {
                 res.status(401).json({ result: JSON.stringify(result) });
