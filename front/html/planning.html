@@ -63,8 +63,8 @@
         </div>
         <div style="position: fixed; bottom: 10px; right: 10px; width: 15%; height: fit-content; background-color: antiquewhite; display: flex; flex-direction: column; align-items: center;">
             <div>
-                <input type="date" id="date" oninput="test();">
-                <input type="time" min="8:00" max="20:00" id="time" oninput="test();" >
+                <input type="date" id="date">
+                <input type="time" min="8:00" max="20:00" id="time" >
             </div>
         </div>
         <script>
@@ -147,8 +147,8 @@
 
             /* Changement du temps */
 
-            document.getElementById('day').addEventListener('input', reloadPlan);
-            document.getElementById('time').addEventListener('input', reloadPlan);
+            document.getElementById('day').addEventListener('change', reloadPlan);
+            document.getElementById('time').addEventListener('change', reloadPlan);
 
 
             function reloadPlan(){
