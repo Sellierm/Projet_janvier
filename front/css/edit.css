@@ -167,7 +167,7 @@ body {
   .email.expand {
     border-radius: 6px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.10), 0 6px 6px rgba(0,0,0,0.16);
-    height: 200px;
+    height: 330px;
     width: 300px;
   }
   .expand .from {
