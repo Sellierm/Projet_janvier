@@ -188,6 +188,8 @@ app.post('/reg', (req, res) => {
 });
 //save plans
 app.post('/save', (req, res) => {
+    if(req.body.isAuthenticated){
+
     const name = req.body.name;
     let salles = JSON.parse(req.body.salles);
     const width = req.body.width
@@ -249,11 +251,13 @@ app.post('/save', (req, res) => {
                 res.status(401).json({ success: false });
             }
         });
-    });
+    });}
+    else{res.sendFile(path.join(__dirname + '/front/html/login.html'));}
 });
 
 //load plans
 app.post('/loadPlans', (req, res) => {
+    if(req.body.isAuthenticated){
     const url = data.url;
     const dbName = data.name;
     const client = new MongoClient(url);
@@ -272,11 +276,13 @@ app.post('/loadPlans', (req, res) => {
                 res.status(401).json({ result: JSON.stringify(result) });
             }
         });
-    });
+    });}
+    else{res.sendFile(path.join(__dirname + '/front/html/login.html'));}
 });
 
 
 app.post('/loadPlan', (req, res) => {
+    if(req.body.isAuthenticated){
     console.log(req.body);
     const idStage = req.body.stage;
     const dateNow = Date.parse(req.body.date);
@@ -314,11 +320,13 @@ app.post('/loadPlan', (req, res) => {
                 res.status(401).json({ result: JSON.stringify(result1) });
             }
         });
-    });
+    });}
+    else{res.sendFile(path.join(__dirname + '/front/html/login.html'));}
 });
 
 
 app.post('/loadSchedule', (req, res) => {
+    if(req.body.isAuthenticated){
     console.log(req.body);
     const idSalle = req.body.salle;
     const dateNow = new Date(req.body.date);
@@ -342,7 +350,8 @@ app.post('/loadSchedule', (req, res) => {
 
             res.status(200).json({ result: JSON.stringify(result)});
         });
-    });
+    });}
+    else{res.sendFile(path.join(__dirname + '/front/html/login.html'));}
 });
 
 
@@ -350,6 +359,7 @@ app.post('/loadSchedule', (req, res) => {
 
 //save plans
 app.post('/book', (req, res) => {
+    if(req.body.isAuthenticated){
     const idSalle = req.body.idSalle;
     const idStage = req.body.idStage;
     const start = Date.parse(req.body.start);
@@ -380,7 +390,8 @@ app.post('/book', (req, res) => {
             }
 
         });
-    });
+    });}
+    else{res.sendFile(path.join(__dirname + '/front/html/login.html'));}
 });
 
 
