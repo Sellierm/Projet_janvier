@@ -279,8 +279,10 @@ app.post('/loadPlans', (req, res) => {
 app.post('/loadPlan', (req, res) => {
     console.log(req.body);
     const idStage = req.body.stage;
+    const dateNow = req.body.date;
+    console.log(dateNow, JSON.parse(dateNow));
 
-    const url = data.url;
+    /*const url = data.url;
     const dbName = data.name;
     const client = new MongoClient(url);
     client.connect(function (err) {
@@ -296,9 +298,15 @@ app.post('/loadPlan', (req, res) => {
                 collection.find({ stage: idStage }).toArray(function (err, result2) {
                     console.log(result2);
                     console.log(JSON.stringify(result2));
-                    client.close();
+                    
+                    collection = db.collection(data.database_bookings);
+                    collection.find({ stage: idStage }).toArray(function (err, result3) {
+                        console.log(result3);
+                        console.log(JSON.stringify(result3));
+                        client.close();
 
-                    res.status(200).json({ result1: JSON.stringify(result1), result2: JSON.stringify(result2) });
+                        res.status(200).json({ result1: JSON.stringify(result1), result2: JSON.stringify(result2), result3: JSON.stringify(result3) });
+                    });
                 });
 
             }
@@ -306,7 +314,7 @@ app.post('/loadPlan', (req, res) => {
                 res.status(401).json({ result: JSON.stringify(result1) });
             }
         });
-    });
+    });*/
 });
 
 
