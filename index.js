@@ -96,7 +96,7 @@ app.get('/planning', authMiddleware, function (req, res) {
 
 //reserve
 app.get('/reserver', authMiddleware, function (req, res) {
-    res.sendFile(path.join(__dirname + '/front/html/reservation.html'));
+    res.sendFile(path.join(__dirname + '/front/html/plansClient.html'));
 });
 
 
