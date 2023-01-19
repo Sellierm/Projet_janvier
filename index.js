@@ -324,6 +324,7 @@ app.post('/loadSchedule', (req, res) => {
     const dateNow = new Date(req.body.date);
     const startDay = dateNow.setHours(6, 0, 0, 0);
     const endDay = dateNow.setHours(22, 0, 0 ,0);
+    console.log(dateNow.getDate());
     
 
     const url = data.url;

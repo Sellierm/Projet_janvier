@@ -147,12 +147,16 @@
 
             /* Changement du temps */
 
-            document.getElementById('date').addEventListener('change', reloadPlan);
-            document.getElementById('time').addEventListener('change', reloadPlan);
+            document.getElementById('date').addEventListener('change', updateDateNow);
+            document.getElementById('time').addEventListener('change', updateDateNow);
+
+            function updateDateNow(){
+                dateNow = new Date(document.getElementById('date').value + " " + document.getElementById('time').value);
+                reloadPlan();
+            }
 
 
             function reloadPlan(){
-                dateNow = new Date(document.getElementById('date').value + " " + document.getElementById('time').value);
                 $.ajax({
                     type: 'POST',
                     url: '/loadPlan',
