@@ -287,14 +287,14 @@ app.post('/loadPlan', (req, res) => {
         const db = client.db(dbName);
         let collection = db.collection(data.database_stages);
         collection.find({ idStage: idStage }).toArray(function (err, result1) {
-            console.log(result);
-            console.log(JSON.stringify(result));
+            console.log(result1);
+            console.log(JSON.stringify(result1));
             
             if (result1 && result1.length > 0) {
                 collection = db.collection(data.database_rooms);
                 collection.find({ stage: idStage }).toArray(function (err, result2) {
-                    console.log(result);
-                    console.log(JSON.stringify(result));
+                    console.log(result2);
+                    console.log(JSON.stringify(result2));
                     client.close();
 
                     res.status(200).json({ result1: JSON.stringify(result1), result2: JSON.stringify(result2) });

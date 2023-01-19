@@ -113,6 +113,7 @@
                         stage:stage
                     },
                     success: function (data) {
+                        console.log('test');
                         console.log(data)
                         console.log(JSON.parse(data.result1))
                         console.log(JSON.parse(data.result2))
@@ -121,7 +122,7 @@
             }
 
             var canvas = document.getElementById("myCanvas");
-            var salles = JSON.parse();
+            var salles = [];
             var selected = 0;
             var hovering = false;
             var clicking = false;
