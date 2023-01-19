@@ -323,8 +323,8 @@ app.post('/loadPlan', (req, res) => {
 //save plans
 app.post('/book', (req, res) => {
     const idSalle = req.body.id;
-    const start = req.body.start;
-    const end = req.body.end;
+    const start = Date.parse(req.body.start);
+    const end = Date.parse(req.body.end);
     const user = req.session.mail;
     
 
