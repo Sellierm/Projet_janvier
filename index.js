@@ -263,11 +263,7 @@ app.post('/save', (req, res) => {
 
 //load plans
 app.post('/loadPlans', (req, res) => {
-<<<<<<< HEAD
     if(req.body.isAuthenticated){
-=======
-    if (req.body.isAuthenticated) {
->>>>>>> 14fe830ce9aa8eb8a9ba3a09f44cf887091b06d1
         const url = data.url;
         const dbName = data.name;
         const client = new MongoClient(url);
@@ -288,11 +284,7 @@ app.post('/loadPlans', (req, res) => {
             });
         });
     }
-<<<<<<< HEAD
-    else{res.sendFile(path.join(__dirname + '/front/html/login.html'));}
-=======
-    else { res.sendFile(path.join(__dirname + '/front/html/login.html')); }
->>>>>>> 14fe830ce9aa8eb8a9ba3a09f44cf887091b06d1
+    else{res.sendFile(path.join(__dirname + '/front/html/login.html'))};
 });
 
 
