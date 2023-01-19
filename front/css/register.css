@@ -97,7 +97,7 @@ body {
 
 
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 540px) {
     body {
         background-image: url('../assets/classroom_2.PNG');
         background-repeat: no-repeat;
@@ -112,7 +112,7 @@ body {
         border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
-        margin: 280px auto;
+        margin: 100px auto;
     }
 
     .register form input[type="password"],
@@ -174,7 +174,7 @@ body {
         border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
-        margin: 230px auto;
+        margin: 100px auto;
     }
 
     .register form input[type="password"],
@@ -241,7 +241,7 @@ body {
         border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
-        margin: 220px auto;
+        margin: 100px auto;
     }
 
     .register form input[type="password"],
@@ -309,7 +309,7 @@ body {
         border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
-        margin: 220px auto;
+        margin: 100px auto;
     }
 }
 
@@ -331,7 +331,7 @@ body {
         border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
-        margin: 330px auto;
+        margin: 100px auto;
     }
 }
 
@@ -362,7 +362,7 @@ body {
         border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
-        margin: 230px auto;
+        margin: 100px auto;
     }
 }
 
@@ -383,7 +383,7 @@ body {
         border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
-        margin: 50px auto;
+        margin: 100px auto;
     }
 }
 
@@ -403,6 +403,6 @@ body {
         border: 3px solid #000000;
         opacity: 0.85;
         border-radius: 50% 26% / 10% 40%;
-        margin: 50px auto;
+        margin: 100px auto;
     }
 }
