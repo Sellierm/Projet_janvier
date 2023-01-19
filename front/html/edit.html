@@ -10,6 +10,7 @@
 </head>
 
 <body style="margin: 0;">
+  <canvas id="backgroundCanvas" oncontextmenu="return false;" style="margin: auto;"></canvas>
   <canvas oncontextmenu="return false;" id="myCanvas" style="margin: auto;"></canvas><!--width="900" height="500"-->
   <div>
     <div class="container">
@@ -101,14 +102,14 @@
             <div class="row">
               <div class="link"><label for="name">Nom du plan :</label>
                 <form id="upload-form" enctype="multipart/form-data">
-                  <input id="name" type="text" value="Plan KÜ">
+                  <input id="name_stage" type="text" value="Plan KÜ">
                   <input type="file" id="image" name="image" accept="image/png">
                 </form>
               </div>
             </div>
             <div class="row">
               <div class="link"><button id="newPolygon"><span></span>
-                  <div class="text" style="position: relative; z-index: 100;">Enregistrer ce Plan !
+                  <div class="text" style="position: relative; z-index: 100;" id="send">Enregistrer ce Plan !
                 </button>
                 <div id="container2"></div>
               </div>
@@ -126,13 +127,21 @@
       }
       setSize();
 
-
-
+      var canvasb = document.getElementById("backgroundCanvas");
+      canvasb.style.cssText = 'image-rendering: optimizeSpeed;' + // FireFox < 6.0
+        'image-rendering: -moz-crisp-edges;' + // FireFox
+        'image-rendering: -o-crisp-edges;' +  // Opera
+        'image-rendering: -webkit-crisp-edges;' + // Chrome
+        'image-rendering: crisp-edges;' + // Chrome
+        'image-rendering: -webkit-optimize-contrast;' + // Safari
+        'image-rendering: pixelated; ' + // Future browsers
+        '-ms-interpolation-mode: nearest-neighbor;'; // IE
 
       var canvas = document.getElementById("myCanvas");
       var salles = [];
 
       window.onload = function () {
+        var ctxb = canvasb.getContext("2d");
         var ctx = canvas.getContext("2d");
         var polygons = []; // Liste pour stocker les sommets de chaque polygone
         var selected = false;
@@ -141,14 +150,24 @@
         var startX, startY, endX, endY;
         var scaleFactor = 1.1;
 
+        const imageUpload = document.getElementById("image");
+        imageUpload.addEventListener("change", function () {
+          if (imageUpload.files.length === 0) {
+            console.log("Aucun fichier sélectionné")
+          } else {
+            const img = new Image()
+            img.src = URL.createObjectURL(imageUpload.files[0])
+            img.onload = () => {
+              ctxb.imageSmoothingEnabled = false;
+              ctxb.drawImage(img, 0, 0, canvasb.width, canvasb.height);
+            }
+          }
+        })
 
         //Fonction pour dessiner tous les polygons de la liste
         function drawAllPolygons() {
           //ctx.clearRect(0 - canvas.offsetLeft, 0  - canvas.offsetTop, canvas.width - canvas.offsetLeft, canvas.height  - canvas.offsetTop);
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-
-
           ctx.lineWidth = 7; // augmente l'épaisseur des lignes
           for (let i = 0; i < salles.length; i++) {
             ctx.fillStyle = "#26c4ec";
@@ -312,7 +331,6 @@
             }
           }
         });
-
         // Gestion de l'événement pour déplacer le polygone ou redimensionner les sommets ou les arêtes
         canvas.addEventListener('mousemove', function (event) {
           if (selected !== false) {
@@ -353,8 +371,6 @@
             //}
           }
         });
-
-
         // Gestion de l'événement pour désélectionner le polygone, le sommet ou l'arête
         canvas.addEventListener('mouseup', function (event) {
           selected = false;
@@ -363,19 +379,11 @@
           document.body.style.cursor = "auto";
         });
 
-
-
-
         function bringFront(i) {
           let elem = salles.splice(i, 1);
           salles.push(elem[0]);
           return salles.length - 1;
         }
-
-
-
-
-
 
         function checkPolygonCollision(polygon1, polygon2) {
           var poly1Bounds = getBounds(polygon1);
@@ -414,13 +422,6 @@
           ctx.scale(0.9, 0.9)
           drawAllPolygons();
         });*/
-
-
-
-
-
-
-
       }
 
       function displaySalle(salle) {
@@ -437,33 +438,40 @@
         container.appendChild(containerSalle);
       }
 
-      document.getElementById('send').addEventListener('click', function () {
+      document.getElementById('send').addEventListener('click', function (e) {
+        e.preventDefault();
         if (salles.length != 0) {
+          const form = document.getElementById('upload-form');
           let nameStage = document.getElementById('name_stage').value;
           let width = canvas.width;
           let height = canvas.height;
-          if (nameStage != "") {
-            console.log("Etage : " + nameStage);
-            console.log(JSON.stringify(salles));
-            console.log(JSON.parse(JSON.stringify(salles)));
-            $.ajax({
-              type: 'POST',
-              url: '/save',
-              data: {
-                name: nameStage,
-                salles: JSON.stringify(salles),
-                width: width,
-                height: height
-              },
-              success: function () {
-                window.location = '/plans'
-              }
-            });
+
+          const formData = new FormData(form);
+          const image = formData.get('image');
+          formData.append('name', nameStage);
+          formData.append('salles', JSON.stringify(salles));
+          formData.append('width', width);
+          formData.append('height', height);
+          if (nameStage) {
+            if ($("#image").val()) {
+              console.log("Etage : " + nameStage);
+              console.log(JSON.stringify(salles));
+              console.log(JSON.parse(JSON.stringify(salles)));
+              $.ajax({
+                type: 'POST',
+                url: '/save',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function () {
+                  window.location = '/plans'
+                }
+              });
+            }
+            else { alert('veuillez insérer une image de fond') }
           } else { alert('Veuillez nommer votre plan') }
         } else { alert('Aucune salle enregistrée') }
       });
-
-
 
 
       function mod(n, m) {
