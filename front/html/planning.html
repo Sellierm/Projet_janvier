@@ -152,12 +152,12 @@
 
 
             function reloadPlan(){
-                let newDate = new Date(document.getElementById('date').value + " " + document.getElementById('time').value);
+                dateNow = new Date(document.getElementById('date').value + " " + document.getElementById('time').value);
                 $.ajax({
                     type: 'POST',
                     url: '/loadPlan',
                     data: {
-                        date:newDate,
+                        date:dateNow,
                         stage:stage
                     },
                     success: function (data) {
@@ -353,6 +353,20 @@
                 document.getElementById('proj').innerText = textProj;
 
                 document.getElementById('day').innerText = dateNow.toLocaleString()
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/loadSchedule',
+                    data: {
+                        date:dateNow,
+                        salle:salles[i]._id
+                    },
+                    success: function (data) {
+                        console.log(data)
+                        console.log(JSON.parse(data.result))
+                    }
+                });
             }
 
             function hideSalle(){

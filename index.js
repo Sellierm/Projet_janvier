@@ -318,6 +318,41 @@ app.post('/loadPlan', (req, res) => {
 });
 
 
+app.post('/loadSchedule', (req, res) => {
+    console.log(req.body);
+    const idSalle = req.body.salle;
+    const dateNow = new Date(req.body.date);
+    const startDay = dateNow.setHours(6, 0, 0, 0);
+    const endDay = dateNow.setHours(22, 0, 0 ,0);
+    
+
+    const url = data.url;
+    const dbName = data.name;
+    const client = new MongoClient(url);
+    client.connect(function (err) {
+        //console.log("Connected successfully to server");
+        const db = client.db(dbName);
+        let collection = db.collection(data.database_bookings);
+        collection.find({ idSalle: idSalle, start:{$gt:startDay}, end:{$lt:endDay} }).toArray(function (err, result) {
+            console.log(result);
+            console.log(JSON.stringify(result));
+
+            if (result && result.length > 0) {
+                
+                console.log(result);
+                console.log(JSON.stringify(result));
+                client.close();
+
+                res.status(200).json({ result: JSON.stringify(result)});
+            }
+            else {
+                res.status(401).json({ result: JSON.stringify(result) });
+            }
+        });
+    });
+});
+
+
 
 
 //save plans
