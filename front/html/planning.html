@@ -373,7 +373,9 @@
                         console.log(data)
                         console.log(JSON.parse(data.result))
                         let books = JSON.parse(data.result);
-                        let listCases = document.getElementsByClassName('eachHour');
+                        let listCases = Array.from(document.getElementsByClassName('eachHour'));
+                        console.log(listCases);
+                        
                         listCases.forEach(element => {
                             const found = books.find(element2 => element2.start <= Date(document.getElementById('date').value + ' ' + element.dataset.time) &&element2.end >= Date(document.getElementById('date').value + ' ' + element.dataset.time));
                             if(found){
