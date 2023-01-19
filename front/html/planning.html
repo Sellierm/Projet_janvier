@@ -356,8 +356,7 @@
 
 
             function displaySalle(i){
-                console.log(i)
-                if(i){
+                if(i >= 0){
                     salle = salles[i];
                     document.getElementById('bulleInfo').style.visibility = "visible";
                     document.getElementById('name').innerText = salle.nom;
