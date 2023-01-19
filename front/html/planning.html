@@ -81,11 +81,7 @@
                 else{
                     dateNow.setMinutes(30, 0, 0);
                 }
-                console.log(dateNow.toLocaleString(), dateNow.getMonth());
-            
-                console.log(dateNow);
-                console.log(dateNow.getDate()+'/'+dateNow.getMonth()+'/'+dateNow.getFullYear())
-                console.log(dateNow.getHours()+':'+dateNow.getMinutes())
+                
                 document.getElementById('today').value = dateNow.toISOString().substring(0,10);
                 document.getElementById('now').value = dateNow.toLocaleString().substring(11,16);
 
