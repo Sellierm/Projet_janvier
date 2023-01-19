@@ -379,8 +379,14 @@
                         listCases.forEach(element => {
                             console.log((new Date(1674118800000) <= new Date(document.getElementById('date').value + ' ' + element.dataset.time) && new Date(1674136800000) >= new Date(document.getElementById('date').value + ' ' + element.dataset.time)));
                             console.log(element.dataset.time);
-                            const found = books.find(element2 => (Date(element2.start) <= Date(document.getElementById('date').value + ' ' + element.dataset.time) && Date(element2.end) >= Date(document.getElementById('date').value + ' ' + element.dataset.time)));
-                            if(found){
+
+                            let testBool = false;
+                            books.forEach(element2 => {
+                                if(Date(element2.start) <= Date(document.getElementById('date').value + ' ' + element.dataset.time) && Date(element2.end) >= Date(document.getElementById('date').value + ' ' + element.dataset.time)){
+                                    testBool = true
+                                }
+                            });
+                            if(testBool){
                                 element.style.backgroundColor = 'red';
                                 console.log('red');
                             }
