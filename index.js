@@ -63,7 +63,7 @@ app.get('/home', authMiddleware, function (req, res) {
         res.sendFile(path.join(__dirname + '/front/html/index.html'));
     }
     else {
-        res.sendFile(path.join(__dirname + '/front/html/indexClient.html'));
+        res.sendFile(path.join(__dirname + '/front/html/reservation.html'));
     }
 });
 //edit
@@ -72,7 +72,7 @@ app.get('/edit', authMiddleware, function (req, res) {
         res.sendFile(path.join(__dirname + '/front/html/edit.html'));
     }
     else {
-        res.sendFile(path.join(__dirname + '/front/html/indexClient.html'));
+        res.sendFile(path.join(__dirname + '/front/html/reservation.html'));
     }
 });
 //plans
