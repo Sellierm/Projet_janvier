@@ -280,7 +280,7 @@ app.post('/loadPlan', (req, res) => {
     console.log(req.body);
     const idStage = req.body.stage;
     const dateNow = req.body.date;
-    console.log(dateNow, JSON.parse(dateNow));
+    console.log(dateNow);
 
     /*const url = data.url;
     const dbName = data.name;
