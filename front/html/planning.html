@@ -74,8 +74,8 @@
 
             
 
-            window.onload = function(){	
-                if(parseInt(dateNow.getMinutes) < 30){
+            window.onload = function(){
+                if(parseInt(dateNow.getMinutes()) < 30){
                     dateNow.setMinutes(0, 0, 0);
                 }
                 else{
