@@ -4,29 +4,70 @@
 <head>
     <meta charset="utf-8">
     <title>Polygone</title>
+    <link type="text/css" rel="stylesheet" href="../css/edit.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="../js/Salle.js"></script>
 </head>
 
 <body style="margin: 0;">
     <canvas oncontextmenu="return false;" id="myCanvas" style="margin: auto;"></canvas><!--width="900" height="500"-->
-    <div
-        style="position: fixed; top: 10px; right: 10px; width: 15%; height: fit-content; background-color: antiquewhite; display: flex; flex-direction: column; align-items: center;">
-        <label for="name">Nom de la salle</label>
-        <input id="name" type="text" value="B804">
-        <div>
-            <label for="proj">Vidéo projecteur</label>
-            <input id="proj" type="checkbox">
-        </div>
-        <div>
-            <label for="nb">Nombre de places</label>
-            <input id="nb" type="number" min="0" max="500" value="0">
-        </div>
+    <div>
+        <div class="container">
+            <div class="email" onclick="this.classList.add('expand')">
+              <div class="from">
+                <div class="from-contents">
+                  <div class="avatar me"></div>
+                  <div class="name">Ajouter une salle</div>
+                </div>
+              </div>
+              <div class="to">
+                <div class="to-contents">
+                  <div class="top">
+                    <div class="avatar-large me"></div>
+                    <div class="name-large">Ajouter une salle !</div>
+                    <div class="x-touch" onclick="document.querySelector('.email').classList.remove('expand');event.stopPropagation();">
+                      <div class="x">
+                        <div class="line1"></div>
+                        <div class="line2"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bottom">
+                    <div class="row">
+                      <div class="link"><label for="name">Nom de la salle</label>
+                        <input id="name" type="text" value="B804">
+                      </div>
+                    </div>
+                    <div class="row">
+                        <style type="text/css" id="style2">
+                          .st0{fill:#3DD87F;}
+                          .st1{fill:#FFFFFF;}
+                        </style>
+                        <g id="Page-1" transform="translate(0,1)">
+                          <g id="Monogram">
+                          </g>
+                        </g>
+                      </svg>
+                      <div class="link"><label for="proj">Vidéo projecteur</label>
+                        <input id="proj" type="checkbox"></div>
+                    </div>
+                    <div class="row">
+                        <div class="link"><label for="nb">Nombre de places</label>
+                            <input id="nb" type="number" min="0" max="500" value="0">
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+   
+            
+       
         <button id="newPolygon">Nouvelle salle</button>
         <div id="container"></div>
     </div>
-    <div
-        style="position: fixed; bottom: 10px; right: 10px; width: 15%; height: fit-content; background-color: rgb(205, 255, 222); display: flex; flex-direction: column; align-items: center;">
+    <div>
         <label for="name">Nom du plan</label>
         <input id="name_stage" type="text" placeholder="Etage X">
         <button id="send">Enregistrer</button>
