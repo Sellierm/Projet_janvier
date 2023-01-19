@@ -17,13 +17,18 @@
             .eachHourLabel{
                 height: 15px;
                 border: 1px solid black;
-                width: 80px;
+                width: 30px;
+                text-align: end;
+            }
+            
+            .eachHourLabel td{
+                width: inherit;
             }
         </style>
     </head>
     <body style="margin: 0;">
         <canvas oncontextmenu="return false;" id="myCanvas" style="margin: auto;"></canvas><!--width="900" height="500"-->
-        <div id="bulleInfo" style="position: fixed; top: 10px; right: 10px; width: 15%; height: fit-content; background-color: antiquewhite; display: flex; flex-direction: column; align-items: center; visibility: hidden;">
+        <div id="bulleInfo" style="position: fixed; top: 10px; right: 10px; width: 20%; height: fit-content; background-color: antiquewhite; display: flex; flex-direction: column; align-items: center; visibility: hidden;">
             <div>
                 <p>Salle </p>
                 <p id="name"></p>
@@ -35,38 +40,7 @@
             <div id="day"></div>
             <div style="display: flex; justify-content: center;">
                 <table>
-                    <tbody style="display: flex; flex-direction: column;">
-                        <tr data-time="7:00" class="eachHour"></tr>
-                        <tr data-time="7:30" class="eachHour"></tr>
-                        <tr data-time="8:00" class="eachHour"></tr>
-                        <tr data-time="8:30" class="eachHour"></tr>
-                        <tr data-time="9:00" class="eachHour"></tr>
-                        <tr data-time="9:30" class="eachHour"></tr>
-                        <tr data-time="10:00" class="eachHour"></tr>
-                        <tr data-time="10:30" class="eachHour"></tr>
-                        <tr data-time="11:00" class="eachHour"></tr>
-                        <tr data-time="11:30" class="eachHour"></tr>
-                        <tr data-time="12:00" class="eachHour"></tr>
-                        <tr data-time="12:30" class="eachHour"></tr>
-                        <tr data-time="13:00" class="eachHour"></tr>
-                        <tr data-time="13:30" class="eachHour"></tr>
-                        <tr data-time="14:00" class="eachHour"></tr>
-                        <tr data-time="14:30" class="eachHour"></tr>
-                        <tr data-time="15:00" class="eachHour"></tr>
-                        <tr data-time="15:30" class="eachHour"></tr>
-                        <tr data-time="16:00" class="eachHour"></tr>
-                        <tr data-time="16:30" class="eachHour"></tr>
-                        <tr data-time="17:00" class="eachHour"></tr>
-                        <tr data-time="17:30" class="eachHour"></tr>
-                        <tr data-time="18:00" class="eachHour"></tr>
-                        <tr data-time="18:30" class="eachHour"></tr>
-                        <tr data-time="19:00" class="eachHour"></tr>
-                        <tr data-time="19:30" class="eachHour"></tr>
-                        <tr data-time="20:00" class="eachHour"></tr>
-                    </tbody>
-                </table>
-                <table>
-                    <tbody style="display: flex; flex-direction: column; font-size: 70%;">
+                    <tbody id="arrayPlanningLabel" style="display: flex; flex-direction: column; font-size: 70%;">
                         <tr class="eachHourLabel"><td><div>7:00</div></td></tr>
                         <tr class="eachHourLabel"><td><div>7:30</div></td></tr>
                         <tr class="eachHourLabel"><td><div>8:00</div></td></tr>
@@ -94,6 +68,37 @@
                         <tr class="eachHourLabel"><td><div>19:00</div></td></tr>
                         <tr class="eachHourLabel"><td><div>19:30</div></td></tr>
                         <tr class="eachHourLabel"><td><div>20:00</div></td></tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody id="arrayPlanning" style="display: flex; flex-direction: column;">
+                        <tr data-time="7:00" class="eachHour"></tr>
+                        <tr data-time="7:30" class="eachHour"></tr>
+                        <tr data-time="8:00" class="eachHour"></tr>
+                        <tr data-time="8:30" class="eachHour"></tr>
+                        <tr data-time="9:00" class="eachHour"></tr>
+                        <tr data-time="9:30" class="eachHour"></tr>
+                        <tr data-time="10:00" class="eachHour"></tr>
+                        <tr data-time="10:30" class="eachHour"></tr>
+                        <tr data-time="11:00" class="eachHour"></tr>
+                        <tr data-time="11:30" class="eachHour"></tr>
+                        <tr data-time="12:00" class="eachHour"></tr>
+                        <tr data-time="12:30" class="eachHour"></tr>
+                        <tr data-time="13:00" class="eachHour"></tr>
+                        <tr data-time="13:30" class="eachHour"></tr>
+                        <tr data-time="14:00" class="eachHour"></tr>
+                        <tr data-time="14:30" class="eachHour"></tr>
+                        <tr data-time="15:00" class="eachHour"></tr>
+                        <tr data-time="15:30" class="eachHour"></tr>
+                        <tr data-time="16:00" class="eachHour"></tr>
+                        <tr data-time="16:30" class="eachHour"></tr>
+                        <tr data-time="17:00" class="eachHour"></tr>
+                        <tr data-time="17:30" class="eachHour"></tr>
+                        <tr data-time="18:00" class="eachHour"></tr>
+                        <tr data-time="18:30" class="eachHour"></tr>
+                        <tr data-time="19:00" class="eachHour"></tr>
+                        <tr data-time="19:30" class="eachHour"></tr>
+                        <tr data-time="20:00" class="eachHour"></tr>
                     </tbody>
                 </table>
             </div>
