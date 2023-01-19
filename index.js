@@ -50,6 +50,10 @@ app.get('/', function (req, res) {
     });
     res.sendFile(path.join(__dirname + '/front/html/login.html'));
 });
+//register page
+app.get('/reg', function (req, res) {
+    res.sendFile(path.join(__dirname + '/front/html/register.html'));
+});
 //home page
 app.get('/home', authMiddleware, function (req, res) {
     if (req.session.isAdmin) {
