@@ -84,3 +84,20 @@ input{
 input:focus{
     outline: 1px solid #efefef;
 }
+
+.editer{
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 30%;
+    background: grey;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+    color:#fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
