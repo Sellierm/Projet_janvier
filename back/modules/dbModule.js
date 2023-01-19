@@ -1,5 +1,5 @@
 module.exports = {
-    url: 'mongodb://10.224.2.250:27017/',
+    url: 'mongodb://10.224.3.201:27017/',
     name: 'Projet_janvier',
     database_users: 'Users',
     database_rooms: 'Rooms',
