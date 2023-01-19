@@ -310,6 +310,42 @@ app.post('/loadPlan', (req, res) => {
 });
 
 
+
+
+//save plans
+app.post('/book', (req, res) => {
+    const idSalle = req.body.id;
+    const start = req.body.start;
+    const end = req.body.end;
+    const user = req.session.mail;
+    
+
+    const url = data.url;
+    const dbName = data.name;
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    client.connect(function (err) {
+        console.log(err)
+        const db = client.db(dbName);
+        let collection = db.collection(data.database_bookings);
+        
+        collection.insertOne({
+            idSalle: idSalle,
+            start: start,
+            end: end,
+            user: user
+        }, (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.status(200).json({ success: true });
+                client.close();
+            }
+
+        });
+    });
+});
+
+
 //start server at localhost:4200
 server.listen(8080, () => {
     console.log('Serveur lancé sur le port 8080');
