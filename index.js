@@ -263,6 +263,7 @@ app.post('/save', (req, res) => {
 
 //load plans
 app.post('/loadPlans', (req, res) => {
+    console.log('tset')
     if (req.body.isAuthenticated) {
         const url = data.url;
         const dbName = data.name;
