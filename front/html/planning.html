@@ -70,11 +70,11 @@
         <script>
             
             let salles = [];
+            const dateNow = new Date();
 
             
 
             window.onload = function(){	
-                const dateNow = new Date();
                 if(dateNow.getMinutes < 30){
                     dateNow.setMinutes(0, 0, 0);
                 }
