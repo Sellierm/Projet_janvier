@@ -291,78 +291,72 @@ app.post('/loadPlans', (req, res) => {
 
 
 app.post('/loadPlan', (req, res) => {
-    if (req.body.isAuthenticated) {
-        console.log(req.body);
-        const idStage = req.body.stage;
-        const dateNow = Date.parse(req.body.date);
+    console.log(req.body);
+    const idStage = req.body.stage;
+    const dateNow = Date.parse(req.body.date);
 
 
-        const url = data.url;
-        const dbName = data.name;
-        const client = new MongoClient(url);
-        client.connect(function (err) {
-            //console.log("Connected successfully to server");
-            const db = client.db(dbName);
-            let collection = db.collection(data.database_stages);
-            collection.find({ idStage: idStage }).toArray(function (err, result1) {
-                console.log(result1);
-                console.log(JSON.stringify(result1));
+    const url = data.url;
+    const dbName = data.name;
+    const client = new MongoClient(url);
+    client.connect(function (err) {
+        //console.log("Connected successfully to server");
+        const db = client.db(dbName);
+        let collection = db.collection(data.database_stages);
+        collection.find({ idStage: idStage }).toArray(function (err, result1) {
+            console.log(result1);
+            console.log(JSON.stringify(result1));
 
-                if (result1 && result1.length > 0) {
-                    collection = db.collection(data.database_rooms);
-                    collection.find({ stage: idStage }).toArray(function (err, result2) {
-                        console.log(result2);
-                        console.log(JSON.stringify(result2));
+            if (result1 && result1.length > 0) {
+                collection = db.collection(data.database_rooms);
+                collection.find({ stage: idStage }).toArray(function (err, result2) {
+                    console.log(result2);
+                    console.log(JSON.stringify(result2));
 
-                        collection = db.collection(data.database_bookings);
-                        collection.find({ idStage: idStage, start: { $lt: dateNow }, end: { $gt: dateNow } }).toArray(function (err, result3) {
-                            console.log(result3);
-                            console.log(JSON.stringify(result3));
-                            client.close();
+                    collection = db.collection(data.database_bookings);
+                    collection.find({ idStage: idStage, start: { $lt: dateNow }, end: { $gt: dateNow } }).toArray(function (err, result3) {
+                        console.log(result3);
+                        console.log(JSON.stringify(result3));
+                        client.close();
 
-                            res.status(200).json({ result1: JSON.stringify(result1), result2: JSON.stringify(result2), result3: JSON.stringify(result3) });
-                        });
+                        res.status(200).json({ result1: JSON.stringify(result1), result2: JSON.stringify(result2), result3: JSON.stringify(result3) });
                     });
+                });
 
-                }
-                else {
-                    res.status(401).json({ result: JSON.stringify(result1) });
-                }
-            });
+            }
+            else {
+                res.status(401).json({ result: JSON.stringify(result1) });
+            }
         });
-    }
-    else { res.sendFile(path.join(__dirname + '/front/html/login.html')); }
+    });
 });
 
 
 app.post('/loadSchedule', (req, res) => {
-    if (req.body.isAuthenticated) {
-        console.log(req.body);
-        const idSalle = req.body.salle;
-        const dateNow = new Date(req.body.date);
-        const startDay = dateNow.setHours(6, 0, 0, 0);
-        const endDay = dateNow.setHours(22, 0, 0, 0);
-        console.log(dateNow.getDate());
+    console.log(req.body);
+    const idSalle = req.body.salle;
+    const dateNow = new Date(req.body.date);
+    const startDay = dateNow.setHours(6, 0, 0, 0);
+    const endDay = dateNow.setHours(22, 0, 0, 0);
+    console.log(dateNow.getDate());
 
 
-        const url = data.url;
-        const dbName = data.name;
-        const client = new MongoClient(url);
-        client.connect(function (err) {
-            //console.log("Connected successfully to server");
-            const db = client.db(dbName);
-            let collection = db.collection(data.database_bookings);
-            collection.find({ idSalle: idSalle, start: { $gt: startDay }, end: { $lt: endDay } }).toArray(function (err, result) {
-                console.log(result);
-                console.log(JSON.stringify(result));
+    const url = data.url;
+    const dbName = data.name;
+    const client = new MongoClient(url);
+    client.connect(function (err) {
+        //console.log("Connected successfully to server");
+        const db = client.db(dbName);
+        let collection = db.collection(data.database_bookings);
+        collection.find({ idSalle: idSalle, start: { $gt: startDay }, end: { $lt: endDay } }).toArray(function (err, result) {
+            console.log(result);
+            console.log(JSON.stringify(result));
 
-                client.close();
+            client.close();
 
-                res.status(200).json({ result: JSON.stringify(result) });
-            });
+            res.status(200).json({ result: JSON.stringify(result) });
         });
-    }
-    else { res.sendFile(path.join(__dirname + '/front/html/login.html')); }
+    });
 });
 
 
@@ -370,40 +364,37 @@ app.post('/loadSchedule', (req, res) => {
 
 //save plans
 app.post('/book', (req, res) => {
-    if (req.body.isAuthenticated) {
-        const idSalle = req.body.idSalle;
-        const idStage = req.body.idStage;
-        const start = Date.parse(req.body.start);
-        const end = Date.parse(req.body.end);
-        const user = req.session.mail;
+    const idSalle = req.body.idSalle;
+    const idStage = req.body.idStage;
+    const start = Date.parse(req.body.start);
+    const end = Date.parse(req.body.end);
+    const user = req.session.mail;
 
 
-        const url = data.url;
-        const dbName = data.name;
-        const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-        client.connect(function (err) {
-            console.log(err)
-            const db = client.db(dbName);
-            let collection = db.collection(data.database_bookings);
+    const url = data.url;
+    const dbName = data.name;
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    client.connect(function (err) {
+        console.log(err)
+        const db = client.db(dbName);
+        let collection = db.collection(data.database_bookings);
 
-            collection.insertOne({
-                idSalle: idSalle,
-                idStage: idStage,
-                start: start,
-                end: end,
-                user: user
-            }, (err, result) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    res.status(200).json({ success: true });
-                    client.close();
-                }
+        collection.insertOne({
+            idSalle: idSalle,
+            idStage: idStage,
+            start: start,
+            end: end,
+            user: user
+        }, (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.status(200).json({ success: true });
+                client.close();
+            }
 
-            });
         });
-    }
-    else { res.sendFile(path.join(__dirname + '/front/html/login.html')); }
+    });
 });
 
 
