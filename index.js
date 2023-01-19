@@ -125,6 +125,7 @@ app.post('/auth', function (req, res) {
                     const hash = crypto.createHash('sha512').update(password).digest('hex');
                     if (hash === result[0].password) {
                         req.session.isAuthenticated = true;
+                        req.session.mail = mail;
                         if (result[0].admin === "true") {
                             req.session.isAdmin = true;
                         }
