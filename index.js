@@ -192,7 +192,7 @@ app.post('/save', (req, res) => {
     const width = req.body.width
     const heigth = req.body.height
 
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=';
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let newIdStage = '';
     for (let i = 0; i < 20; i++) {
         newIdStage += chars.charAt(Math.floor(Math.random() * chars.length));
