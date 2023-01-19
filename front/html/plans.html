@@ -30,7 +30,7 @@
                 data: {
                 },
                 success: function (data) {
-                    let plans = JSON.parse(data.success);
+                    let plans = JSON.parse(data.data);
                     let container = document.getElementById('group');
                     plans.forEach(element => {
                         let link = document.createElement('button');
@@ -39,8 +39,8 @@
                         link.innerText = element.name
                         container.appendChild(link);
                     });
-                    console.log(data.success);
-                    console.log(JSON.parse(data.success));
+                    console.log(data.data);
+                    console.log(JSON.parse(data.data));
                 }
             });
         })
