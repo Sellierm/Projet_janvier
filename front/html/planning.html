@@ -403,7 +403,7 @@
                     if(salle.proj) textProj = 'Oui'
                     document.getElementById('proj').innerText = textProj;
 
-                    document.getElementById('day').innerText = dateNow.toLocaleString('fr-FR',{
+                    document.getElementById('day').innerText = dateNow.toLocaleDateString('fr-FR',{
                                                                                                 weekday: 'long',
                                                                                                 year: 'numeric',
                                                                                                 month: 'long',
