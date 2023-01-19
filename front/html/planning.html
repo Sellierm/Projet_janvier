@@ -63,8 +63,8 @@
         </div>
         <div style="position: fixed; bottom: 10px; right: 10px; width: 15%; height: fit-content; background-color: antiquewhite; display: flex; flex-direction: column; align-items: center;">
             <div>
-                <input type="date" id="today" oninput="test();">
-                <input type="time" min="8:00" max="20:00" id="now" oninput="test();" >
+                <input type="date" id="date" oninput="test();">
+                <input type="time" min="8:00" max="20:00" id="time" oninput="test();" >
             </div>
         </div>
         <script>
@@ -86,6 +86,7 @@
             
             let salles = [];
             const dateNow = new Date();
+            let stage = '';
 
             
 
@@ -97,8 +98,8 @@
                     dateNow.setMinutes(30, 0, 0);
                 }
                 
-                document.getElementById('today').value = dateNow.toISOString().substring(0,10);
-                document.getElementById('now').value = dateNow.toLocaleString().substring(11,16);
+                document.getElementById('date').value = dateNow.toISOString().substring(0,10);
+                document.getElementById('time').value = dateNow.toLocaleString().substring(11,16);
 
 
                 function setSize(){
@@ -108,7 +109,6 @@
                 setSize();
 
                 let params = new URLSearchParams(document.location.search);
-                let stage = '';
                 if(params.has("stage")){
                     stage = params.get("stage");
                 }
@@ -144,6 +144,51 @@
                 
 
             }
+
+            /* Changement du temps */
+
+            document.getElementById('day').addEventListener('input', reloadPlan);
+            document.getElementById('time').addEventListener('input', reloadPlan);
+
+
+            function reloadPlan(){
+                let newDate = new Date.parse(document.getElementById('date').value + " " + document.getElementById('time').value);
+                $.ajax({
+                    type: 'POST',
+                    url: '/loadPlan',
+                    data: {
+                        date:newDate,
+                        stage:stage
+                    },
+                    success: function (data) {
+                        console.log(data)
+                        console.log(JSON.parse(data.result1))
+                        console.log(JSON.parse(data.result2))
+                        console.log(JSON.parse(data.result3))
+                        salles = JSON.parse(data.result2);
+                        let books = JSON.parse(data.result3);
+                        salles.forEach(element => {
+                            const found = books.find(element2 => element2.idSalle == element._id);
+                            if(found){
+                                element.free = false;
+                            }
+                            else {
+                                element.free = true;
+                            }
+                        });
+                        drawAllPolygons();
+                    }
+                });
+            }
+
+
+
+
+
+
+
+
+            /* Affichage du planning */
 
             var canvas = document.getElementById("myCanvas");
             
@@ -271,21 +316,6 @@
                 }
             });
 
-            function displaySalle(i){
-                salle = salles[i];
-                document.getElementById('bulleInfo').style.visibility = "visible";
-                document.getElementById('name').innerText = salle.nom;
-                let textProj = 'Non';
-                if(salle.proj) textProj = 'Oui'
-                document.getElementById('proj').innerText = textProj;
-
-                document.getElementById('day').innerText = dateNow.toLocaleString()
-            }
-
-            function hideSalle(){
-                document.getElementById('bulleInfo').style.visibility = "hidden";
-            }
-
 
             
             function getBounds(polygon) {
@@ -308,6 +338,25 @@
                     }
                 }
                 return {left: left, right: right, top: top, bottom: bottom};
+            }
+
+
+
+
+
+            function displaySalle(i){
+                salle = salles[i];
+                document.getElementById('bulleInfo').style.visibility = "visible";
+                document.getElementById('name').innerText = salle.nom;
+                let textProj = 'Non';
+                if(salle.proj) textProj = 'Oui'
+                document.getElementById('proj').innerText = textProj;
+
+                document.getElementById('day').innerText = dateNow.toLocaleString()
+            }
+
+            function hideSalle(){
+                document.getElementById('bulleInfo').style.visibility = "hidden";
             }
         </script>
     </body>
