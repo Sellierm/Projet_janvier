@@ -264,6 +264,7 @@ app.post('/save', (req, res) => {
 //load plans
 app.post('/loadPlans', (req, res) => {
     console.log('tset')
+    console.log(req.body, req.body.isAuthenticated);
     if (req.body.isAuthenticated) {
         console.log('tset2')
         const url = data.url;
