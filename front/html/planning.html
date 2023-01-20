@@ -260,8 +260,8 @@
 
             /* Changement du temps 2 */
 
-            document.getElementById('start').addEventListener('change', updateBookTime);
-            document.getElementById('end').addEventListener('change', updateBookTime);
+            //document.getElementById('start').addEventListener('change', updateBookTime);
+            //document.getElementById('end').addEventListener('change', updateBookTime);
 
             function updateBookTime(){
                 let now = new Date();
@@ -341,7 +341,8 @@
             document.getElementById('book').addEventListener('click', bookFunc);
 
             function bookFunc(){
-                if(currentSalle >= 0){
+                updateBookTime()
+                /*if(currentSalle >= 0){
                     let start = new Date(document.getElementById('date').value + " " + document.getElementById('start').value);
                     let end = new Date(document.getElementById('date').value + " " + document.getElementById('end').value);
                     console.log('start', start, 'end', end);
@@ -361,7 +362,7 @@
                             }
                         }
                     });
-                }
+                }*/
             }
 
 
