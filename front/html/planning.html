@@ -5,18 +5,45 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/planning.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <style>
             .eachHour{
                 height: 15px;
-                border: 1px solid black;
-                width: 80px;
+                border: 1px solid #CE917B;
+                width: 100px;
+                border-radius: 5px;
+            margin-bottom: 5px;
+            color: #fff;
+            background-color: #CE917B;
+            box-shadow: 0 2px 2px rgba(0,0,0,0.10), 0 2px 2px rgba(0,0,0,0.16);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
             }
+
+            .eachHour:hover{
+                border: 1px solid #9b6d5c;
+                background-color: #9b6d5c;
+            }
+
             .eachHourLabel{
                 height: 15px;
-                border: 1px solid black;
+                border: 1px solid #CE917B;
                 width: 40px;
-                text-align: end;
+                text-align: center;
+                border-radius: 5px;
+                margin-bottom: 5px;
+                background-color: #CE917B;
+                box-shadow: 0 2px 2px rgba(0,0,0,0.10), 0 2px 2px rgba(0,0,0,0.16);
+                font-family: 'Poppins', sans-serif;
+                font-weight: 700;
+                font-family: 'Poppins', sans-serif;
+                color: #fff;
+            }
+
+            .eachHourLabel:hover{
+                border: 1px solid #9b6d5c;
+                background-color: #9b6d5c;
             }
             
             .eachHourLabel td{
@@ -28,15 +55,14 @@
         </style>
     </head>
     <body style="margin: 0;">
-        <!--<img id="backgroundImg" src="" alt="" style="margin: auto; position: absolute; width: 100vw; height: 100vh;">-->
-        <canvas oncontextmenu="return false;" id="myCanvas" style="margin: auto;"></canvas>
-        <div id="bulleInfo" style="position: fixed; top: 10px; right: 10px; width: 20%; height: fit-content; background-color: antiquewhite; display: flex; flex-direction: column; align-items: center; visibility: hidden;">
+        <canvas oncontextmenu="return false;" id="myCanvas" style="margin: auto;"></canvas><!--width="900" height="500"-->
+        <div id="bulleInfo">
             <div><p class="p">Salle <span id="name"></span></p></div>
             <div><p class="p">Vidéo projecteur <span id="proj"></span></p></div>
             <div><p class="p" id="day"></p></div>
-            <div style="display: flex; justify-content: center;">
+            <div class="container_planning">
                 <table>
-                    <tbody id="arrayPlanningLabel" style="display: flex; flex-direction: column; font-size: 70%; border-collapse: collapse;">
+                    <tbody id="arrayPlanningLabel">
                         <!--<tr class="eachHourLabel"><td><div>7:00</div></td></tr>
                         <tr class="eachHourLabel"><td><div>7:30</div></td></tr>
                         <tr class="eachHourLabel"><td><div>8:00</div></td></tr>
@@ -67,7 +93,7 @@
                     </tbody>
                 </table>
                 <table>
-                    <tbody id="arrayPlanning" style="display: flex; flex-direction: column;">
+                    <tbody id="arrayPlanning">
                         <!--<tr data-time="7:00" class="eachHour"></tr>
                         <tr data-time="7:30" class="eachHour"></tr>
                         <tr data-time="8:00" class="eachHour"></tr>
@@ -99,16 +125,21 @@
                 </table>
             </div>
             <div>
-                <label for="start">Heure de début</label>
-                <input type="time" id="start">
-                <label for="end">Heure de fin</label>
-                <input type="time" id="end">
-                <button id="book">Reserver</button>
+                <div class="reservation">
+                    <label for="start">Heure de début : </label>
+                    <input type="time" id="start">
+                    <label for="end">Heure de fin : </label>
+                    <input type="time" id="end">
+                </div>
+                <div class="reserver">
+                    <button id="book"><div class="text_reserver">Reserver</div></button>
+                </div>
+                
             </div>
         </div>
 
-        <div style="position: fixed; bottom: 10px; right: 10px; width: 20%; height: fit-content; background-color: antiquewhite; display: flex; flex-direction: column; align-items: center;">
-            <div>
+        <div >
+            <div class="horairePlanning">
                 <input type="date" id="date">
                 <input type="time" min="8:00" max="20:00" id="time">
             </div>
