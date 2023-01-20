@@ -300,6 +300,7 @@
                     start.setMinutes(30, 0, 0);
                 }
                 document.getElementById('start').value = start.toLocaleString().substring(11,16);
+                console.log(start.toLocaleString().substring(11,16))
                 if(end <= start){
                     end = start
                     end.setMinutes(end.getMinutes() + 30);
