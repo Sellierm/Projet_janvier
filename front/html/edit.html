@@ -9,467 +9,397 @@
   <script src="../js/Salle.js"></script>
 </head>
 
-<body style="margin: 0;">
-  <canvas oncontextmenu="return false;" id="myCanvas" style="margin: auto;"></canvas><!--width="900" height="500"-->
-  <div>
-    <div class="container">
-      <div class="email" onclick="this.classList.add('expand')">
-        <div class="from">
-          <div class="from-contents">
-            <div class="avatar me"></div>
-            <div class="name"><span></span>Ajouter une salle</div>
-          </div>
-        </div>
-        <div class="to">
-          <div class="to-contents">
-            <div class="top">
-              <div class="avatar-large me"></div>
-              <div class="name-large">Ajouter une salle !</div>
-              <div class="x-touch"
-                onclick="document.querySelector('.email').classList.remove('expand');event.stopPropagation();">
-                <div class="x">
-                  <div class="line1"></div>
-                  <div class="line2"></div>
-                </div>
-              </div>
-            </div>
-            <div class="bottom">
-              <div class="row">
-                <div class="link"><label for="name">Nom de la salle</label>
-                  <input id="name" type="text" value="B804">
-                </div>
-              </div>
-              <div class="row">
-                <style type="text/css" id="style2">
-                  .st0 {
-                    fill: #3DD87F;
-                  }
-
-                  .st1 {
-                    fill: #FFFFFF;
-                  }
-                </style>
-                <g id="Page-1" transform="translate(0,1)">
-                  <g id="Monogram">
-                  </g>
-                </g>
-                </svg>
-                <div class="link"><label for="proj">Vidéo projecteur</label>
-                  <input id="proj" type="checkbox">
-                </div>
-              </div>
-              <div class="row">
-                <div class="link"><label for="nb">Nombre de places</label>
-                  <input id="nb" type="number" min="0" max="500" value="0">
-                </div>
-              </div>
-              <div class="row">
-                <div class="link"><button id="newPolygon"><span></span>
-                    <div class="text" style="position: relative; z-index: 100;">Nouvelle salle</div>
-                  </button>
-                  <div id="container"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<body>
+  <div id="container">
+    <canvas id="backgroundCanvas" oncontextmenu="return false;" style="margin: auto;"></canvas>
+    <canvas oncontextmenu="return false;" id="myCanvas" style="margin: auto;"></canvas><!--width="900" height="500"-->
+    <label for="name">Nom de la salle</label>
+    <input id="name" type="text" value="B804">
+    <label for="proj">Vidéo projecteur</label>
+    <input id="proj" type="checkbox">
+    <label for="nb">Nombre de places</label>
+    <input id="nb" type="number" min="0" max="500" value="0">
+    <button id="newPolygon">
+      Nouvelle salle
+    </button>
+    <hr>
+    <form id="upload-form" enctype="multipart/form-data">
+      <label for="name_stage">Nom du plan</label>
+      <input id="name_stage" type="text" value="">
+      <input type="file" id="image" name="image" accept="image/png">
+    </form>
+    <div id="choice"> <button id="send">
+        Sauvegarder
+      </button>
+      <button id="back">
+        Annuler
+      </button>
     </div>
+
   </div>
-  <div class="container2">
-    <div class="email2" onclick="this.classList.add('expand2')">
-      <div class="from">
-        <div class="from-contents">
-          <div class="avatar me"></div>
-          <div class="name2">Enregistrer ce Plan !</div>
-        </div>
-      </div>
-      <div class="to">
-        <div class="to-contents">
-          <div class="top2">
-            <div class="avatar-large me"></div>
-            <div class="name-large">Enregistrer ce Plan !</div>
-            <div class="x-touch"
-              onclick="document.querySelector('.email2').classList.remove('expand2');event.stopPropagation();">
-              <div class="x">
-                <div class="line1"></div>
-                <div class="line2"></div>
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="row">
-              <div class="link"><label for="name">Nom du plan :</label>
-                <form id="upload-form" enctype="multipart/form-data">
-                  <input id="name" type="text" value="Plan KÜ">
-                  <input type="file" id="image" name="image" accept="image/png">
-                </form>
-              </div>
-            </div>
-            <div class="row">
-              <div class="link"><button id="newPolygon"><span></span>
-                  <div class="text" style="position: relative; z-index: 100;">Enregistrer ce Plan !
-                </button>
-                <div id="container2"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div>
-    <script>
-      function setSize() {
-        document.getElementById('myCanvas').width = window.innerWidth;
-        document.getElementById('myCanvas').height = window.innerHeight;
-      }
-      setSize();
 
+  <script>
+    function setSize() {
+      document.getElementById('myCanvas').width = window.innerWidth * 0.75;
+      document.getElementById('myCanvas').height = window.innerHeight;
+    }
+    setSize();
 
+    var canvasb = document.getElementById("backgroundCanvas");
+    canvasb.style.cssText = 'image-rendering: optimizeSpeed;' + // FireFox < 6.0
+      'image-rendering: -moz-crisp-edges;' + // FireFox
+      'image-rendering: -o-crisp-edges;' +  // Opera
+      'image-rendering: -webkit-crisp-edges;' + // Chrome
+      'image-rendering: crisp-edges;' + // Chrome
+      'image-rendering: -webkit-optimize-contrast;' + // Safari
+      'image-rendering: pixelated; ' + // Future browsers
+      '-ms-interpolation-mode: nearest-neighbor;'; // IE
 
+    var canvas = document.getElementById("myCanvas");
+    var salles = [];
 
-      var canvas = document.getElementById("myCanvas");
-      var salles = [];
+    window.onload = function () {
+      var ctxb = canvasb.getContext("2d");
+      var ctx = canvas.getContext("2d");
+      var polygons = []; // Liste pour stocker les sommets de chaque polygone
+      var selected = false;
+      var selectedVertex = -1;
+      var selectedEdge = -1;
+      var startX, startY, endX, endY;
+      var scaleFactor = 1.1;
 
-      window.onload = function () {
-        var ctx = canvas.getContext("2d");
-        var polygons = []; // Liste pour stocker les sommets de chaque polygone
-        var selected = false;
-        var selectedVertex = -1;
-        var selectedEdge = -1;
-        var startX, startY, endX, endY;
-        var scaleFactor = 1.1;
+      const imageUpload = document.getElementById("image");
+      imageUpload.addEventListener("change", function () {
+        if (imageUpload.files.length === 0) {
+          console.log("Aucun fichier sélectionné")
+        } else {
+          const img = new Image()
+          img.src = URL.createObjectURL(imageUpload.files[0])
+          img.onload = () => {
+            ctxb.imageSmoothingEnabled = false;
+            ctxb.drawImage(img, 0, 0, canvasb.width, canvasb.height);
+          }
+        }
+      })
+      document.getElementById("back").addEventListener('click', function (e) {
+        e.preventDefault;
+        window.location.href = "/plans";
+      })
+      //Fonction pour dessiner tous les polygons de la liste
+      function drawAllPolygons() {
+        //ctx.clearRect(0 - canvas.offsetLeft, 0  - canvas.offsetTop, canvas.width - canvas.offsetLeft, canvas.height  - canvas.offsetTop);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.lineWidth = 7; // augmente l'épaisseur des lignes
+        for (let i = 0; i < salles.length; i++) {
+          ctx.fillStyle = "#26c4ec";
+          ctx.font = "20px Arial";
+          ctx.beginPath();
+          ctx.moveTo(salles[i].tab[0][0], salles[i].tab[0][1]);
+          for (var j = 1; j < salles[i].tab.length; j++) {
+            ctx.lineTo(salles[i].tab[j][0], salles[i].tab[j][1]);
+          }
+          ctx.closePath();
+          ctx.stroke();
+          ctx.fill();
+          ctx.restore();
 
+          //Ajoute le text
+          var nom = salles[i].nom;
+          ctx.fillStyle = "#000000";
+          var bounds = getBounds(salles[i].tab);
+          var xText = bounds.left + (bounds.right - bounds.left) / 2;
+          var yText = bounds.top + (bounds.bottom - bounds.top) / 2;
+          //ctx.fillText(nom, xText, yText);
+          ctx.fillText(nom, salles[i].tab[0][0] + 15, salles[i].tab[0][1] + 30);
+          ctx.restore();
 
-        //Fonction pour dessiner tous les polygons de la liste
-        function drawAllPolygons() {
-          //ctx.clearRect(0 - canvas.offsetLeft, 0  - canvas.offsetTop, canvas.width - canvas.offsetLeft, canvas.height  - canvas.offsetTop);
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-
-
-          ctx.lineWidth = 7; // augmente l'épaisseur des lignes
-          for (let i = 0; i < salles.length; i++) {
-            ctx.fillStyle = "#26c4ec";
-            ctx.font = "20px Arial";
-            ctx.beginPath();
-            ctx.moveTo(salles[i].tab[0][0], salles[i].tab[0][1]);
-            for (var j = 1; j < salles[i].tab.length; j++) {
-              ctx.lineTo(salles[i].tab[j][0], salles[i].tab[j][1]);
+          if (salles[i].proj) ctx.fillText('📽️', salles[i].tab[0][0] + 15, salles[i].tab[0][1] + 50);
+          /*if(salles[i].proj){
+            base_image = new Image();
+            base_image.src = 'proj.png';
+            base_image.onload = function(){
+              ctx.drawImage(base_image, xText, yText + 10);
             }
-            ctx.closePath();
-            ctx.stroke();
+          }*/
+
+
+          // Dessiner les sommets du polygone
+          for (let j = 0; j < salles[i].tab.length; j++) {
+            ctx.fillStyle = "#000";
+            ctx.beginPath();
+            ctx.arc(salles[i].tab[j][0], salles[i].tab[j][1], 7, 0, 2 * Math.PI);
             ctx.fill();
             ctx.restore();
-
-            //Ajoute le text
-            var nom = salles[i].nom;
-            ctx.fillStyle = "#000000";
-            var bounds = getBounds(salles[i].tab);
-            var xText = bounds.left + (bounds.right - bounds.left) / 2;
-            var yText = bounds.top + (bounds.bottom - bounds.top) / 2;
-            //ctx.fillText(nom, xText, yText);
-            ctx.fillText(nom, salles[i].tab[0][0] + 15, salles[i].tab[0][1] + 30);
-            ctx.restore();
-
-            if (salles[i].proj) ctx.fillText('📽️', salles[i].tab[0][0] + 15, salles[i].tab[0][1] + 50);
-            /*if(salles[i].proj){
-              base_image = new Image();
-              base_image.src = 'proj.png';
-              base_image.onload = function(){
-                ctx.drawImage(base_image, xText, yText + 10);
-              }
-            }*/
+          }
+        }
+        ctx.restore();
+      }
+      drawAllPolygons();
 
 
-            // Dessiner les sommets du polygone
-            for (let j = 0; j < salles[i].tab.length; j++) {
-              ctx.fillStyle = "#000";
+      // Gestion de l'événement pour dessiner un nouveau polygone
+      document.getElementById("newPolygon").addEventListener("click", function () {
+
+        let name = document.getElementById('name').value;
+
+        let proj = document.getElementById('proj');
+
+        let places = document.getElementById('nb').value;
+
+        addSalle(name, proj, places)
+      });
+
+
+
+      function addSalle(name, proj, places) {
+        if (name !== '' && proj) {
+
+          var newSalle = new Salle(structuredClone(name), proj.checked, structuredClone(places), [[50, 50], [200, 50], [200, 200], [50, 200]]);
+
+          salles.push(newSalle);
+
+          //displaySalle(newSalle);
+
+          //polygons.push([[50, 50], [200, 50], [200, 200], [50, 200]]);
+          drawAllPolygons();
+
+          // Réinitialise les transformations
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+
+          //document.getElementById('name').value = '';
+        }
+      }
+
+      // Gestion de l'événement pour sélectionner un sommet ou une arête
+      canvas.addEventListener('mousedown', function (event) {
+        var x = event.clientX - canvas.offsetLeft;
+        var y = event.clientY - canvas.offsetTop;
+        if (selected === false) {
+          for (let i = 0; i < salles.length; i++) {
+
+            if (event.buttons == 2) {
               ctx.beginPath();
-              ctx.arc(salles[i].tab[j][0], salles[i].tab[j][1], 7, 0, 2 * Math.PI);
-              ctx.fill();
-              ctx.restore();
-            }
-          }
-          ctx.restore();
-        }
+              ctx.moveTo(salles[i].tab[0][0], salles[i].tab[0][1]);
 
-
-        // Gestion de l'événement pour dessiner un nouveau polygone
-        document.getElementById("newPolygon").addEventListener("click", function () {
-
-          let name = document.getElementById('name').value;
-
-          let proj = document.getElementById('proj');
-
-          let places = document.getElementById('nb').value;
-
-          addSalle(name, proj, places)
-        });
-        drawAllPolygons();
-
-
-        function addSalle(name, proj, places) {
-          if (name !== '' && proj) {
-
-            var newSalle = new Salle(structuredClone(name), proj.checked, structuredClone(places), [[50, 50], [200, 50], [200, 200], [50, 200]]);
-
-            salles.push(newSalle);
-
-            //displaySalle(newSalle);
-
-            //polygons.push([[50, 50], [200, 50], [200, 200], [50, 200]]);
-            drawAllPolygons();
-
-            // Réinitialise les transformations
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
-
-
-            //document.getElementById('name').value = '';
-          }
-        }
-
-        // Gestion de l'événement pour sélectionner un sommet ou une arête
-        canvas.addEventListener('mousedown', function (event) {
-          var x = event.clientX - canvas.offsetLeft;
-          var y = event.clientY - canvas.offsetTop;
-          if (selected === false) {
-            for (let i = 0; i < salles.length; i++) {
-
-              if (event.buttons == 2) {
-                ctx.beginPath();
-                ctx.moveTo(salles[i].tab[0][0], salles[i].tab[0][1]);
-
-                for (var j = 0; j < salles[i].tab.length; j++) {
-                  ctx.lineTo(salles[i].tab[j][0], salles[i].tab[j][1]);
-                }
-                ctx.closePath();
-                // Vérifie si les coordonnées de la souris sont contenues dans le polygone
-                if (ctx.isPointInPath(x, y)) {
-                  salles.splice(i, 1);
-                  console.log('suppression');
-                  drawAllPolygons();
-                }
+              for (var j = 0; j < salles[i].tab.length; j++) {
+                ctx.lineTo(salles[i].tab[j][0], salles[i].tab[j][1]);
               }
-              else {
-                ctx.beginPath();
-                ctx.moveTo(salles[i].tab[0][0], salles[i].tab[0][1]);
+              ctx.closePath();
+              // Vérifie si les coordonnées de la souris sont contenues dans le polygone
+              if (ctx.isPointInPath(x, y)) {
+                salles.splice(i, 1);
+                console.log('suppression');
+                drawAllPolygons();
+              }
+            }
+            else {
+              ctx.beginPath();
+              ctx.moveTo(salles[i].tab[0][0], salles[i].tab[0][1]);
 
 
-                for (var j = 0; j < salles[i].tab.length; j++) {
-                  ctx.lineTo(salles[i].tab[j][0], salles[i].tab[j][1]);
-                }
-                ctx.closePath();
-                // Vérifie si les coordonnées de la souris sont contenues dans le polygone
-                if (ctx.isPointInPath(x, y)) {
-                  selected = bringFront(i); // Stock l'indice du polygone sélectionné et le met devant les autres
+              for (var j = 0; j < salles[i].tab.length; j++) {
+                ctx.lineTo(salles[i].tab[j][0], salles[i].tab[j][1]);
+              }
+              ctx.closePath();
+              // Vérifie si les coordonnées de la souris sont contenues dans le polygone
+              if (ctx.isPointInPath(x, y)) {
+                selected = bringFront(i); // Stock l'indice du polygone sélectionné et le met devant les autres
+                startX = x;
+                startY = y;
+                document.body.style.cursor = "grab";
+
+              }
+
+
+              ctx.beginPath();
+              for (var j = 0; j < salles[i].tab.length; j++) {
+                ctx.lineTo(salles[i].tab[j][0], salles[i].tab[j][1]);
+                // Vérifie si les coordonnées de la souris sont contenues dans une arête du polygone
+                if (ctx.isPointInStroke(x, y)) {
+                  selected = bringFront(i);
+                  selectedEdge = j;
                   startX = x;
                   startY = y;
-                  document.body.style.cursor = "grab";
-
+                  document.body.style.cursor = "move";
+                  break;
                 }
-
-
+                //Du dernier point au premier
+                ctx.lineTo(salles[i].tab[0][0], salles[i].tab[0][1]);
+                if (ctx.isPointInStroke(x, y)) {
+                  selected = bringFront(i);
+                  selectedEdge = 0;
+                  startX = x;
+                  startY = y;
+                  document.body.style.cursor = "move";
+                  break;
+                }
+                // Vérifie si les coordonnées de la souris sont contenues dans un sommet du polygone
                 ctx.beginPath();
-                for (var j = 0; j < salles[i].tab.length; j++) {
-                  ctx.lineTo(salles[i].tab[j][0], salles[i].tab[j][1]);
-                  // Vérifie si les coordonnées de la souris sont contenues dans une arête du polygone
-                  if (ctx.isPointInStroke(x, y)) {
-                    selected = bringFront(i);
-                    selectedEdge = j;
-                    startX = x;
-                    startY = y;
-                    document.body.style.cursor = "move";
-                    break;
-                  }
-                  //Du dernier point au premier
-                  ctx.lineTo(salles[i].tab[0][0], salles[i].tab[0][1]);
-                  if (ctx.isPointInStroke(x, y)) {
-                    selected = bringFront(i);
-                    selectedEdge = 0;
-                    startX = x;
-                    startY = y;
-                    document.body.style.cursor = "move";
-                    break;
-                  }
-                  // Vérifie si les coordonnées de la souris sont contenues dans un sommet du polygone
-                  ctx.beginPath();
-                  ctx.arc(salles[i].tab[j][0], salles[i].tab[j][1], 7, 0, 2 * Math.PI);
-                  if (ctx.isPointInPath(x, y)) {
-                    selected = bringFront(i);
-                    selectedVertex = j;
-                    startX = x;
-                    startY = y;
-                    document.body.style.cursor = "move";
-                    break;
-                  }
+                ctx.arc(salles[i].tab[j][0], salles[i].tab[j][1], 7, 0, 2 * Math.PI);
+                if (ctx.isPointInPath(x, y)) {
+                  selected = bringFront(i);
+                  selectedVertex = j;
+                  startX = x;
+                  startY = y;
+                  document.body.style.cursor = "move";
+                  break;
                 }
-
-
-                drawAllPolygons(); // On actualise 
               }
+
+
+              drawAllPolygons(); // On actualise 
             }
           }
-        });
+        }
+      });
+      // Gestion de l'événement pour déplacer le polygone ou redimensionner les sommets ou les arêtes
+      canvas.addEventListener('mousemove', function (event) {
+        if (selected !== false) {
+          endX = event.clientX - canvas.offsetLeft;
+          endY = event.clientY - canvas.offsetTop;
+          var dx = endX - startX;
+          var dy = endY - startY;
 
-        // Gestion de l'événement pour déplacer le polygone ou redimensionner les sommets ou les arêtes
-        canvas.addEventListener('mousemove', function (event) {
-          if (selected !== false) {
-            endX = event.clientX - canvas.offsetLeft;
-            endY = event.clientY - canvas.offsetTop;
-            var dx = endX - startX;
-            var dy = endY - startY;
-
-            // Vérifie si le polygone sélectionné se chevauche avec un autre polygone
-            /*var collision = false;
-            for (let i = 0; i < salles.length; i++) {
-                if (i !== selected && checkPolygonCollision(salles[selected].tab, salles[i].tab)) {
-                    collision = true;
-                    break;
-                }
-            }*/
-
-            // Applique la transformation de déplacement ou de redimensionnement si aucune collision n'est détectée
-            //if (!collision) {
-            // Applique la transformation de déplacement ou de redimensionnement en fonction de la sélection
-            if (selectedVertex !== -1) {
-              salles[selected].tab[selectedVertex][0] += dx;
-              salles[selected].tab[selectedVertex][1] += dy;
-            } else if (selectedEdge !== -1) {
-              if (startX < salles[selected].tab[mod((selectedEdge - 1), 4)][0] + 4 && startX > salles[selected].tab[mod((selectedEdge - 1), 4)][0] - 4) salles[selected].tab[mod((selectedEdge - 1), 4)][0] += dx;
-              if (startY < salles[selected].tab[mod((selectedEdge - 1), 4)][1] + 4 && startY > salles[selected].tab[mod((selectedEdge - 1), 4)][1] - 4) salles[selected].tab[mod((selectedEdge - 1), 4)][1] += dy;
-              if (startX < salles[selected].tab[mod((selectedEdge), 4)][0] + 4 && startX > salles[selected].tab[mod((selectedEdge), 4)][0] - 4) salles[selected].tab[mod((selectedEdge), 4)][0] += dx;
-              if (startY < salles[selected].tab[mod((selectedEdge), 4)][1] + 4 && startY > salles[selected].tab[mod((selectedEdge), 4)][1] - 4) salles[selected].tab[mod((selectedEdge), 4)][1] += dy;
-            } else {
-              for (let i = 0; i < salles[selected].tab.length; i++) {
-                salles[selected].tab[i][0] += dx;
-                salles[selected].tab[i][1] += dy;
+          // Vérifie si le polygone sélectionné se chevauche avec un autre polygone
+          /*var collision = false;
+          for (let i = 0; i < salles.length; i++) {
+              if (i !== selected && checkPolygonCollision(salles[selected].tab, salles[i].tab)) {
+                  collision = true;
+                  break;
               }
-            }
-            startX = endX;
-            startY = endY;
-            drawAllPolygons();
-            //}
-          }
-        });
+          }*/
 
-
-        // Gestion de l'événement pour désélectionner le polygone, le sommet ou l'arête
-        canvas.addEventListener('mouseup', function (event) {
-          selected = false;
-          selectedVertex = -1;
-          selectedEdge = -1;
-          document.body.style.cursor = "auto";
-        });
-
-
-
-
-        function bringFront(i) {
-          let elem = salles.splice(i, 1);
-          salles.push(elem[0]);
-          return salles.length - 1;
-        }
-
-
-
-
-
-
-        function checkPolygonCollision(polygon1, polygon2) {
-          var poly1Bounds = getBounds(polygon1);
-          var poly2Bounds = getBounds(polygon2);
-          return poly1Bounds.left <= poly2Bounds.right && poly1Bounds.right >= poly2Bounds.left &&
-            poly1Bounds.top <= poly2Bounds.bottom && poly1Bounds.bottom >= poly2Bounds.top;
-        }
-
-        function getBounds(polygon) {
-          var left = polygon[0][0];
-          var right = polygon[0][0];
-          var top = polygon[0][1];
-          var bottom = polygon[0][1];
-          for (var i = 1; i < polygon.length; i++) {
-            if (polygon[i][0] < left) {
-              left = polygon[i][0];
-            }
-            if (polygon[i][0] > right) {
-              right = polygon[i][0];
-            }
-            if (polygon[i][1] < top) {
-              top = polygon[i][1];
-            }
-            if (polygon[i][1] > bottom) {
-              bottom = polygon[i][1];
+          // Applique la transformation de déplacement ou de redimensionnement si aucune collision n'est détectée
+          //if (!collision) {
+          // Applique la transformation de déplacement ou de redimensionnement en fonction de la sélection
+          if (selectedVertex !== -1) {
+            salles[selected].tab[selectedVertex][0] += dx;
+            salles[selected].tab[selectedVertex][1] += dy;
+          } else if (selectedEdge !== -1) {
+            if (startX < salles[selected].tab[mod((selectedEdge - 1), 4)][0] + 4 && startX > salles[selected].tab[mod((selectedEdge - 1), 4)][0] - 4) salles[selected].tab[mod((selectedEdge - 1), 4)][0] += dx;
+            if (startY < salles[selected].tab[mod((selectedEdge - 1), 4)][1] + 4 && startY > salles[selected].tab[mod((selectedEdge - 1), 4)][1] - 4) salles[selected].tab[mod((selectedEdge - 1), 4)][1] += dy;
+            if (startX < salles[selected].tab[mod((selectedEdge), 4)][0] + 4 && startX > salles[selected].tab[mod((selectedEdge), 4)][0] - 4) salles[selected].tab[mod((selectedEdge), 4)][0] += dx;
+            if (startY < salles[selected].tab[mod((selectedEdge), 4)][1] + 4 && startY > salles[selected].tab[mod((selectedEdge), 4)][1] - 4) salles[selected].tab[mod((selectedEdge), 4)][1] += dy;
+          } else {
+            for (let i = 0; i < salles[selected].tab.length; i++) {
+              salles[selected].tab[i][0] += dx;
+              salles[selected].tab[i][1] += dy;
             }
           }
-          return { left: left, right: right, top: top, bottom: bottom };
+          startX = endX;
+          startY = endY;
+          drawAllPolygons();
+          //}
         }
+      });
+      // Gestion de l'événement pour désélectionner le polygone, le sommet ou l'arête
+      canvas.addEventListener('mouseup', function (event) {
+        selected = false;
+        selectedVertex = -1;
+        selectedEdge = -1;
+        document.body.style.cursor = "auto";
+      });
 
-        /*document.getElementById('zoom').addEventListener('click', function (){
-          ctx.scale(scaleFactor, scaleFactor)
-          drawAllPolygons();
-        });
-        document.getElementById('unzoom').addEventListener('click', function (){
-          ctx.scale(0.9, 0.9)
-          drawAllPolygons();
-        });*/
-
-
-
-
-
-
-
+      function bringFront(i) {
+        let elem = salles.splice(i, 1);
+        salles.push(elem[0]);
+        return salles.length - 1;
       }
 
-      function displaySalle(salle) {
-        let container = document.getElementById('container');
-        let containerSalle = document.createElement('div');
-        let p = document.createElement('p');
-        p.innerText = salle.nom;
-        containerSalle.appendChild(p);
-        if (proj) {
-          let p2 = document.createElement('p');
-          p2.innerText = 'Vidéo projecteur';
-          containerSalle.appendChild(p2);
-        }
-        container.appendChild(containerSalle);
+      function checkPolygonCollision(polygon1, polygon2) {
+        var poly1Bounds = getBounds(polygon1);
+        var poly2Bounds = getBounds(polygon2);
+        return poly1Bounds.left <= poly2Bounds.right && poly1Bounds.right >= poly2Bounds.left &&
+          poly1Bounds.top <= poly2Bounds.bottom && poly1Bounds.bottom >= poly2Bounds.top;
       }
 
-      document.getElementById('send').addEventListener('click', function () {
-        if (salles.length != 0) {
-          let nameStage = document.getElementById('name_stage').value;
-          let width = canvas.width;
-          let height = canvas.height;
-          if (nameStage != "") {
+      function getBounds(polygon) {
+        var left = polygon[0][0];
+        var right = polygon[0][0];
+        var top = polygon[0][1];
+        var bottom = polygon[0][1];
+        for (var i = 1; i < polygon.length; i++) {
+          if (polygon[i][0] < left) {
+            left = polygon[i][0];
+          }
+          if (polygon[i][0] > right) {
+            right = polygon[i][0];
+          }
+          if (polygon[i][1] < top) {
+            top = polygon[i][1];
+          }
+          if (polygon[i][1] > bottom) {
+            bottom = polygon[i][1];
+          }
+        }
+        return { left: left, right: right, top: top, bottom: bottom };
+      }
+
+      /*document.getElementById('zoom').addEventListener('click', function (){
+        ctx.scale(scaleFactor, scaleFactor)
+        drawAllPolygons();
+      });
+      document.getElementById('unzoom').addEventListener('click', function (){
+        ctx.scale(0.9, 0.9)
+        drawAllPolygons();
+      });*/
+    }
+
+    function displaySalle(salle) {
+      let container = document.getElementById('container');
+      let containerSalle = document.createElement('div');
+      let p = document.createElement('p');
+      p.innerText = salle.nom;
+      containerSalle.appendChild(p);
+      if (proj) {
+        let p2 = document.createElement('p');
+        p2.innerText = 'Vidéo projecteur';
+        containerSalle.appendChild(p2);
+      }
+      container.appendChild(containerSalle);
+    }
+
+    document.getElementById('send').addEventListener('click', function (e) {
+      e.preventDefault();
+      if (salles.length != 0) {
+        const form = document.getElementById('upload-form');
+        let nameStage = document.getElementById('name_stage').value;
+        let width = canvas.width;
+        let height = canvas.height;
+
+        const formData = new FormData(form);
+        const image = formData.get('image');
+        formData.append('name', nameStage);
+        formData.append('salles', JSON.stringify(salles));
+        formData.append('width', width);
+        formData.append('height', height);
+        if (nameStage) {
+          if ($("#image").val()) {
             console.log("Etage : " + nameStage);
             console.log(JSON.stringify(salles));
             console.log(JSON.parse(JSON.stringify(salles)));
             $.ajax({
               type: 'POST',
               url: '/save',
-              data: {
-                name: nameStage,
-                salles: JSON.stringify(salles),
-                width: width,
-                height: height
-              },
+              data: formData,
+              processData: false,
+              contentType: false,
               success: function () {
                 window.location = '/plans'
               }
             });
-          } else { alert('Veuillez nommer votre plan') }
-        } else { alert('Aucune salle enregistrée') }
-      });
+          }
+          else { alert('veuillez insérer une image de fond') }
+        } else { alert('Veuillez nommer votre plan') }
+      } else { alert('Aucune salle enregistrée') }
+    });
 
 
-
-
-      function mod(n, m) {
-        return ((n % m) + m) % m;
-      }
-    </script>
+    function mod(n, m) {
+      return ((n % m) + m) % m;
+    }
+  </script>
 </body>
 
 </html

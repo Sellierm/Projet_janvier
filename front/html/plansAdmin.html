@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -12,8 +12,6 @@
 </head>
 
 <body>
-
-
 
     <div class="banner">
         <div class="navbar">
@@ -30,7 +28,6 @@
         </div>
     </div>
 
-
     <div class="page">
         <video autoplay loop muted plays-inline class="back-video">
             <source src="../assets/plans.mp4" type="video/mp4">
@@ -38,29 +35,27 @@
 
         <div class="container">
             <div class="wrap">
-                <h2>Plans</h2>
+                <h2>Ajouter des plans</h2>
+                <a href="edit" class="add">&plus;</a>
             </div>
-            <div id="group" class="inp-group">
-
-            </div>
+            <div id="group" class="inp-group"></div>
+            <div class="editing"></div>
         </div>
     </div>
 
+    <script src="../js/plans.js"></script>
     <script>
         $(document).ready(function () {
-            console.log('test');
             $.ajax({
                 type: 'POST',
                 url: '/loadPlans',
-                data: {
-                },
                 success: function (data) {
                     let plans = JSON.parse(data.result);
                     let container = document.getElementById('group');
                     plans.forEach(element => {
                         let link = document.createElement('button');
                         link.dataset.id = element.idStage;
-                        link.addEventListener('click', redirect);
+                        link.addEventListener('click', function () { alert('redirection vers le plan avec le bouton edition') });
                         link.innerText = element.name
                         container.appendChild(link);
                     });
@@ -69,14 +64,6 @@
                 }
             });
         })
-
-        function redirect(event) {
-            let id = event.target.dataset.id;
-            console.log(id)
-            window.location = '/planning?stage=' + id;
-        }
-
-
     </script>
     <script src="../js/app.js"></script>
 </body>

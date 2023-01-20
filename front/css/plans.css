@@ -1,41 +1,40 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
+body {
     /*width: 100%;
     min-height: 100vh;*/
     display: flex;
     justify-content: center;
     align-items: center;
     background: black;
-    overflow: hidden;
 }
 
-.banner{
-   width: 100%;
-    height : 100vh;
+.banner {
+    width: 100%;
+    height: 100vh;
 }
 
-.navbar{
+.navbar {
     width: 85%;
     margin: auto;
     padding: 35px 0;
     display: flex;
     align-items: center;
-    justify-content : space-between;
+    justify-content: space-between;
 }
 
-.logo{
+.logo {
     width: 60px;
     cursor: pointer;
 }
 
 
 
-.page{
+.page {
     width: 100%;
     position: absolute;
     top: 30%;
@@ -45,7 +44,7 @@ body{
     justify-content: center;
 }
 
-.back-video{
+.back-video {
     position: fixed;
     right: 0;
     bottom: 0;
@@ -53,21 +52,21 @@ body{
     filter: blur(3px);
 }
 
-@media (min-aspect-ratio: 16/9){
-    .back-video{
+@media (min-aspect-ratio: 16/9) {
+    .back-video {
         width: 100%;
         height: auto;
     }
 }
 
-@media (max-aspect-ratio: 16/9){
-    .back-video{
+@media (max-aspect-ratio: 16/9) {
+    .back-video {
         width: auto;
         height: 100%;
     }
 }
 
-.container{
+.container {
     max-width: 600px;
     background: #fff;
     border-radius: 5px;
@@ -76,7 +75,7 @@ body{
     box-shadow: -0.2em 0.2em 0.5em black;
 }
 
-.wrap{
+.wrap {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -89,7 +88,7 @@ body{
 
 
 
-.add{
+.add {
     text-decoration: none;
     display: inline-block;
     width: 30px;
@@ -106,13 +105,13 @@ body{
 
 /* Dynamic Class Creation*/
 
-.flex{
+.flex {
     display: flex;
     gap: 1.5em;
     margin-bottom: 15px;
 }
 
-.delete{
+.delete {
     text-decoration: none;
     display: inline-block;
     border-radius: 30%;
@@ -122,7 +121,7 @@ body{
     font-weight: bold;
     width: 30px;
     height: 30px;
-    color:#fff;
+    color: #fff;
     margin-left: auto;
     display: flex;
     justify-content: center;
@@ -130,7 +129,7 @@ body{
     cursor: pointer;
 }
 
-input{
+input {
     padding: 8px 10px;
     background: #eee;
     border: none;
@@ -138,11 +137,11 @@ input{
     border-radius: 5px;
 }
 
-input:focus{
+input:focus {
     outline: 1px solid #efefef;
 }
 
-.editer{
+.editer {
     text-decoration: none;
     display: inline-block;
     border-radius: 30%;
@@ -152,7 +151,7 @@ input:focus{
     font-weight: bold;
     width: 30px;
     height: 30px;
-    color:#fff;
+    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -163,43 +162,43 @@ input:focus{
 
 /* CSS */
 button {
-  background: #FF4742;
-  border: 1px solid #FF4742;
-  border-radius: 6px;
-  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline-block;
-  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  line-height: 16px;
-  min-height: 40px;
-  outline: 0;
-  padding: 12px 14px;
-  text-align: center;
-  text-rendering: geometricprecision;
-  text-transform: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
-  margin-bottom: 5px;
+    background: #FF4742;
+    border: 1px solid #FF4742;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
+    outline: 0;
+    padding: 12px 14px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    margin-bottom: 5px;
 }
 
 button:hover,
 button:active {
-  background-color: initial;
-  background-position: 0 0;
-  color: #FF4742;
+    background-color: initial;
+    background-position: 0 0;
+    color: #FF4742;
 }
 
 button:active {
-  opacity: .5;
+    opacity: .5;
 }
 
-.inp-group{
+.inp-group {
 
     display: flex;
     flex-direction: column;

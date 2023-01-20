@@ -3,6 +3,7 @@ const path = require('path');
 const MongoClient = require('mongodb').MongoClient;
 const http = require('http');
 const crypto = require('crypto');
+const multer = require('multer');
 //import { generateId } from './back/fonctions/id.js'
 const session = require('express-session')({
     secret: "eb8fcc253281389225b4f7872f2336918ddc7f689e1fc41b64d5c4f378cdc438",
@@ -16,6 +17,7 @@ const session = require('express-session')({
 
 const app = express();
 const server = http.Server(app);
+const upload = multer();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -54,12 +56,11 @@ app.get('/reg', function (req, res) {
 });
 //home page
 app.get('/home', authMiddleware, function (req, res) {
-    console.log(req.session)
     if (req.session.isAdmin) {
-        res.sendFile(path.join(__dirname + '/front/html/index.html'));
+        res.sendFile(path.join(__dirname + '/front/html/homeAdmin.html'));
     }
     else {
-        res.sendFile(path.join(__dirname + '/front/html/indexClient.html'));
+        res.sendFile(path.join(__dirname + '/front/html/homeClient.html'));
     }
 });
 //edit
@@ -68,14 +69,13 @@ app.get('/edit', authMiddleware, function (req, res) {
         res.sendFile(path.join(__dirname + '/front/html/edit.html'));
     }
     else {
-        res.sendFile(path.join(__dirname + '/front/html/indexClient.html'));
+        res.sendFile(path.join(__dirname + '/front/html/homeClient.html'));
     }
 });
 //plans
 app.get('/plans', authMiddleware, function (req, res) {
-    console.log(req.session)
     if (req.session.isAdmin) {
-        res.sendFile(path.join(__dirname + '/front/html/plans.html'));
+        res.sendFile(path.join(__dirname + '/front/html/plansAdmin.html'));
     }
     else {
         res.redirect('/reserver');
@@ -90,65 +90,73 @@ app.get('/planning', authMiddleware, function (req, res) {
         res.sendFile(path.join(__dirname + '/front/html/planning.html'));
     }
 });
-
 //reserve
 app.get('/reserver', authMiddleware, function (req, res) {
     res.sendFile(path.join(__dirname + '/front/html/plansClient.html'));
 });
-
-
+app.get('/contact', authMiddleware, function (req, res) {
+    res.sendFile(path.join(__dirname + '/front/html/contact.html'));
+});
 //session destroy for decconection
 app.get('/deco', function (req, res) {
     req.session.destroy(function (err) {
         // req.session is now a new session and no longer the original session
         if (err) console.log(err);
-        else res.redirect('/');
+        res.redirect('/');
     });
 })
+
+
 //login ajax request
-app.post('/auth', function (req, res) {
+app.post('/auth', async (req, res) => {
     // Capture the input fields
-    let mail = req.body.mail;
-    let password = req.body.password;
+    const mail = req.body.mail;
+    const password = req.body.password;
 
     // Ensure the input fields exists and are not empty
-    if (mail && password) {
+    if (!mail || !password) {
+        return res.status(401).json({ success: false });
+    }
+
+    try {
         const url = data.url;
         const dbName = data.name;
-        const client = new MongoClient(url);
-        client.connect(function (err) {
-            //console.log("Connected successfully to server");
-            const db = client.db(dbName);
-            const collection = db.collection(data.database_users);
-            collection.find({ "mail": `${mail}` }).toArray(function (err, result) {
-                //console.log(result);
-                client.close();
-                if (result && result.length === 1) {
-                    const hash = crypto.createHash('sha512').update(password).digest('hex');
-                    if (hash === result[0].password) {
-                        req.session.isAuthenticated = true;
-                        req.session.mail = mail;
-                        if (result[0].admin === "true") {
-                            req.session.isAdmin = true;
-                        }
-                        res.status(200).json({ success: true });
-                    }
-                    else {
-                        res.status(401).json({ success: false });
-                    }
-                }
-                else {
-                    res.status(401).json({ success: false });
-                }
-            });
-        });
-    }
-    else {
-        res.status(401).json({ success: false });
-    }
+
+        const client = await new MongoClient(url);
+
+        await client.connect();
+
+        const db = client.db(dbName);
+
+        const collection = db.collection(data.database_users);
+
+        const result = await collection.findOne({ mail });
+
+        client.close();
+
+        if (!result) {
+            return res.status(401).json({ success: false });
+        }
+
+        const hash = crypto.createHash('sha512').update(password).digest('hex');
+
+        if (hash === result.password) {
+            req.session.isAuthenticated = true;
+            req.session.mail = mail;
+
+            if (result.admin === "true") {
+                req.session.isAdmin = true;
+            }
+
+            return res.status(200).json({ success: true });
+        } else {
+            return res.status(401).json({ success: false });
+        }
+
+    } catch (err) { console.log("Error connecting to database", err); }
 });
 //register ajax request
-app.post('/reg', (req, res) => {
+app.post('/reg', async (req, res) => {
     // Si l'utilisateur n'est pas connecté
     let email = req.body.mail;
     let password = req.body.password;
@@ -156,42 +164,46 @@ app.post('/reg', (req, res) => {
 
     const url = data.url;
     const dbName = data.name;
-    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-    client.connect(function (err) {
-        console.log(err)
+
+    try {
+        const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+        await client.connect();
+
         const db = client.db(dbName);
         const collection = db.collection(data.database_users);
-        if (password === rptpassword) {
-            collection.find({ mail: email }).toArray(function (err, result) {
-                if (err) console.log(err)
-                else if (!result[0]) {
-                    collection.insertOne({
-                        mail: email,
-                        password: crypto.createHash('sha512').update(password).digest('hex'),
-                        admin: "false"
-                    }, (err, result) => {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            //console.log("Inserted new user into the collection");
-                            // Redirect the user to the homepage or a signup success page
-                            res.status(200).json({ success: true });
-                            client.close();
-                        }
-                    });
-                }
-                else {
-                    res.status(401).json({ success: false });
-                }
-            });
-        }
-        else res.status(401).json({ success: false });
-    });
-});
-//save plans
-app.post('/save', (req, res) => {
-    if (req.body.isAuthenticated) {
 
+        if (password === rptpassword) {
+            const userExists = await collection.find({ mail: email }).toArray();
+
+            if (!userExists[0]) {
+                await collection.insertOne({
+                    mail: email,
+                    password: crypto.createHash('sha512').update(password).digest('hex'),
+                    admin: "false"
+                });
+
+                // Redirect the user to the homepage or a signup success page 
+                res.status(200).json({ success: true });
+
+            } else {
+                res.status(401).json({ success: false });
+            }
+
+            client.close();
+
+        } else {
+            res.status(401).json({ success: false });
+
+        }
+
+    } catch (err) { console.log(err) };
+});
+
+//save plans
+app.post('/save', upload.single('image'), (req, res) => {
+    const image = req.file
+    //console.log(image)
+    if (req.session.isAuthenticated) {
         const name = req.body.name;
         let salles = JSON.parse(req.body.salles);
         const width = req.body.width
@@ -207,10 +219,10 @@ app.post('/save', (req, res) => {
             element.stage = newIdStage;
         });
 
-        console.log(heigth)
-        console.log(width)
-        console.log(name)
-        console.log(salles)
+        //console.log(heigth)
+        //console.log(width)
+        //console.log(name)
+        //console.log(salles)
 
         const url = data.url;
         const dbName = data.name;
@@ -219,6 +231,7 @@ app.post('/save', (req, res) => {
             console.log(err)
             const db = client.db(dbName);
             let collection = db.collection(data.database_stages);
+            const base64Image = Buffer.from(image.buffer).toString('base64')
             collection.find({ idStage: newIdStage }).toArray(function (err, result) {
                 if (err) console.log(err)
                 else if (result.length == 0) {
@@ -226,7 +239,8 @@ app.post('/save', (req, res) => {
                         idStage: newIdStage,
                         name: name,
                         width: width,
-                        height: heigth
+                        height: heigth,
+                        b64Img: base64Image
                     }, (err, result) => {
                         if (err) {
                             console.log(err);
@@ -255,43 +269,38 @@ app.post('/save', (req, res) => {
             });
         });
     }
-    else { res.sendFile(path.join(__dirname + '/front/html/login.html')); }
+    else { res.redirect('/'); }
 });
 
 //load plans
 app.post('/loadPlans', (req, res) => {
-    console.log('tset')
-    console.log(req.body, req.body.isAuthenticated);
-    //if (req.body.isAuthenticated) {
-    console.log('tset2')
-    const url = data.url;
-    const dbName = data.name;
-    const client = new MongoClient(url);
-    client.connect(function (err) {
-        //console.log("Connected successfully to server");
-        const db = client.db(dbName);
-        const collection = db.collection(data.database_stages);
-        collection.find({}).toArray(function (err, result) {
-            console.log(result);
-            console.log(JSON.stringify(result));
-            client.close();
-            if (result && result.length > 0) {
-                console.log('tset3')
-                res.status(200).json({ result: JSON.stringify(result) });
-            }
-            else {
-                console.log('tset4')
-                res.status(401).json({ result: JSON.stringify(result) });
-            }
+    if (req.session.isAuthenticated) {
+        const url = data.url;
+        const dbName = data.name;
+        const client = new MongoClient(url);
+        client.connect(function (err) {
+            //console.log("Connected successfully to server");
+            const db = client.db(dbName);
+            const collection = db.collection(data.database_stages);
+            collection.find({}).toArray(function (err, result) {
+                //console.log(result);
+                //console.log(JSON.stringify(result));
+                client.close();
+                if (result && result.length > 0) {
+                    res.status(200).json({ result: JSON.stringify(result) });
+                }
+                else {
+                    res.status(401).json({ result: JSON.stringify(result) });
+                }
+            });
         });
-    });
-    //}
-    //else { res.sendFile(path.join(__dirname + '/front/html/login.html')) };
+    }
+    else { res.redirect('/'); }
 });
 
 
 app.post('/loadPlan', (req, res) => {
-    console.log(req.body);
+    //console.log(req.body);
     const idStage = req.body.stage;
     const dateNow = Date.parse(req.body.date);
 
@@ -304,19 +313,19 @@ app.post('/loadPlan', (req, res) => {
         const db = client.db(dbName);
         let collection = db.collection(data.database_stages);
         collection.find({ idStage: idStage }).toArray(function (err, result1) {
-            console.log(result1);
-            console.log(JSON.stringify(result1));
+            //console.log(result1);
+            //console.log(JSON.stringify(result1));
 
             if (result1 && result1.length > 0) {
                 collection = db.collection(data.database_rooms);
                 collection.find({ stage: idStage }).toArray(function (err, result2) {
-                    console.log(result2);
-                    console.log(JSON.stringify(result2));
+                    //console.log(result2);
+                    //console.log(JSON.stringify(result2));
 
                     collection = db.collection(data.database_bookings);
                     collection.find({ idStage: idStage, start: { $lt: dateNow }, end: { $gt: dateNow } }).toArray(function (err, result3) {
-                        console.log(result3);
-                        console.log(JSON.stringify(result3));
+                        //console.log(result3);
+                        //console.log(JSON.stringify(result3));
                         client.close();
 
                         res.status(200).json({ result1: JSON.stringify(result1), result2: JSON.stringify(result2), result3: JSON.stringify(result3) });
@@ -333,12 +342,12 @@ app.post('/loadPlan', (req, res) => {
 
 
 app.post('/loadSchedule', (req, res) => {
-    console.log(req.body);
+    //console.log(req.body);
     const idSalle = req.body.salle;
     const dateNow = new Date(req.body.date);
     const startDay = dateNow.setHours(6, 0, 0, 0);
     const endDay = dateNow.setHours(22, 0, 0, 0);
-    console.log(dateNow.getDate());
+    //console.log(dateNow.getDate());
 
 
     const url = data.url;
@@ -349,8 +358,8 @@ app.post('/loadSchedule', (req, res) => {
         const db = client.db(dbName);
         let collection = db.collection(data.database_bookings);
         collection.find({ idSalle: idSalle, start: { $gt: startDay }, end: { $lt: endDay } }).toArray(function (err, result) {
-            console.log(result);
-            console.log(JSON.stringify(result));
+            //console.log(result);
+            //console.log(JSON.stringify(result));
 
             client.close();
 
@@ -369,7 +378,7 @@ app.post('/book', (req, res) => {
     const start = Date.parse(req.body.start);
     const end = Date.parse(req.body.end);
     const user = req.session.mail;
-    console.log('test');
+    //console.log('test');
 
 
     const url = data.url;
