@@ -39,16 +39,40 @@
   </div>
 
   <script>
-    function setSize() {
-      document.getElementById('myCanvas').width = window.innerWidth * 0.75;
-      document.getElementById('myCanvas').height = window.innerHeight;
-    }
-    setSize();
-
-    var canvas = document.getElementById("myCanvas");
+    
     var salles = [];
+    var canvas = document.getElementById("myCanvas");
 
     window.onload = function () {
+
+      let params = new URLSearchParams(document.location.search);
+      if(params.has("stage")){
+        let stage = params.get("stage");
+        $.ajax({
+          type: 'POST',
+          url: '/loadPlan',
+          data: {
+              date:dateNow,
+              stage:stage
+          },
+          success: function (data) {
+            console.log(data)
+            console.log(JSON.parse(data.result1))
+            console.log(JSON.parse(data.result2))
+            console.log(JSON.parse(data.result3))
+            let stageData = JSON.parse(data.result1);
+            salles = JSON.parse(data.result2);
+            canvas.width = parseInt(stageData[0].width)
+            canvas.height = parseInt(stageData[0].height)
+            document.getElementById('name_stage').value = stageData[0].name
+          }
+        });
+      }else {
+        canvas.width = window.innerWidth * 0.75;
+        canvas.height = window.innerHeight;
+      }
+
+
       var ctx = canvas.getContext("2d");
       var polygons = []; // Liste pour stocker les sommets de chaque polygone
       var selected = false;

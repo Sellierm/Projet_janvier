@@ -55,7 +55,7 @@
                     plans.forEach(element => {
                         let link = document.createElement('button');
                         link.dataset.id = element.idStage;
-                        link.addEventListener('click', function () { alert('redirection vers le plan avec le bouton edition') });
+                        link.addEventListener('click', redirect);
                         link.innerText = element.name
                         container.appendChild(link);
                     });
@@ -64,6 +64,12 @@
                 }
             });
         })
+
+        function redirect(event) {
+            let id = event.target.dataset.id;
+            console.log(id)
+            window.location = '/edit?stage=' + id;
+        }
     </script>
     <script src="../js/app.js"></script>
 </body>
