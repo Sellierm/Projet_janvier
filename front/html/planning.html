@@ -658,7 +658,7 @@
                                     element.style.backgroundColor = 'green';
                                 }
                             });
-                            document.getElementById('bulleInfo').scrollIntoView(true);
+                            document.getElementById('bulleInfo').scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
                         }
                     });
                 }
