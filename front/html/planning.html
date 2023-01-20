@@ -273,6 +273,7 @@
                 max.setMinutes(0);
                 let start = new Date(document.getElementById('date').value + " " + document.getElementById('start').value);
                 let end = new Date(document.getElementById('date').value + " " + document.getElementById('end').value);
+                console.log(start < now);
                 if(start < now){
                     start = now
                 }
