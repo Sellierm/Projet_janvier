@@ -225,8 +225,8 @@
                             }
                         });
                         
-                        document.getElementById('myCanvas').width = stage.width;
-                        document.getElementById('myCanvas').height = stage.height;
+                        document.getElementById('myCanvas').width = parseInt(stage.width);
+                        document.getElementById('myCanvas').height = parseInt(stage.width);
 
                         drawAllPolygons();
                         if ((data.result1)[0].b64Img) {
