@@ -154,7 +154,7 @@ body{
 }
 
 .horairePlanning{
-    position: sticky;
+    position: fixed;
     bottom: 0px; 
     right: 0px; 
     width: 20%;
