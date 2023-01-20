@@ -441,29 +441,37 @@ app.post('/book', authMiddleware, (req, res) => {
         });
     }
 });
-
+//supression plan / booking / salles via id d'étage
 app.post('/supPlan', authMiddleware, (req, res) => {
     const id = req.body.stage;
+    const url = data.url;
+    const dbName = data.name;
 
     const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
     client.connect(function (err) {
         if (err) console.log(err);
         const db = client.db(dbName);
-
+        //suppression étage dans db
         let collection = db.collection(data.database_stages);
-        collection.deleteMany({ _id: id }, function (err, res) {
+        collection.deleteMany({
+            idStage: id
+        }, function (err, result) {
             if (err) console.log(err);
             else {
                 collection = db.collection(data.database_rooms);
-                collection.deleteMany({ _id: id }, function (err, res) {
+                //suppression salles dans db
+                collection.deleteMany({
+                    stage: id
+                }, function (err, result) {
                     if (err) console.log(err);
                     else {
+                        //suppression booking dans db
                         collection = db.collection(data.database_bookings);
-                        collection.deleteMany({ _id: id }, function (err, res) {
+                        collection.deleteMany({ idStage: id }, function (err, result) {
                             if (err) console.log(err);
                             else {
+                                res.status(200).json({ success: true });
                                 client.close();
-                                return res.status(200).json({ success: true });
                             }
                         });
                     }
