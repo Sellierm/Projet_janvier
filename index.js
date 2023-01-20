@@ -406,7 +406,9 @@ app.post('/book', authMiddleware, (req, res) => {
 
     if (start >= now && end >= now && start.getHours() >= min.getHours() && start.getMinutes() >= min.getMinutes() && end.getHours() <= max.getHours() && end.getMinutes() <= max.getMinutes()) {
 
-        const inputStart = end.getTime();
+        start.setHours(parseInt(start.getHours())+1)
+        end.setHours(parseInt(end.getHours())+1)
+        const inputStart = start.getTime();
         const inputEnd = end.getTime();
 
 
