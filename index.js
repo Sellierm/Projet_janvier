@@ -409,8 +409,8 @@ app.post('/book', authMiddleware, (req, res) => {
 
     if(start >= now && end >= now && start.getHours() >= min.getHours() && start.getMinutes() >= min.getMinutes() && end.getHours() <= max.getHours() && end.getMinutes() <= max.getMinutes()){
 
-        let inputStart = Date(start);
-        let inputEnd = Date(end);
+        const inputStart = Date(start);
+        const inputEnd = Date(end);
 
 
         const url = data.url;
@@ -427,7 +427,7 @@ app.post('/book', authMiddleware, (req, res) => {
                     collection.insertOne({
                         idSalle: idSalle,
                         idStage: idStage,
-                        start: inputEnd,
+                        start: inputStart,
                         end: inputEnd,
                         user: user
                     }, (err, result) => {
