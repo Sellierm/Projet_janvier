@@ -301,16 +301,16 @@
                 }
                 //document.getElementById('start').value = start.toLocaleString().substring(11,16);
                 let replaceValueStart = "";
-                if(start.getHours() < 0)replaceValueStart+='0';
+                if(start.getHours() < 10)replaceValueStart+='0';
                 replaceValueStart+=start.getHours()+':';
-                if(start.getMinutes() < 0)replaceValueStart+='0';
+                if(start.getMinutes() < 10)replaceValueStart+='0';
                 replaceValueStart+=start.getMinutes();
                 document.getElementById('start').value = replaceValueStart;
 
                 let replaceValueEnd = "";
-                if(end.getHours() < 0)replaceValueEnd+='0';
+                if(end.getHours() < 10)replaceValueEnd+='0';
                 replaceValueEnd+=end.getHours()+':';
-                if(end.getMinutes() < 0)replaceValueEnd+='0';
+                if(end.getMinutes() < 10)replaceValueEnd+='0';
                 replaceValueEnd+=end.getMinutes();
                 if(end <= start){
                     end = start
