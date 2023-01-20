@@ -55,7 +55,7 @@
                     plans.forEach(element => {
                         let link = document.createElement('button');
                         link.dataset.id = element.idStage;
-                        link.addEventListener('click', redirect);
+                        link.addEventListener('click', supp);
                         link.innerText = element.name
                         container.appendChild(link);
                     });
@@ -65,10 +65,19 @@
             });
         })
 
-        function redirect(event) {
-            let id = event.target.dataset.id;
-            console.log(id)
-            window.location = '/edit?stage=' + id;
+        function supp(event) {
+            $.ajax({
+                type: 'POST',
+                url: '/supPlan',
+                data:{
+                    stage:event.target.dataset.id
+                },
+                success: function (data) {
+                    if(data.success){
+                        event.target.style.visible = 'hidden';
+                    }
+                }
+            });
         }
     </script>
     <script src="../js/app.js"></script>
