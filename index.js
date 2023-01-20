@@ -375,36 +375,72 @@ app.post('/loadSchedule', authMiddleware, (req, res) => {
 app.post('/book', authMiddleware, (req, res) => {
     const idSalle = req.body.idSalle;
     const idStage = req.body.idStage;
-    const start = Date.parse(req.body.start);
-    const end = Date.parse(req.body.end);
+    let start = new Date(req.body.start);
+    let end = new Date(req.body.end);
     const user = req.session.mail;
     //console.log('test');
 
+    const now = new Date();
+    const min = new Date();
+    min.setHours(7);
+    min.setMinutes(0);
+    const max = new Date();
+    max.setHours(20);
+    max.setMinutes(0);
 
-    const url = data.url;
-    const dbName = data.name;
-    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-    client.connect(function (err) {
-        console.log(err)
-        const db = client.db(dbName);
-        let collection = db.collection(data.database_bookings);
+    if(parseInt(start.getMinutes()) < 30){
+        start.setMinutes(0, 0, 0);
+    }
+    else{
+        start.setMinutes(30, 0, 0);
+    }
+    if(end <= start){
+        end = start
+        end.setMinutes(end.getMinutes() + 30);
+    }
+    else {
+        if(parseInt(end.getMinutes()) < 30){
+            end.setMinutes(0, 0, 0);
+        }
+        else{
+            end.setMinutes(30, 0, 0);
+        }
+    }
 
-        collection.insertOne({
-            idSalle: idSalle,
-            idStage: idStage,
-            start: start,
-            end: end,
-            user: user
-        }, (err, result) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.status(200).json({ success: true });
-                client.close();
-            }
+    if(start >= now && end >= now && start.getHours() >= min.getHours() && start.getMinutes() >= min.getMinutes() && end.getHours() <= max.getHours() && end.getMinutes() <= max.getMinutes()){
 
+
+        const url = data.url;
+        const dbName = data.name;
+        const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+        client.connect(function (err) {
+            console.log(err)
+            const db = client.db(dbName);
+            let collection = db.collection(data.database_bookings);
+
+            collection.find({ idStage: idStage, start: { $lt: dateNow }, end: { $gt: dateNow } }).toArray(function (err, verif) {
+                if(verif && verif.length > 0){
+                    collection.insertOne({
+                        idSalle: idSalle,
+                        idStage: idStage,
+                        start: start,
+                        end: end,
+                        user: user
+                    }, (err, result) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.status(200).json({ success: true });
+                            client.close();
+                        }
+        
+                    });
+                }
+            });
+
+            
         });
-    });
+    }
 });
 
 
