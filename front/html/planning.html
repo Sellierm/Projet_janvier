@@ -260,8 +260,8 @@
 
             /* Changement du temps 2 */
 
-            //document.getElementById('start').addEventListener('change', updateBookTime);
-            //document.getElementById('end').addEventListener('change', updateBookTime);
+            document.getElementById('start').addEventListener('change', updateBookTime);
+            document.getElementById('end').addEventListener('change', updateBookTime);
 
             function updateBookTime(){
                 let now = new Date();
@@ -331,7 +331,7 @@
                     else{
                         end.setMinutes(30, 0, 0);
                     }
-                    
+
                     if(end.getHours() < 10)replaceValueEnd+='0';
                     replaceValueEnd+=end.getHours()+':';
                     if(end.getMinutes() < 10)replaceValueEnd+='0';
