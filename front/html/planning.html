@@ -254,12 +254,12 @@
             document.getElementById('end').addEventListener('change', updateBookTime);
 
             function updateBookTime(){
-                let start = new Date(document.getElementById('start').value);
-                let end = new Date(document.getElementById('end').value);
+                let start = new Date(document.getElementById('date').value + " " + document.getElementById('start').value);
+                let end = new Date(document.getElementById('date').value + " " + document.getElementById('end').value);
                 if(end <= start){
                     end = start
                     end.setMinutes(end.getMinutes());
-                    document.getElementById('end').value = end.toISOString().substring(0,10);
+                    document.getElementById('end').value = end.toLocaleString().substring(11,16);
                 }
             }
 
