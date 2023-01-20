@@ -300,12 +300,23 @@
                     start.setMinutes(30, 0, 0);
                 }
                 //document.getElementById('start').value = start.toLocaleString().substring(11,16);
-                document.getElementById('start').value = start.getHours()+':'+start.getMinutes();
+                let replaceValueStart = "";
+                if(start.getHours() < 0)replaceValueStart+='0';
+                replaceValueStart+=start.getHours()+':';
+                if(start.getMinutes() < 0)replaceValueStart+='0';
+                replaceValueStart+=start.getMinutes();
+                document.getElementById('start').value = replaceValueStart;
+
+                let replaceValueEnd = "";
+                if(end.getHours() < 0)replaceValueEnd+='0';
+                replaceValueEnd+=end.getHours()+':';
+                if(end.getMinutes() < 0)replaceValueEnd+='0';
+                replaceValueEnd+=end.getMinutes();
                 if(end <= start){
                     end = start
                     end.setMinutes(end.getMinutes() + 30);
                     //document.getElementById('end').value = end.toLocaleString().substring(11,16);
-                    document.getElementById('end').value = end.getHours()+':'+end.getMinutes();
+                    document.getElementById('end').value = replaceValueEnd;
 
                     
                 }
@@ -317,7 +328,7 @@
                         end.setMinutes(30, 0, 0);
                     }
                     //document.getElementById('end').value = end.toLocaleString().substring(11,16);
-                    document.getElementById('end').value = end.getHours()+':'+end.getMinutes();
+                    document.getElementById('end').value = replaceValueEnd;
                 }
 
                 
