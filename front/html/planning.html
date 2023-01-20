@@ -269,15 +269,15 @@
                 if(end < now){
                     end = now
                 }
-                if(start < min){
+                if(start.getHours() < min.getHours() && start.getMinutes() < min.getMinutes()){
                     start = min
                 }
-                if(end > max){
+                if(end.getHours() > max.getHours() && end.getMinutes() > max.getMinutes()){
                     end = max
                 }
                 max.setHours(19);
                 max.setMinutes(30);
-                if(start > max){
+                if(start.getHours() > max.getHours() && start.getMinutes() > max.getMinutes()){
                     start = max
                 }
                 if(parseInt(start.getMinutes()) < 30){
