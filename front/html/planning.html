@@ -323,7 +323,6 @@
             document.getElementById('book').addEventListener('click', bookFunc);
 
             function bookFunc(){
-                console.log(currentSalle)
                 if(currentSalle >= 0){
                     let start = new Date(document.getElementById('date').value + " " + document.getElementById('start').value);
                     let end = new Date(document.getElementById('date').value + " " + document.getElementById('end').value);
@@ -340,7 +339,7 @@
                         success: function (data) {
                             console.log(data.success)
                             if(data.success){
-                                displaySalle();
+                                displaySalle(currentSalle);
                             }
                         }
                     });
