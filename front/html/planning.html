@@ -309,13 +309,14 @@
                 document.getElementById('start').value = replaceValueStart;
 
                 let replaceValueEnd = "";
-                if(end.getHours() < 10)replaceValueEnd+='0';
-                replaceValueEnd+=end.getHours()+':';
                 
                 console.log(end <= start);
                 if(end <= start){
                     end = start
                     end.setMinutes(parseInt(end.getMinutes()) + 30);
+
+                    if(end.getHours() < 10)replaceValueEnd+='0';
+                    replaceValueEnd+=end.getHours()+':';
                     if(end.getMinutes() < 10)replaceValueEnd+='0';
                     replaceValueEnd+=end.getMinutes();
                     //document.getElementById('end').value = end.toLocaleString().substring(11,16);
@@ -330,6 +331,9 @@
                     else{
                         end.setMinutes(30, 0, 0);
                     }
+                    
+                    if(end.getHours() < 10)replaceValueEnd+='0';
+                    replaceValueEnd+=end.getHours()+':';
                     if(end.getMinutes() < 10)replaceValueEnd+='0';
                     replaceValueEnd+=end.getMinutes();
                     //document.getElementById('end').value = end.toLocaleString().substring(11,16);
