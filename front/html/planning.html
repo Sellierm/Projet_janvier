@@ -310,11 +310,12 @@
                 let replaceValueEnd = "";
                 if(end.getHours() < 10)replaceValueEnd+='0';
                 replaceValueEnd+=end.getHours()+':';
-                if(end.getMinutes() < 10)replaceValueEnd+='0';
-                replaceValueEnd+=end.getMinutes();
+                
                 if(end <= start){
                     end = start
                     end.setMinutes(end.getMinutes() + 30);
+                    if(end.getMinutes() < 10)replaceValueEnd+='0';
+                    replaceValueEnd+=end.getMinutes();
                     //document.getElementById('end').value = end.toLocaleString().substring(11,16);
                     document.getElementById('end').value = replaceValueEnd;
 
@@ -327,6 +328,8 @@
                     else{
                         end.setMinutes(30, 0, 0);
                     }
+                    if(end.getMinutes() < 10)replaceValueEnd+='0';
+                    replaceValueEnd+=end.getMinutes();
                     //document.getElementById('end').value = end.toLocaleString().substring(11,16);
                     document.getElementById('end').value = replaceValueEnd;
                 }
