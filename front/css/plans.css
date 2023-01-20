@@ -198,6 +198,10 @@ button:active {
     opacity: .5;
 }
 
+.supPLan:hover{
+    cursor: not-allowed;
+}
+
 .inp-group {
 
     display: flex;

@@ -55,6 +55,7 @@
                     plans.forEach(element => {
                         let link = document.createElement('button');
                         link.dataset.id = element.idStage;
+                        link.classList.add('supPlan')
                         link.addEventListener('click', supp);
                         link.innerText = element.name
                         container.appendChild(link);
@@ -73,6 +74,7 @@
                     stage:event.target.dataset.id
                 },
                 success: function (data) {
+                    console.log(data, data.success)
                     if(data.success){
                         event.target.style.visible = 'hidden';
                     }
