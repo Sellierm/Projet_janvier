@@ -11,7 +11,7 @@
 
 <body>
   <div id="container">
-    <canvas id="backgroundCanvas" oncontextmenu="return false;" style="margin: auto;"></canvas>
+    <img id="backgroundImg" src="" alt="">
     <canvas oncontextmenu="return false;" id="myCanvas" style="margin: auto;"></canvas><!--width="900" height="500"-->
     <label for="name">Nom de la salle</label>
     <input id="name" type="text" value="B804">
@@ -45,21 +45,10 @@
     }
     setSize();
 
-    var canvasb = document.getElementById("backgroundCanvas");
-    canvasb.style.cssText = 'image-rendering: optimizeSpeed;' + // FireFox < 6.0
-      'image-rendering: -moz-crisp-edges;' + // FireFox
-      'image-rendering: -o-crisp-edges;' +  // Opera
-      'image-rendering: -webkit-crisp-edges;' + // Chrome
-      'image-rendering: crisp-edges;' + // Chrome
-      'image-rendering: -webkit-optimize-contrast;' + // Safari
-      'image-rendering: pixelated; ' + // Future browsers
-      '-ms-interpolation-mode: nearest-neighbor;'; // IE
-
     var canvas = document.getElementById("myCanvas");
     var salles = [];
 
     window.onload = function () {
-      var ctxb = canvasb.getContext("2d");
       var ctx = canvas.getContext("2d");
       var polygons = []; // Liste pour stocker les sommets de chaque polygone
       var selected = false;
@@ -73,12 +62,7 @@
         if (imageUpload.files.length === 0) {
           console.log("Aucun fichier sélectionné")
         } else {
-          const img = new Image()
-          img.src = URL.createObjectURL(imageUpload.files[0])
-          img.onload = () => {
-            ctxb.imageSmoothingEnabled = false;
-            ctxb.drawImage(img, 0, 0, canvasb.width, canvasb.height);
-          }
+          document.getElementById("backgroundImg").src = URL.createObjectURL(imageUpload.files[0])
         }
       })
       document.getElementById("back").addEventListener('click', function (e) {
