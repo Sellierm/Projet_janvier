@@ -57,10 +57,10 @@ app.get('/reg', function (req, res) {
 //home page
 app.get('/home', authMiddleware, function (req, res) {
     if (req.session.isAdmin) {
-        res.sendFile(path.join(__dirname + '/front/html/index.html'));
+        res.sendFile(path.join(__dirname + '/front/html/homeAdmin.html'));
     }
     else {
-        res.sendFile(path.join(__dirname + '/front/html/indexClient.html'));
+        res.sendFile(path.join(__dirname + '/front/html/homeClient.html'));
     }
 });
 //edit
@@ -69,13 +69,13 @@ app.get('/edit', authMiddleware, function (req, res) {
         res.sendFile(path.join(__dirname + '/front/html/edit.html'));
     }
     else {
-        res.sendFile(path.join(__dirname + '/front/html/indexClient.html'));
+        res.sendFile(path.join(__dirname + '/front/html/homeClient.html'));
     }
 });
 //plans
 app.get('/plans', authMiddleware, function (req, res) {
     if (req.session.isAdmin) {
-        res.sendFile(path.join(__dirname + '/front/html/plans.html'));
+        res.sendFile(path.join(__dirname + '/front/html/plansAdmin.html'));
     }
     else {
         res.redirect('/reserver');
@@ -93,6 +93,9 @@ app.get('/planning', authMiddleware, function (req, res) {
 //reserve
 app.get('/reserver', authMiddleware, function (req, res) {
     res.sendFile(path.join(__dirname + '/front/html/plansClient.html'));
+});
+app.get('/contact', authMiddleware, function (req, res) {
+    res.sendFile(path.join(__dirname + '/front/html/contact.html'));
 });
 //session destroy for decconection
 app.get('/deco', function (req, res) {

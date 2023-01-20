@@ -14,36 +14,37 @@
 <body>
 
 
-    
-<div class="banner">
-    <div class="navbar">
-        <img src="../assets/logo.png" class="logo">
-        <div class="m-right">
-        <a href="/deco" class="m-link"> Se Déconnecter</a>
-        <a href="../html/contact.html" class="m-link"></i> Nous Contacter</a>
-        </div>
-        <div class="m-nav-toggle">
-        <span class="m-toggle-icon"></span>
-        </div>
-    
-    </div>
-</div>
 
-
-<div class="page">
-    <video autoplay loop muted plays-inline class="back-video">
-        <source src="../assets/plans.mp4" type="video/mp4">
-    </video>
-
-    <div class="container">
-        <div class="wrap">
-            <h2>Plans</h2>
-        </div>
-        <div id="group" class="inp-group">
+    <div class="banner">
+        <div class="navbar">
+            <img src="../assets/logo.png" class="logo">
+            <div class="m-right">
+                <a href="/home" class="m-link"></i> Page d'acceuil</a>
+                <a href="/contact" class="m-link"></i> Nous Contacter</a>
+                <a href="/deco" class="m-link"> Se Déconnecter</a>
+            </div>
+            <div class="m-nav-toggle">
+                <span class="m-toggle-icon"></span>
+            </div>
 
         </div>
     </div>
-</div>
+
+
+    <div class="page">
+        <video autoplay loop muted plays-inline class="back-video">
+            <source src="../assets/plans.mp4" type="video/mp4">
+        </video>
+
+        <div class="container">
+            <div class="wrap">
+                <h2>Plans</h2>
+            </div>
+            <div id="group" class="inp-group">
+
+            </div>
+        </div>
+    </div>
 
     <script>
         $(document).ready(function () {
@@ -69,13 +70,13 @@
             });
         })
 
-        function redirect(event){
+        function redirect(event) {
             let id = event.target.dataset.id;
             console.log(id)
-            window.location = '/planning?stage='+id;
+            window.location = '/planning?stage=' + id;
         }
 
-        
+
     </script>
     <script src="../js/app.js"></script>
 </body>
