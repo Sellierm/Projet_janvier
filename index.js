@@ -383,7 +383,6 @@ app.post('/book', authMiddleware, (req, res) => {
     max.setHours(20);
     max.setMinutes(0);
 
-    console.log('start1', req.body.start.toISOString(), 'end1', req.body.end.toISOString());
     console.log('start', start.toISOString(), 'end', end.toISOString());
     if (parseInt(start.getMinutes()) < 30) {
         start.setMinutes(0, 0, 0);
