@@ -57,7 +57,7 @@
     <body style="margin: 0;">
         <canvas oncontextmenu="return false;" id="myCanvas" style="margin: auto;"></canvas><!--width="900" height="500"-->
         <div id="bulleInfo">
-            <div><p class="p">Salle <span id="name"></span></p><p class="p">Salle <span id="nb"></span></p></div>
+            <div style="display: flex; justify-content: space-around;"><p class="p">Salle <span id="name"></span></p><p class="p">Salle <span id="nb"></span></p></div>
             <div><p class="p">Vidéo projecteur <span id="proj"></span></p></div>
             <div><p class="p" id="day"></p></div>
             <div class="container_planning">
@@ -612,7 +612,7 @@
                     salle = salles[i];
                     document.getElementById('bulleInfo').style.visibility = "visible";
                     document.getElementById('name').innerText = salle.nom;
-                    document.getElementById('nb').innerText = salle.nb;
+                    document.getElementById('nb').innerText = salle.nbPlaces;
                     let textProj = 'Non';
                     if(salle.proj) textProj = 'Oui'
                     document.getElementById('proj').innerText = textProj;
