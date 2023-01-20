@@ -28,7 +28,7 @@
         </style>
     </head>
     <body style="margin: 0;">
-        <img id="backgroundImg" src="" alt="" style="margin: auto; position: absolute; width: 100vw; height: 100vh;">
+        <!--<img id="backgroundImg" src="" alt="" style="margin: auto; position: absolute; width: 100vw; height: 100vh;">-->
         <canvas oncontextmenu="return false;" id="myCanvas" style="margin: auto;"></canvas>
         <div id="bulleInfo" style="position: fixed; top: 10px; right: 10px; width: 20%; height: fit-content; background-color: antiquewhite; display: flex; flex-direction: column; align-items: center; visibility: hidden;">
             <div><p class="p">Salle <span id="name"></span></p></div>
@@ -229,7 +229,7 @@
                         document.getElementById('myCanvas').height = parseInt(stage.width);
 
                         drawAllPolygons();
-                        if ((data.result1)[0].b64Img) {
+                        /*if ((data.result1)[0].b64Img) {
                             const byteCharacters = atob(JSON.parse(data.result1)[0].b64Img);
                             const byteNumbers = new Array(byteCharacters.length);
                             for (let i = 0; i < byteCharacters.length; i++) {
@@ -239,7 +239,7 @@
                             const imgBlob = new Blob([byteArray], { type: 'image/png' });
                             document.getElementById("backgroundImg").src = URL.createObjectURL(imgBlob)
                             console.log(document.getElementById("backgroundImg"));
-                        }
+                        }*/
                     }
                 });
 
