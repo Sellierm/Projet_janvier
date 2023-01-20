@@ -327,6 +327,7 @@
                 if(currentSalle >= 0){
                     let start = new Date(document.getElementById('date').value + " " + document.getElementById('start').value);
                     let end = new Date(document.getElementById('date').value + " " + document.getElementById('end').value);
+                    console.log('start', start, 'end', end);
                     $.ajax({
                         type: 'POST',
                         url: '/book',
