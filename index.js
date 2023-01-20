@@ -199,6 +199,7 @@ app.post('/reg', async (req, res) => {
     } catch (err) { console.log(err) };
 });
 
+
 //save plans
 app.post('/save', authMiddleware, upload.single('image'), (req, res) => {
     const image = req.file
@@ -206,8 +207,8 @@ app.post('/save', authMiddleware, upload.single('image'), (req, res) => {
 
     const name = req.body.name;
     let salles = JSON.parse(req.body.salles);
-    const width = req.body.width
-    const heigth = req.body.height
+    const width = req.body.width;
+    const heigth = req.body.height;
 
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let newIdStage = '';
@@ -335,7 +336,6 @@ app.post('/loadPlan', authMiddleware, (req, res) => {
     });
 });
 
-
 app.post('/loadSchedule', authMiddleware, (req, res) => {
     //console.log(req.body);
     const idSalle = req.body.salle;
@@ -362,9 +362,6 @@ app.post('/loadSchedule', authMiddleware, (req, res) => {
         });
     });
 });
-
-
-
 
 //save plans
 app.post('/book', authMiddleware, (req, res) => {
@@ -405,7 +402,7 @@ app.post('/book', authMiddleware, (req, res) => {
     console.log('start', start.toISOString(), 'end', end.toISOString());
     console.log(start >= now, end >= now, start.getHours() >= min.getHours(), start.getMinutes() >= min.getMinutes(), end.getHours() <= max.getHours(), end.getMinutes() <= max.getMinutes())
 
-    if (start >= now && end >= now && start.getHours() >= min.getHours() && end.getHours() <= max.getHours() ) {
+    if (start >= now && end >= now && start.getHours() >= min.getHours() && end.getHours() <= max.getHours()) {
 
         const inputStart = start.getTime();
         const inputEnd = end.getTime();
@@ -443,6 +440,37 @@ app.post('/book', authMiddleware, (req, res) => {
 
         });
     }
+});
+
+app.post('/supPlan', authMiddleware, (req, res) => {
+    const id = req.body.stage;
+
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    client.connect(function (err) {
+        if (err) console.log(err);
+        const db = client.db(dbName);
+
+        let collection = db.collection(data.database_stages);
+        collection.deleteMany({ _id: id }, function (err, res) {
+            if (err) console.log(err);
+            else {
+                collection = db.collection(data.database_rooms);
+                collection.deleteMany({ _id: id }, function (err, res) {
+                    if (err) console.log(err);
+                    else {
+                        collection = db.collection(data.database_bookings);
+                        collection.deleteMany({ _id: id }, function (err, res) {
+                            if (err) console.log(err);
+                            else {
+                                client.close();
+                                return res.status(200).json({ success: true });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
 });
 
 
