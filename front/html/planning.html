@@ -270,15 +270,18 @@
                     end = now
                 }
                 if(start.getHours() < min.getHours() && start.getMinutes() < min.getMinutes()){
-                    start = min
+                    start.setHours(min.getHours());
+                    start.getMinutes(min.getMinutes());
                 }
                 if(end.getHours() > max.getHours() && end.getMinutes() > max.getMinutes()){
-                    end = max
+                    end.setHours(max.getHours());
+                    end.getMinutes(max.getMinutes());
                 }
                 max.setHours(19);
                 max.setMinutes(30);
                 if(start.getHours() > max.getHours() && start.getMinutes() > max.getMinutes()){
-                    start = max
+                    start.setHours(max.getHours());
+                    start.getMinutes(max.getMinutes());
                 }
                 if(parseInt(start.getMinutes()) < 30){
                     start.setMinutes(0, 0, 0);
