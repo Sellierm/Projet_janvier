@@ -332,6 +332,7 @@ app.post('/loadPlan', authMiddleware, (req, res) => {
                                 element.owner = false;
                             }
                         });
+                        console.log(result3)
 
                         res.status(200).json({ result1: JSON.stringify(result1), result2: JSON.stringify(result2), result3: JSON.stringify(result3) });
                     });
