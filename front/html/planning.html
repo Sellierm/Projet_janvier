@@ -224,10 +224,8 @@
                                 element.free = true;
                             }
                         });
-                        
-                        console.log(stageData)
-                        document.getElementById('myCanvas').width = parseInt(stageData.width);
-                        document.getElementById('myCanvas').height = parseInt(stageData.height);
+                        document.getElementById('myCanvas').width = parseInt(stageData[0].width);
+                        document.getElementById('myCanvas').height = parseInt(stageData[0].height);
 
                         drawAllPolygons();
                         /*if ((data.result1)[0].b64Img) {
