@@ -16,7 +16,7 @@ body {
   image-rendering: pixelated;
 }
 
-div {
+#container {
   float: right;
   width: 20vw;
   margin: 2.5vw;
@@ -84,8 +84,8 @@ button {
   margin-top: 10px;
 }
 
-#send {
-  margin-top: 10px;
+#choice button {
+  margin: 10px 5px 0 5px;
   background-color: #008080;
   color: #fff;
   border-radius: 5px;

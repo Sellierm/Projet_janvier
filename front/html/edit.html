@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <div>
+  <div id="container">
     <canvas id="backgroundCanvas" oncontextmenu="return false;" style="margin: auto;"></canvas>
     <canvas oncontextmenu="return false;" id="myCanvas" style="margin: auto;"></canvas><!--width="900" height="500"-->
     <label for="name">Nom de la salle</label>
@@ -28,9 +28,14 @@
       <input id="name_stage" type="text" value="">
       <input type="file" id="image" name="image" accept="image/png">
     </form>
-    <button id="send">
-      Enregistrer ce Plan !
-    </button>
+    <div id="choice"> <button id="send">
+        Sauvegarder
+      </button>
+      <button id="back">
+        Annuler
+      </button>
+    </div>
+
   </div>
 
   <script>
@@ -76,7 +81,10 @@
           }
         }
       })
-
+      document.getElementById("back").addEventListener('click', function (e) {
+        e.preventDefault;
+        window.location.href = "/plans";
+      })
       //Fonction pour dessiner tous les polygons de la liste
       function drawAllPolygons() {
         //ctx.clearRect(0 - canvas.offsetLeft, 0  - canvas.offsetTop, canvas.width - canvas.offsetLeft, canvas.height  - canvas.offsetTop);
