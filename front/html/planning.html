@@ -576,7 +576,7 @@
                                 let testBool = false;
                                 books.forEach(element2 => {
                                     console.log((new Date(1674118800000) <= new Date(document.getElementById('date').value + ' ' + element.dataset.time) && new Date(1674136800000) >= new Date(document.getElementById('date').value + ' ' + element.dataset.time)));
-                                    if(new Date(element2.start) <= new Date(document.getElementById('date').value + ' ' + element.dataset.time) && new Date(element2.end) >= new Date(document.getElementById('date').value + ' ' + element.dataset.time)){
+                                    if(new Date(element2.start) <= new Date(document.getElementById('date').value + ' ' + element.dataset.time) && new Date(element2.end) > new Date(document.getElementById('date').value + ' ' + element.dataset.time)){
                                         testBool = true
                                     }
                                 });
