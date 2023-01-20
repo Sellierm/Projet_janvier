@@ -255,6 +255,12 @@
 
             function updateBookTime(){
                 let now = new Date();
+                let min = new Date();
+                min.setHours(7);
+                min.setMinutes(0);
+                let max = new Date();
+                max.setHours(20);
+                max.setMinutes(0);
                 let start = new Date(document.getElementById('date').value + " " + document.getElementById('start').value);
                 let end = new Date(document.getElementById('date').value + " " + document.getElementById('end').value);
                 if(start < now){
@@ -262,6 +268,17 @@
                 }
                 if(end < now){
                     end = now
+                }
+                if(start < min){
+                    start = min
+                }
+                if(end > max){
+                    end = max
+                }
+                max.setHours(19);
+                max.setMinutes(30);
+                if(start > max){
+                    start = max
                 }
                 if(parseInt(start.getMinutes()) < 30){
                     start.setMinutes(0, 0, 0);
@@ -272,7 +289,7 @@
                 document.getElementById('start').value = start.toLocaleString().substring(11,16);
                 if(end <= start){
                     end = start
-                    end.setMinutes(end.getMinutes());
+                    end.setMinutes(end.getMinutes() + 30);
                     document.getElementById('end').value = end.toLocaleString().substring(11,16);
 
                     
