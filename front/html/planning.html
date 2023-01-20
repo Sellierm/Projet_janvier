@@ -442,11 +442,18 @@
                         let books = JSON.parse(data.result3);
                         salles.forEach(element => {
                             const found = books.find(element2 => element2.idSalle == element._id);
+                            const found2 = books.find(element2 => (element2.idSalle == element._id && element2.owner));
                             if(found){
                                 element.free = false;
                             }
                             else {
                                 element.free = true;
+                            }
+                            if(found2){
+                                element.owner = true;
+                            }
+                            else {
+                                element.owner = false;
                             }
                         });
                         drawAllPolygons();
