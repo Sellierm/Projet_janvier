@@ -324,6 +324,14 @@ app.post('/loadPlan', authMiddleware, (req, res) => {
                         //console.log(JSON.stringify(result3));
                         client.close();
 
+                        result3.forEach(element => {
+                            if(element.user == req.session.mail){
+                                element.owner = true;
+                            }else {
+                                element.owner = false;
+                            }
+                        });
+
                         res.status(200).json({ result1: JSON.stringify(result1), result2: JSON.stringify(result2), result3: JSON.stringify(result3) });
                     });
                 });

@@ -478,6 +478,9 @@
                     }else {
                         ctx.fillStyle = "#e35c38";
                     }
+                    if(salles[i].owner){
+                        ctx.fillStyle = "#96b0bc";
+                    }
                     ctx.font = "20px Arial";
                     ctx.beginPath();
                     ctx.moveTo(salles[i].tab[0][0], salles[i].tab[0][1]);
