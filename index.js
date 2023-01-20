@@ -383,7 +383,7 @@ app.post('/book', authMiddleware, (req, res) => {
     max.setHours(20);
     max.setMinutes(0);
 
-    console.log('start', start, 'end', end);
+    console.log('start', start.toISOString(), 'end', end.toISOString());
     if (parseInt(start.getMinutes()) < 30) {
         start.setMinutes(0, 0, 0);
     }
@@ -402,7 +402,7 @@ app.post('/book', authMiddleware, (req, res) => {
             end.setMinutes(30, 0, 0);
         }
     }
-    console.log('start', start, 'end', end);
+    console.log('start', start.toISOString(), 'end', end.toISOString());
 
     if (start >= now && end >= now && start.getHours() >= min.getHours() && start.getMinutes() >= min.getMinutes() && end.getHours() <= max.getHours() && end.getMinutes() <= max.getMinutes()) {
 
