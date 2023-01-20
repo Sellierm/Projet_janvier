@@ -409,6 +409,9 @@ app.post('/book', authMiddleware, (req, res) => {
 
     if(start >= now && end >= now && start.getHours() >= min.getHours() && start.getMinutes() >= min.getMinutes() && end.getHours() <= max.getHours() && end.getMinutes() <= max.getMinutes()){
 
+        let inputStart = Date.parse(start.toLocaleString);
+        let inputEnd = Date.parse(end.toLocaleString);
+
 
         const url = data.url;
         const dbName = data.name;
@@ -418,14 +421,14 @@ app.post('/book', authMiddleware, (req, res) => {
             const db = client.db(dbName);
             let collection = db.collection(data.database_bookings);
 
-            collection.find({ idSalle: idSalle, start: { $lt: start }, start: { $gt: start }, end: { $lt: end }, end: { $gt: end } }).toArray(function (err, verif) {
+            collection.find({ idSalle: idSalle, start: { $lt: inputStart }, start: { $gt: inputStart }, end: { $lt: inputEnd }, end: { $gt: inputEnd } }).toArray(function (err, verif) {
                 console.log('test', verif, verif.length)
                 if(verif && verif.length == 0){
                     collection.insertOne({
                         idSalle: idSalle,
                         idStage: idStage,
-                        start: Date.parse(start),
-                        end: Date.parse(end),
+                        start: inputEnd,
+                        end: inputEnd,
                         user: user
                     }, (err, result) => {
                         if (err) {
