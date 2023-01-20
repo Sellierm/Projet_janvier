@@ -184,7 +184,7 @@ body{
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    position: relative;
+    position: absolute;
 }
 
 @media screen and (max-width : 540px){
