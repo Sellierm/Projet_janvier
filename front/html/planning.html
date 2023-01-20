@@ -478,15 +478,16 @@
 
                 ctx.lineWidth = 5; // augmente l'épaisseur des lignes
                 for (let i = 0; i < salles.length; i++) {
-                    console.log(salles[i]);
-                    console.log('test');
                     if(salles[i].free){
                         ctx.fillStyle = "#bfe3b4";
                     }else {
-                        ctx.fillStyle = "#e35c38";
-                    }
-                    if(salles[i].owner){
-                        ctx.fillStyle = "#96b0bc";
+                        
+                        if(salles[i].owner){
+                            ctx.fillStyle = "#96b0bc";
+                        }
+                        else {
+                            ctx.fillStyle = "#e35c38";
+                        }
                     }
                     ctx.font = "20px Arial";
                     ctx.beginPath();
