@@ -424,8 +424,8 @@ app.post('/book', authMiddleware, (req, res) => {
                     collection.insertOne({
                         idSalle: idSalle,
                         idStage: idStage,
-                        start: start,
-                        end: end,
+                        start: Date.parse(start),
+                        end: Date.parse(end),
                         user: user
                     }, (err, result) => {
                         if (err) {
