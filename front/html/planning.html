@@ -260,8 +260,10 @@
 
             /* Changement du temps 2 */
 
-            document.getElementById('start').addEventListener('change', updateBookTime);
-            document.getElementById('end').addEventListener('change', updateBookTime);
+            //document.getElementById('start').addEventListener('change', updateBookTime);
+            //document.getElementById('end').addEventListener('change', updateBookTime);
+
+            let testIfChangeOnBookHours = false;
 
             function updateBookTime(){
                 let now = new Date();
@@ -276,23 +278,28 @@
                 console.log(start < now, start, now, end, end < now);
                 if(start < now){
                     start = now
+                    testIfChangeOnBookHours = true;
                 }
                 if(end < now){
                     end = now
+                    testIfChangeOnBookHours = true;
                 }
                 if(start.getHours() < min.getHours() && start.getMinutes() < min.getMinutes()){
                     start.setHours(min.getHours());
                     start.getMinutes(min.getMinutes());
+                    testIfChangeOnBookHours = true;
                 }
                 if(end.getHours() > max.getHours() && end.getMinutes() > max.getMinutes()){
                     end.setHours(max.getHours());
                     end.getMinutes(max.getMinutes());
+                    testIfChangeOnBookHours = true;
                 }
                 max.setHours(19);
                 max.setMinutes(30);
                 if(start.getHours() > max.getHours() && start.getMinutes() > max.getMinutes()){
                     start.setHours(max.getHours());
                     start.getMinutes(max.getMinutes());
+                    testIfChangeOnBookHours = true;
                 }
                 if(parseInt(start.getMinutes()) < 30){
                     start.setMinutes(0, 0, 0);
@@ -323,6 +330,7 @@
                     document.getElementById('end').value = replaceValueEnd;
 
                     
+                    testIfChangeOnBookHours = true;
                 }
                 else {
                     if(parseInt(end.getMinutes()) < 30){
@@ -347,27 +355,30 @@
 
             function bookFunc(){
                 updateBookTime()
-                /*if(currentSalle >= 0){
-                    let start = new Date(document.getElementById('date').value + " " + document.getElementById('start').value);
-                    let end = new Date(document.getElementById('date').value + " " + document.getElementById('end').value);
-                    console.log('start', start, 'end', end);
-                    $.ajax({
-                        type: 'POST',
-                        url: '/book',
-                        data: {
-                            idSalle:salles[currentSalle]._id,
-                            idStage:stage,
-                            start:start,
-                            end:end
-                        },
-                        success: function (data) {
-                            console.log(data.success)
-                            if(data.success){
-                                displaySalle(currentSalle);
+                if(!testIfChangeOnBookHours){
+                    if(currentSalle >= 0){
+                        let start = new Date(document.getElementById('date').value + " " + document.getElementById('start').value);
+                        let end = new Date(document.getElementById('date').value + " " + document.getElementById('end').value);
+                        console.log('start', start, 'end', end);
+                        $.ajax({
+                            type: 'POST',
+                            url: '/book',
+                            data: {
+                                idSalle:salles[currentSalle]._id,
+                                idStage:stage,
+                                start:start,
+                                end:end
+                            },
+                            success: function (data) {
+                                console.log(data.success)
+                                if(data.success){
+                                    displaySalle(currentSalle);
+                                }
                             }
-                        }
-                    });
-                }*/
+                        });
+                    }
+                }
+                testIfChangeOnBookHours = false;
             }
 
 
