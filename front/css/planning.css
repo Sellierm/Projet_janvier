@@ -166,6 +166,26 @@ body{
     box-shadow: 0 10px 20px rgba(0,0,0,0.10), 0 6px 6px rgba(0,0,0,0.16);
 }
 
+.delete{
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 60%;
+    background: #CE917B;
+    color: antiquewhite;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-right: 10px;
+    margin-top:10px;
+    padding-bottom: 1px;
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
 @media screen and (max-width : 540px){
     .horairePlanning{
         position: fixed; 
