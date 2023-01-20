@@ -212,7 +212,7 @@
                         console.log(JSON.parse(data.result1))
                         console.log(JSON.parse(data.result2))
                         console.log(JSON.parse(data.result3))
-                        let stage = JSON.parse(data.result1);
+                        let stageData = JSON.parse(data.result1);
                         salles = JSON.parse(data.result2);
                         let books = JSON.parse(data.result3);
                         salles.forEach(element => {
@@ -225,9 +225,9 @@
                             }
                         });
                         
-                        console.log(parseInt(stage.width))
-                        document.getElementById('myCanvas').width = parseInt(stage.width);
-                        document.getElementById('myCanvas').height = parseInt(stage.height);
+                        console.log(parseInt(stageData.width))
+                        document.getElementById('myCanvas').width = parseInt(stageData.width);
+                        document.getElementById('myCanvas').height = parseInt(stageData.height);
 
                         drawAllPolygons();
                         /*if ((data.result1)[0].b64Img) {
