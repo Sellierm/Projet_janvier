@@ -66,6 +66,7 @@ body{
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0px 0px 10px #CE917B;
+    text-align: center;
   }
 
   #end {
@@ -77,6 +78,7 @@ body{
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0px 0px 10px #CE917B;
+    text-align: center;
   }
 
 .eachHourLabel:hover{
