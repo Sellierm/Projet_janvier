@@ -200,7 +200,7 @@ app.post('/reg', async (req, res) => {
 });
 
 //save plans
-app.post('/save', upload.single('image'), (req, res) => {
+app.post('/save', authMiddleware, upload.single('image'), (req, res) => {
     const image = req.file
     //console.log(image)
     if (req.session.isAuthenticated) {
@@ -273,7 +273,7 @@ app.post('/save', upload.single('image'), (req, res) => {
 });
 
 //load plans
-app.post('/loadPlans', (req, res) => {
+app.post('/loadPlans', authMiddleware, (req, res) => {
     if (req.session.isAuthenticated) {
         const url = data.url;
         const dbName = data.name;
@@ -299,7 +299,7 @@ app.post('/loadPlans', (req, res) => {
 });
 
 
-app.post('/loadPlan', (req, res) => {
+app.post('/loadPlan', authMiddleware, (req, res) => {
     //console.log(req.body);
     const idStage = req.body.stage;
     const dateNow = Date.parse(req.body.date);
@@ -341,7 +341,7 @@ app.post('/loadPlan', (req, res) => {
 });
 
 
-app.post('/loadSchedule', (req, res) => {
+app.post('/loadSchedule', authMiddleware, (req, res) => {
     //console.log(req.body);
     const idSalle = req.body.salle;
     const dateNow = new Date(req.body.date);
@@ -372,7 +372,7 @@ app.post('/loadSchedule', (req, res) => {
 
 
 //save plans
-app.post('/book', (req, res) => {
+app.post('/book', authMiddleware, (req, res) => {
     const idSalle = req.body.idSalle;
     const idStage = req.body.idStage;
     const start = Date.parse(req.body.start);
