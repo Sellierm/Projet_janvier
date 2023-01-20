@@ -672,17 +672,18 @@
                                 });
                                 if(testBool){
                                     element.style.backgroundColor = 'red';
+                                    const found2 = books.find(element2 => element2.owner);
+                                
+                                    if(found2){
+                                        element.style.backgroundColor = 'blue';
+                                    }
                                 }
                                 else {
                                     element.style.backgroundColor = 'green';
                                 }
 
                                 
-                                const found2 = books.find(element2 => (element2.idSalle == element._id && element2.owner));
                                 
-                                if(found2){
-                                    element.style.backgroundColor = 'blue';
-                                }
                             });
                             document.getElementById('bulleInfo').scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
                         }
