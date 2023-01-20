@@ -332,7 +332,6 @@ app.post('/loadPlan', authMiddleware, (req, res) => {
                                 element.owner = false;
                             }
                         });
-                        console.log(result3)
 
                         res.status(200).json({ result1: JSON.stringify(result1), result2: JSON.stringify(result2), result3: JSON.stringify(result3) });
                     });
@@ -367,6 +366,15 @@ app.post('/loadSchedule', authMiddleware, (req, res) => {
             //console.log(JSON.stringify(result));
 
             client.close();
+
+            result.forEach(element => {
+                console.log(element.user, req.session.mail, element.user == req.session.mail)
+                if(element.user == req.session.mail){
+                    element.owner = true;
+                }else {
+                    element.owner = false;
+                }
+            });
 
             res.status(200).json({ result: JSON.stringify(result) });
         });
