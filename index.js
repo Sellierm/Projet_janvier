@@ -325,6 +325,7 @@ app.post('/loadPlan', authMiddleware, (req, res) => {
                         client.close();
 
                         result3.forEach(element => {
+                            console.log(element.user, req.session.mail, element.user == req.session.mail)
                             if(element.user == req.session.mail){
                                 element.owner = true;
                             }else {
