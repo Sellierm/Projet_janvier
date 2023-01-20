@@ -409,8 +409,8 @@ app.post('/book', authMiddleware, (req, res) => {
 
     if(start >= now && end >= now && start.getHours() >= min.getHours() && start.getMinutes() >= min.getMinutes() && end.getHours() <= max.getHours() && end.getMinutes() <= max.getMinutes()){
 
-        let inputStart = Date.parse(start.toLocaleString());
-        let inputEnd = Date.parse(end.toLocaleString());
+        let inputStart = Date(start);
+        let inputEnd = Date(end);
 
 
         const url = data.url;
