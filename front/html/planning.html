@@ -256,11 +256,31 @@
             function updateBookTime(){
                 let start = new Date(document.getElementById('date').value + " " + document.getElementById('start').value);
                 let end = new Date(document.getElementById('date').value + " " + document.getElementById('end').value);
+                if(parseInt(start.getMinutes()) < 30){
+                    start.setMinutes(0, 0, 0);
+                }
+                else{
+                    start.setMinutes(30, 0, 0);
+                }
+                document.getElementById('start').value = start.toLocaleString().substring(11,16);
                 if(end <= start){
                     end = start
                     end.setMinutes(end.getMinutes());
                     document.getElementById('end').value = end.toLocaleString().substring(11,16);
+
+                    
                 }
+                else {
+                    if(parseInt(end.getMinutes()) < 30){
+                        end.setMinutes(0, 0, 0);
+                    }
+                    else{
+                        end.setMinutes(30, 0, 0);
+                    }
+                    document.getElementById('end').value = end.toLocaleString().substring(11,16);
+                }
+
+                
             }
 
             document.getElementById('book').addEventListener('click', bookFunc);
