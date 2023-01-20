@@ -254,8 +254,15 @@
             document.getElementById('end').addEventListener('change', updateBookTime);
 
             function updateBookTime(){
+                let now = new Date();
                 let start = new Date(document.getElementById('date').value + " " + document.getElementById('start').value);
                 let end = new Date(document.getElementById('date').value + " " + document.getElementById('end').value);
+                if(start >= now){
+                    start = now
+                }
+                if(end >= now){
+                    end = now
+                }
                 if(parseInt(start.getMinutes()) < 30){
                     start.setMinutes(0, 0, 0);
                 }
@@ -301,6 +308,9 @@
                         },
                         success: function (data) {
                             console.log(data.success)
+                            if(data.success){
+                                displaySalle();
+                            }
                         }
                     });
                 }
