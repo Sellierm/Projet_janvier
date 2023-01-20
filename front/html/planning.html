@@ -312,6 +312,7 @@
                 if(end.getHours() < 10)replaceValueEnd+='0';
                 replaceValueEnd+=end.getHours()+':';
                 
+                console.log(end <= start);
                 if(end <= start){
                     end = start
                     end.setMinutes(parseInt(end.getMinutes()) + 30);
