@@ -300,12 +300,12 @@
                     start.setMinutes(30, 0, 0);
                 }
                 //document.getElementById('start').value = start.toLocaleString().substring(11,16);
-                document.getElementById('start').value = start.getHours()+' '+start.getMinutes();
+                document.getElementById('start').value = start.getHours()+':'+start.getMinutes();
                 if(end <= start){
                     end = start
                     end.setMinutes(end.getMinutes() + 30);
                     //document.getElementById('end').value = end.toLocaleString().substring(11,16);
-                    document.getElementById('end').value = end.getHours()+' '+end.getMinutes();
+                    document.getElementById('end').value = end.getHours()+':'+end.getMinutes();
 
                     
                 }
@@ -317,7 +317,7 @@
                         end.setMinutes(30, 0, 0);
                     }
                     //document.getElementById('end').value = end.toLocaleString().substring(11,16);
-                    document.getElementById('end').value = end.getHours()+' '+end.getMinutes();
+                    document.getElementById('end').value = end.getHours()+':'+end.getMinutes();
                 }
 
                 
