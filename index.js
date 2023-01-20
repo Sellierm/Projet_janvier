@@ -203,99 +203,94 @@ app.post('/reg', async (req, res) => {
 app.post('/save', authMiddleware, upload.single('image'), (req, res) => {
     const image = req.file
     //console.log(image)
-    if (req.session.isAuthenticated) {
-        const name = req.body.name;
-        let salles = JSON.parse(req.body.salles);
-        const width = req.body.width
-        const heigth = req.body.height
 
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let newIdStage = '';
-        for (let i = 0; i < 20; i++) {
-            newIdStage += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
+    const name = req.body.name;
+    let salles = JSON.parse(req.body.salles);
+    const width = req.body.width
+    const heigth = req.body.height
 
-        salles.forEach(element => {
-            element.stage = newIdStage;
-        });
-
-        //console.log(heigth)
-        //console.log(width)
-        //console.log(name)
-        //console.log(salles)
-
-        const url = data.url;
-        const dbName = data.name;
-        const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-        client.connect(function (err) {
-            console.log(err)
-            const db = client.db(dbName);
-            let collection = db.collection(data.database_stages);
-            const base64Image = Buffer.from(image.buffer).toString('base64')
-            collection.find({ idStage: newIdStage }).toArray(function (err, result) {
-                if (err) console.log(err)
-                else if (result.length == 0) {
-                    collection.insertOne({
-                        idStage: newIdStage,
-                        name: name,
-                        width: width,
-                        height: heigth,
-                        b64Img: base64Image
-                    }, (err, result) => {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            //console.log("Inserted new user into the collection");
-                            // Redirect the user to the homepage or a signup success page
-                            //res.status(200).json({ success: true });
-                            collection = db.collection(data.database_rooms);
-                            collection.insertMany(salles, (err, result) => {
-                                if (err) {
-                                    console.log(err);
-                                } else {
-                                    //console.log("Inserted new user into the collection");
-                                    // Redirect the user to the homepage or a signup success page
-                                    res.status(200).json({ success: true });
-                                    client.close();
-                                }
-                            });
-                        }
-
-                    });
-                }
-                else {
-                    res.status(401).json({ success: false });
-                }
-            });
-        });
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let newIdStage = '';
+    for (let i = 0; i < 20; i++) {
+        newIdStage += chars.charAt(Math.floor(Math.random() * chars.length));
     }
-    else { res.redirect('/'); }
+
+    salles.forEach(element => {
+        element.stage = newIdStage;
+    });
+
+    //console.log(heigth)
+    //console.log(width)
+    //console.log(name)
+    //console.log(salles)
+
+    const url = data.url;
+    const dbName = data.name;
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    client.connect(function (err) {
+        console.log(err)
+        const db = client.db(dbName);
+        let collection = db.collection(data.database_stages);
+        const base64Image = Buffer.from(image.buffer).toString('base64')
+        collection.find({ idStage: newIdStage }).toArray(function (err, result) {
+            if (err) console.log(err)
+            else if (result.length == 0) {
+                collection.insertOne({
+                    idStage: newIdStage,
+                    name: name,
+                    width: width,
+                    height: heigth,
+                    b64Img: base64Image
+                }, (err, result) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        //console.log("Inserted new user into the collection");
+                        // Redirect the user to the homepage or a signup success page
+                        //res.status(200).json({ success: true });
+                        collection = db.collection(data.database_rooms);
+                        collection.insertMany(salles, (err, result) => {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                //console.log("Inserted new user into the collection");
+                                // Redirect the user to the homepage or a signup success page
+                                res.status(200).json({ success: true });
+                                client.close();
+                            }
+                        });
+                    }
+
+                });
+            }
+            else {
+                res.status(401).json({ success: false });
+            }
+        });
+    });
 });
 
 //load plans
 app.post('/loadPlans', authMiddleware, (req, res) => {
-    if (req.session.isAuthenticated) {
-        const url = data.url;
-        const dbName = data.name;
-        const client = new MongoClient(url);
-        client.connect(function (err) {
-            //console.log("Connected successfully to server");
-            const db = client.db(dbName);
-            const collection = db.collection(data.database_stages);
-            collection.find({}).toArray(function (err, result) {
-                //console.log(result);
-                //console.log(JSON.stringify(result));
-                client.close();
-                if (result && result.length > 0) {
-                    res.status(200).json({ result: JSON.stringify(result) });
-                }
-                else {
-                    res.status(401).json({ result: JSON.stringify(result) });
-                }
-            });
+    const url = data.url;
+    const dbName = data.name;
+    const client = new MongoClient(url);
+    client.connect(function (err) {
+        //console.log("Connected successfully to server");
+        const db = client.db(dbName);
+        const collection = db.collection(data.database_stages);
+        collection.find({}).toArray(function (err, result) {
+            //console.log(result);
+            //console.log(JSON.stringify(result));
+            client.close();
+            if (result && result.length > 0) {
+                res.status(200).json({ result: JSON.stringify(result) });
+            }
+            else {
+                res.status(401).json({ result: JSON.stringify(result) });
+            }
         });
-    }
-    else { res.redirect('/'); }
+    });
 });
 
 
@@ -388,26 +383,26 @@ app.post('/book', authMiddleware, (req, res) => {
     max.setHours(20);
     max.setMinutes(0);
 
-    if(parseInt(start.getMinutes()) < 30){
+    if (parseInt(start.getMinutes()) < 30) {
         start.setMinutes(0, 0, 0);
     }
-    else{
+    else {
         start.setMinutes(30, 0, 0);
     }
-    if(end <= start){
+    if (end <= start) {
         end = start
         end.setMinutes(end.getMinutes() + 30);
     }
     else {
-        if(parseInt(end.getMinutes()) < 30){
+        if (parseInt(end.getMinutes()) < 30) {
             end.setMinutes(0, 0, 0);
         }
-        else{
+        else {
             end.setMinutes(30, 0, 0);
         }
     }
 
-    if(start >= now && end >= now && start.getHours() >= min.getHours() && start.getMinutes() >= min.getMinutes() && end.getHours() <= max.getHours() && end.getMinutes() <= max.getMinutes()){
+    if (start >= now && end >= now && start.getHours() >= min.getHours() && start.getMinutes() >= min.getMinutes() && end.getHours() <= max.getHours() && end.getMinutes() <= max.getMinutes()) {
 
         const inputStart = Date(start);
         const inputEnd = Date(end);
@@ -423,7 +418,7 @@ app.post('/book', authMiddleware, (req, res) => {
 
             collection.find({ idSalle: idSalle, start: { $lt: inputStart }, start: { $gt: inputStart }, end: { $lt: inputEnd }, end: { $gt: inputEnd } }).toArray(function (err, verif) {
                 console.log('test', verif, verif.length)
-                if(verif && verif.length == 0){
+                if (verif && verif.length == 0) {
                     collection.insertOne({
                         idSalle: idSalle,
                         idStage: idStage,
@@ -437,12 +432,12 @@ app.post('/book', authMiddleware, (req, res) => {
                             res.status(200).json({ success: true });
                             client.close();
                         }
-        
+
                     });
                 }
             });
 
-            
+
         });
     }
 });
