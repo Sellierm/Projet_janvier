@@ -7,11 +7,7 @@ body{
     border-radius: 25px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.10), 0 6px 6px rgba(0,0,0,0.16);
     top: 10px; 
-<<<<<<< HEAD
     right: 10px; 
-=======
-    right: 10px;
->>>>>>> f4946f595a0a3e1fb639cedcbc860254b5e7a2ef
     background-color:antiquewhite; 
     display: flex; 
     flex-direction: column; 
