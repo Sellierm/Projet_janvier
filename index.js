@@ -418,7 +418,7 @@ app.post('/book', authMiddleware, (req, res) => {
             const db = client.db(dbName);
             let collection = db.collection(data.database_bookings);
 
-            collection.find({ idStage: idStage, start: { $lt: dateNow }, end: { $gt: dateNow } }).toArray(function (err, verif) {
+            collection.find({ idSalle: idSalle, start: { $lt: start }, start: { $gt: start }, end: { $lt: end }, end: { $gt: end } }).toArray(function (err, verif) {
                 if(verif && verif.length > 0){
                     collection.insertOne({
                         idSalle: idSalle,
