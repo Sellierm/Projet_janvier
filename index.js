@@ -414,12 +414,12 @@ app.post('/book', authMiddleware, (req, res) => {
         const dbName = data.name;
         const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
         client.connect(function (err) {
-            console.log(err)
+            //console.log(err)
             const db = client.db(dbName);
             let collection = db.collection(data.database_bookings);
 
             collection.find({ idSalle: idSalle, start: { $lt: start }, start: { $gt: start }, end: { $lt: end }, end: { $gt: end } }).toArray(function (err, verif) {
-                console.log(verif)
+                console.log('test', verif, verif.length)
                 if(verif && verif.length == 0){
                     collection.insertOne({
                         idSalle: idSalle,
