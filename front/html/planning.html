@@ -257,10 +257,10 @@
                 let now = new Date();
                 let start = new Date(document.getElementById('date').value + " " + document.getElementById('start').value);
                 let end = new Date(document.getElementById('date').value + " " + document.getElementById('end').value);
-                if(start >= now){
+                if(start < now){
                     start = now
                 }
-                if(end >= now){
+                if(end < now){
                     end = now
                 }
                 if(parseInt(start.getMinutes()) < 30){
